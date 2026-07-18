@@ -71,12 +71,16 @@ function FlipCard({
   accent,
   cardAccent = accent,
   spotlightColor,
+  priority = false,
+  loading = "lazy",
 }: {
   imageUrl: string;
   venue: (typeof VENUES)[number];
   accent: string;
   cardAccent?: string;
   spotlightColor: string;
+  priority?: boolean;
+  loading?: "lazy" | "eager";
 }) {
   const [hovered, setHovered] = useState(false);
   const rotateY = useMotionValue(0);
@@ -106,11 +110,12 @@ function FlipCard({
         {/* Front */}
         <motion.img
           className="absolute inset-0 size-full object-cover object-center"
-          style={{ opacity: frontOpacity }}
+          style={{ opacity: frontOpacity, aspectRatio: "16/10" }}
           src={imageUrl}
-          alt=""
-          loading="lazy"
+          alt={venue.name}
+          loading={loading as "lazy" | "eager"}
           decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
         />
 
         {/* Back */}
@@ -642,7 +647,7 @@ export default function HeroGallery({
       <div className="sticky left-0 top-0 z-0 h-screen w-full py-4 pr-2 bento-right-zone"
         style={isMobile
           ? { paddingLeft: "0.5rem", paddingRight: "0.5rem", top: "48vh", height: "52vh" }
-          : { paddingLeft: "clamp(17.5rem, 31vw, 28rem)" }
+          : { paddingLeft: "clamp(22rem, 40vw, 42rem)" }
         }
       >
         {!isMobile && (
@@ -673,6 +678,8 @@ export default function HeroGallery({
                 accent={accent}
                 cardAccent={VENUES[index].cardAccent}
                 spotlightColor={`${VENUES[index].cardAccent}33`}
+                priority={index === 0}
+                loading={index < 3 ? "eager" : "lazy"}
               />
             </BentoCell>
           ))}
@@ -690,7 +697,7 @@ export default function HeroGallery({
             }
           : {
               left: "0", top: "50%", translate: "0 -50%",
-              maxWidth: "clamp(250px, 34vw, 650px)",
+              maxWidth: "clamp(250px, 30vw, 550px)",
               paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
               paddingRight: "clamp(1rem, 2vw, 2rem)",
               width: "fit-content", height: "fit-content",

@@ -343,7 +343,33 @@ html.lenis body {
   .rk-td-sticky {
     padding-left: 1rem !important;
   }
-  .rk-td-venue {
-    min-width: 9rem;
+    .rk-td-venue {
+      min-width: 9rem;
+    }
   }
-}
+
+  /* ══════ Mobile Performance ══════ */
+  @media (max-width: 767px) {
+    /* Reduce CLS: isolate sections below hero from layout shifts */
+    .as-section,
+    .hiw-expect,
+    .hiw-steps,
+    .hiw-recs,
+    .hiw-tips,
+    .hiw-final,
+    .ab-what,
+    .ab-stats,
+    .ab-why,
+    .cu-section,
+    .rk-section,
+    .rk-picks-section,
+    .rk-includes-section,
+    .t-section {
+      contain: layout paint style;
+    }
+    /* Render below-fold sections lazily */
+    main > *:not(:first-child) {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 500px;
+    }
+  }
