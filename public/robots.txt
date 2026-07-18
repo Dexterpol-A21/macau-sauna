@@ -1,0 +1,56 @@
+# ── All other crawlers (Google, Bing, etc.) ──
+User-agent: *
+Allow: /
+Disallow: /spin-wheel/
+Disallow: /vip-extras/
+Disallow: /smart-match/
+
+# ── AI Crawlers ──
+
+# OpenAI — ChatGPT, GPTBot, SearchGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic — Claude
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI — Gemini, Bard
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Meta AI / Llama
+User-agent: meta-externalagent
+Allow: /
+User-agent: FacebookBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+
+# ── SEO / Marketing tools (read-only, no harm) ──
+User-agent: AhrefsBot
+Allow: /
+User-agent: SemrushBot
+Allow: /
+User-agent: DotBot
+Allow: /
+
+Sitemap: https://macausauna.com/sitemap-index.xml

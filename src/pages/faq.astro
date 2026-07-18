@@ -1,0 +1,765 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/home/Contact.astro';
+import { ChevronDown } from '@lucide/astro';
+import { FAQ_DESCRIPTION, FAQ_KEYWORDS } from '../utils/constants';
+import { TITLE_FAQ } from '../utils/seo-titles';
+
+const FAQ_ITEMS = [
+  { q: "What is a Macau sauna?", a: "A modern entertainment spa combining wellness, dining, and leisure. Includes bathing facilities, complimentary dining, a staff selection show, and a 60-minute one-on-one service. Most venues allow 12-15 hour stays, including overnight." },
+  { q: "Are Macau saunas safe and legal?", a: "Yes. All mainstream Macau saunas hold a license issued by the Macao Government Tourism Office (MGTO) and undergo regular health, fire, and safety inspections, the same regulatory framework as casinos. You can verify any venue's license on the MGTO website." },
+  { q: "What should I do for my first visit?", a: "Contact us first! We'll recommend the best venue based on your preferences, arrange complimentary transport, and get you exclusive pricing. Walking in alone may mean a 1-2 hour wait and higher prices." },
+  { q: "How much does it cost?", a: "Depends on venue and service tier. General range: MOP 1,800 to 7,000+. Vietnamese/Thai: ~MOP 2,400-3,200. Chinese/model: ~MOP 3,200-4,200. Japanese/Korean: ~MOP 5,800-6,800. Contact us for current promotions." },
+  { q: "Can I book a dual session with two therapists?", a: "Yes. Choose one therapist and add a second for a dual-service experience. The surcharge varies by venue, Oceanic Royal Spa offers the best value at only +20-30%. Ask us for details when you book." },
+  { q: "Are there hidden fees?", a: "Some venues charge 10-15% service fee, themed rooms cost extra (MOP 400-1,000), and costume requests add MOP 200-350. Book through us and we'll disclose all costs upfront, no surprises." },
+  { q: "Can I pay by card?", a: "Yes. Most venues accept Visa, Mastercard, UnionPay, cash (MOP/HKD), Alipay, WeChat Pay, and Apple Pay. Tip: paying in MOP cash saves 1-3% on exchange fees." },
+  { q: "What are the operating hours?", a: "All mainstream saunas operate 24 hours, but staff are on duty from 1:00 PM to 5:00 AM." },
+  { q: "When are the most staff available?", a: "Most staff come on duty after 7 PM, offering the widest selection. For a quieter experience, arrive between 3-6 PM." },
+  { q: "How long is the service?", a: "Standard service is 60 minutes. Pure massage is 90 minutes." },
+  { q: "Can I stay overnight?", a: "Yes. All mainstream saunas offer overnight stays (12-15 hours) with free reclining chairs, meals, and bathing facilities. Majesty Spa is open 24 hours with a comfortable recliner lounge (paid private rest rooms in peak season), the best choice for overnight." },
+  { q: "Can I store luggage?", a: "Yes. All venues provide free luggage storage with secure lockers in the changing room." },
+  { q: "Is food available?", a: "Yes, completely free and unlimited. The menu spans premium steak, fresh seafood, slow-simmered Cantonese soups, Sichuan-style stir-fries, fried rice, fried noodles, fresh fruit, beer, soft drinks, and snacks." },
+  { q: "Which venues have the most Japanese/Korean staff?", a: "Oceanic Royal Spa and Victoria Sauna have the most Japanese/Korean staff. Number One Sauna also offers them but at higher price tiers." },
+  { q: "Is the return ride free too?", a: "Yes, pickup and return are both included at zero cost. Just text us when you're ready to leave and we'll send the same private car to take you back to your hotel, the airport, the ferry terminal, or anywhere in Macau." },
+  { q: "Why should I book through you?", a: "We offer: exclusive partner pricing (lower than walk-in), complimentary 7-seater private car pickup AND return anywhere in Macau, 1 complimentary VIP Extra (your choice), priority entry, no front-desk queue, real-time staff availability info, and honest recommendations based on your preferences." },
+  { q: "Can I cancel last minute?", a: "Yes, free cancellation, no deposit required." },
+  { q: "What are the extra services?", a: "Every booking through us includes 1 complimentary VIP Extra, pick from Back Rubbing, head massage, reflexology, manicure, pedicure, hand massage, and ear cleaning." },
+  { q: "Do Macau saunas include a massage?", a: "Yes. Every Macau sauna booked through us includes a complimentary massage, you choose 1 each visit, including full-body back massage, foot massage (reflexology), head massage and hand massage, all normally charged separately. A 60-minute one-on-one service is provided on top of that." },
+  { q: "What massages and treatments are included free?", a: "Each booking lets you pick 1 free: full-body back massage, leg massage, head massage, foot massage, hand massage, manicure, pedicure and ear cleaning. These are normally charged separately (around 200-298 MOP each) but are complimentary when you book through us." },
+  { q: "Is there a foot massage / reflexology?", a: "Yes, foot massage (reflexology) is one of the free VIP treatments. Pressure-point work revives tired feet, perfect after a bath or sauna. Just tell us when you book and we'll have the venue ready for you." },
+  { q: "Can I get a full-body massage?", a: "Yes. The full-body back massage is a popular free option, working down the back, neck and shoulders. For a deeper 60-minute one-on-one massage, tell us your preferences and we'll match you with the right venue and therapist." },
+  { q: "Is this a spa or a sauna? What's the difference?", a: "In Macau, 'sauna' and 'spa' usually mean the same kind of all-in-one club, bathing, dry and wet steam, free dining, massage treatments and overnight rest in one place, not a standalone steam room or massage shop. All 12 of our partner venues are licensed by the Macao Government Tourism Office." },
+];
+
+const jsonLdFaq = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": FAQ_ITEMS.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a,
+    },
+  })),
+});
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_FAQ,
+    description: FAQ_DESCRIPTION,
+    keywords: FAQ_KEYWORDS,
+  }}
+>
+  <section class="faq-section">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={jsonLdFaq}></script>
+
+    <div class="faq-wrap">
+      <span class="faq-eyebrow">Got Questions?</span>
+      <h1 class="faq-heading">Frequently Asked Questions</h1>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Getting Started</h2>
+
+        <ol class="faq-list">
+          <li class="faq-item">
+            <details class="faq-details" open>
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                What is a Macau sauna?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    A modern entertainment spa combining wellness, dining, and leisure. Includes bathing facilities, complimentary dining, a staff selection show, and a 60-minute one-on-one service. Most venues allow 12-15 hour stays, including overnight.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Are Macau saunas safe and legal?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. All mainstream Macau saunas hold a license issued by the Macao Government Tourism Office (MGTO) and undergo regular health, fire, and safety inspections , the same regulatory framework as casinos. You can verify any venue's license on the MGTO website.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                What should I do for my first visit?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Contact us first! We&rsquo;ll recommend the best venue based on your preferences, arrange complimentary transport, and get you exclusive pricing. Walking in alone may mean a 1-2 hour wait and higher prices.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Pricing &amp; Payment</h2>
+
+        <ol class="faq-list">
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                How much does it cost?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Depends on venue and service tier. General range: MOP 1,800 &ndash; 7,000+. Vietnamese/Thai: ~MOP 2,400&ndash;3,200. Chinese/model: ~MOP 3,200&ndash;4,200. Japanese/Korean: ~MOP 5,800&ndash;6,800. Contact us for current promotions.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I book a dual session with two therapists?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. Choose one therapist and add a second for a dual-service experience. The surcharge varies by venue , Oceanic Royal Spa offers the best value at only +20&ndash;30%. Ask us for details when you book.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Are there hidden fees?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Some venues charge 10&ndash;15% service fee, themed rooms cost extra (MOP 400&ndash;1,000), and costume requests add MOP 200&ndash;350. Book through us and we&rsquo;ll disclose all costs upfront , no surprises.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I pay by card?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. Most venues accept Visa, Mastercard, UnionPay, cash (MOP/HKD), Alipay, WeChat Pay, and Apple Pay. Tip: paying in MOP cash saves 1&ndash;3% on exchange fees.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Practical Info</h2>
+
+        <ol class="faq-list">
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                What are the operating hours?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    All mainstream saunas operate 24 hours, but staff are on duty from 1:00 PM to 5:00 AM.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                When are the most staff available?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Most staff come on duty after 7 PM, offering the widest selection. For a quieter experience, arrive between 3&ndash;6 PM.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                How long is the service?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Standard service is 60 minutes. Pure massage is 90 minutes.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I stay overnight?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. All mainstream saunas offer overnight stays (12&ndash;15 hours) with free reclining chairs, meals, and bathing facilities. Majesty Spa is open 24 hours with a comfortable recliner lounge (paid private rest rooms in peak season) , the best choice for overnight.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I store luggage?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. All venues provide free luggage storage with secure lockers in the changing room.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Is food available?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes , completely free and unlimited. The menu spans premium steak, fresh seafood, slow-simmered Cantonese soups, Sichuan-style stir-fries, fried rice, fried noodles, fresh fruit, beer, soft drinks, and snacks. The cuisine leans Hong Kong / Cantonese with Sichuan accents, and Taiwan visitors find it very accessible , many regulars say the steak and fried rice rival outside restaurants. Some venues also serve abalone and fish maw at no extra charge.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Which venues have the most Japanese/Korean staff?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Oceanic Royal Spa and Victoria Sauna have the most Japanese/Korean staff. Number One Sauna also offers them but at higher price tiers.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Is the return ride free too?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes , pickup and return are both included at zero cost. Just text us when you&rsquo;re ready to leave (after your meal, right after your service, anytime) and we&rsquo;ll send the same private car to take you back to your hotel, the airport, the ferry terminal, or anywhere in Macau.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Why Contact Us</h2>
+
+        <ol class="faq-list">
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Why should I book through you?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    We offer: exclusive partner pricing (lower than walk-in), complimentary 7-seater private car pickup AND return anywhere in Macau, 1 complimentary VIP Extra (your choice), priority entry , no front-desk queue, real-time staff availability info, and honest recommendations based on your preferences.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I cancel last minute?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes , free cancellation, no deposit required.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                What are the extra services?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Every booking through us includes 1 complimentary VIP Extra , pick from Back Rubbing, head massage, reflexology, manicure, pedicure, hand massage, and ear cleaning. We let the venue know you&rsquo;re coming , simply pick what you want on arrival.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+
+      <div class="faq-group">
+        <h2 class="faq-group-title">Massage &amp; Treatments</h2>
+
+        <ol class="faq-list">
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Do Macau saunas include a massage?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. Every Macau sauna booked through us includes a complimentary massage , you choose 1 each visit, including full-body back massage, foot massage (reflexology), head massage and hand massage, all normally charged separately. A 60-minute one-on-one service is provided on top of that.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                What massages and treatments are included free?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Each booking lets you pick 1 free: full-body back massage, leg massage, head massage, foot massage, hand massage, manicure, pedicure and ear cleaning. These are normally charged separately (around 200&ndash;298 MOP each) but are complimentary when you book through us. The full list is on our ranking page.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Is there a foot massage / reflexology?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes , foot massage (reflexology) is one of the free VIP treatments. Pressure-point work revives tired feet, perfect after a bath or sauna. Just tell us when you book and we&rsquo;ll have the venue ready for you.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Can I get a full-body massage?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    Yes. The full-body back massage is a popular free option, working down the back, neck and shoulders. For a deeper 60-minute one-on-one massage, tell us your preferences and we&rsquo;ll match you with the right venue and therapist.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+
+          <li class="faq-item">
+            <details class="faq-details">
+              <summary class="faq-q">
+                <span class="faq-dot" />
+                Is this a spa or a sauna? What&rsquo;s the difference?
+                <ChevronDown class="faq-chevron" aria-hidden="true" />
+              </summary>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p class="faq-a">
+                    In Macau, &ldquo;sauna&rdquo; and &ldquo;spa&rdquo; usually mean the same kind of all-in-one club , bathing, dry and wet steam, free dining, massage treatments and overnight rest in one place, not a standalone steam room or massage shop. All 12 of our partner venues are licensed by the Macao Government Tourism Office.
+                  </p>
+                </div>
+              </div>
+            </details>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</BaseLayout>
+
+<style>
+  .faq-section {
+    background: #0A0A0A;
+    padding: 8rem 2rem 4rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+  }
+
+  .faq-wrap {
+    max-width: 40rem;
+    margin-inline: auto;
+  }
+
+  .faq-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1rem;
+  }
+
+  .faq-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 3.5rem;
+  }
+
+  .faq-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-group + .faq-group {
+    margin-top: 3.5rem;
+  }
+
+  .faq-group-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: rgba(201, 168, 76, 0.6);
+    margin: 0 0 1.5rem;
+  }
+
+  .faq-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .faq-item:first-child {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .faq-details {
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .faq-answer {
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+  }
+
+  .faq-details[open] .faq-answer {
+    height: auto;
+    opacity: 1;
+  }
+
+  .faq-answer-inner {
+    padding-bottom: 1.5rem;
+  }
+
+  .faq-details[open] .faq-dot {
+    background: #DDB855;
+    box-shadow: 0 0 8px rgba(221, 184, 85, 0.4);
+  }
+
+  .faq-details[open] .faq-q {
+    color: #DDB855;
+  }
+
+  .faq-q {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #E0E0E0;
+    padding: 1.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    list-style: none;
+    transition: color 0.3s ease;
+  }
+
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-q:hover {
+    color: #DDB855;
+  }
+
+  .faq-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(221, 184, 85, 0.3);
+    flex-shrink: 0;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .faq-chevron {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.25);
+    transition: transform 0.35s ease, color 0.3s ease;
+  }
+
+  .faq-details[open] .faq-chevron {
+    transform: rotate(180deg);
+    color: #DDB855;
+  }
+
+  .faq-q:hover .faq-chevron {
+    color: #DDB855;
+  }
+
+  .faq-a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 1.7;
+    padding: 0 0 0 1.35rem;
+    margin: 0;
+  }
+
+  @media (max-width: 639px) {
+    .faq-section {
+      padding: 5rem 1.25rem 3rem;
+    }
+
+    .faq-heading {
+      margin-bottom: 2.5rem;
+    }
+
+    .faq-q {
+      font-size: 0.92rem;
+      padding: 1rem 0;
+    }
+
+    .faq-a {
+      font-size: 0.82rem;
+      padding: 0 0 0 1.15rem;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .faq-section {
+      padding: 4rem 1rem 2rem;
+    }
+
+    .faq-heading {
+      font-size: 2rem;
+    }
+
+    .faq-q {
+      font-size: 0.85rem;
+    }
+
+    .faq-a {
+      font-size: 0.78rem;
+    }
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  class FAQAccordion {
+    constructor() {
+      this.items = document.querySelectorAll('.faq-details');
+      this.animating = new Set();
+      this.init();
+    }
+
+    init() {
+      this.items.forEach((details) => {
+        const answer = details.querySelector('.faq-answer');
+        if (!answer) return;
+
+        if (details.hasAttribute('open')) {
+          answer.style.height = answer.scrollHeight + 'px';
+        }
+
+        const summary = details.querySelector('summary');
+        summary.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (this.animating.has(details)) return;
+
+          if (details.open) {
+            this.close(details, answer);
+          } else {
+            this.open(details, answer);
+          }
+        });
+      });
+    }
+
+    open(details, answer) {
+      details.open = true;
+      this.animating.add(details);
+
+      answer.style.height = '0px';
+      answer.style.opacity = '0';
+
+      requestAnimationFrame(() => {
+        const endHeight = answer.scrollHeight;
+        answer.style.transition = 'height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease 0.1s';
+        answer.style.height = endHeight + 'px';
+        answer.style.opacity = '1';
+      });
+
+      answer.addEventListener('transitionend', () => {
+        answer.style.height = 'auto';
+        answer.style.transition = '';
+        answer.style.opacity = '';
+        this.animating.delete(details);
+      }, { once: true });
+    }
+
+    close(details, answer) {
+      this.animating.add(details);
+
+      answer.style.height = answer.scrollHeight + 'px';
+
+      requestAnimationFrame(() => {
+        answer.style.transition = 'height 0.35s cubic-bezier(0.55, 0.085, 0.68, 0.53), opacity 0.2s ease';
+        answer.style.height = '0px';
+        answer.style.opacity = '0';
+      });
+
+      answer.addEventListener('transitionend', () => {
+        details.open = false;
+        answer.style.transition = '';
+        answer.style.height = '';
+        answer.style.opacity = '';
+        this.animating.delete(details);
+      }, { once: true });
+    }
+  }
+
+  new FAQAccordion();
+</script>

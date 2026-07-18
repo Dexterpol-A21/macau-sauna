@@ -1,0 +1,598 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from '../components/home/Contact.astro';
+import SlotMachineText from '../components/ui/SlotMachineText';
+import { RANKING_DESCRIPTION, RANKING_KEYWORDS } from '../utils/constants';
+import { TITLE_RANKING } from '../utils/seo-titles';
+
+interface RankVenue {
+  slug: string;
+  name: string;
+  district: string;
+  therapists: string;
+  hours: string;
+  open24h: boolean;
+  rating: number;
+  priceRange: string;
+  serviceFee: string;
+  overnight: boolean;
+  lounge: boolean;
+  ktv: boolean;
+  themeRooms: boolean;
+  show: boolean;
+  isNew: boolean;
+}
+
+const RANKING: RankVenue[] = [
+  { slug: 'manhao-spa', name: 'Manhao Spa', district: 'Taipa', therapists: 'Multinational', hours: '2:00 PM – 4:00 AM', open24h: false, rating: 5, priceRange: '888 – 5,388', serviceFee: '10%', overnight: false, lounge: false, ktv: false, themeRooms: false, show: true, isNew: true },
+  { slug: 'number-nine-spa', name: 'Number Nine Spa', district: 'Macau', therapists: '80+', hours: '5:00 PM – 5:00 AM', open24h: true, rating: 5, priceRange: '2,299 – 5,999', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: true, show: true, isNew: true },
+  { slug: 'shang-pin-spa', name: 'Shang Pin Spa', district: 'Taipa', therapists: '90+', hours: '3:00 PM – 5:00 AM', open24h: true, rating: 5, priceRange: '999 – 5,999', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: false, show: false, isNew: false },
+  { slug: 'majesty-spa', name: 'Majesty Spa', district: 'Macau', therapists: '70+', hours: '2:00 PM – 5:00 AM', open24h: true, rating: 4, priceRange: '1,099 – 5,899', serviceFee: 'None', overnight: true, lounge: true, ktv: true, themeRooms: true, show: false, isNew: false },
+  { slug: 'the-excellent-sauna', name: 'The Excellent Sauna', district: 'Macau', therapists: '40+', hours: '1:00 PM – 5:00 AM', open24h: true, rating: 3, priceRange: '988 – 5,288', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: true, show: false, isNew: false },
+  { slug: 'empire-sauna', name: 'Empire Sauna', district: 'Macau', therapists: 'Multinational', hours: '5:00 PM – 6:00 AM', open24h: true, rating: 5, priceRange: '1,088 – 6,388', serviceFee: 'None', overnight: true, lounge: true, ktv: false, themeRooms: true, show: false, isNew: true },
+  { slug: 'east-castle-spa', name: 'East Castle Spa', district: 'Macau', therapists: '60+', hours: '3:00 PM – 5:00 AM', open24h: true, rating: 4, priceRange: '2,388 – 6,498', serviceFee: '15%', overnight: true, lounge: true, ktv: false, themeRooms: true, show: false, isNew: false },
+  { slug: 'victoria-sauna', name: 'Victoria Sauna', district: 'Macau', therapists: '70+', hours: '1:00 PM – 5:00 AM', open24h: true, rating: 4, priceRange: '2,298 – 6,998', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: false, show: false, isNew: false },
+  { slug: 'm-club', name: 'M CLUB', district: 'Macau', therapists: '60+', hours: '3:00 PM – 5:00 AM', open24h: true, rating: 4, priceRange: '2,388 – 6,498', serviceFee: '10%', overnight: true, lounge: true, ktv: true, themeRooms: true, show: false, isNew: false },
+  { slug: 'oceanic-royal-spa', name: 'Oceanic Royal Spa', district: 'Taipa', therapists: '140+', hours: '24 hours', open24h: true, rating: 5, priceRange: '2,299 – 7,099', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: true, show: true, isNew: false },
+  { slug: 'number-one-sauna', name: 'Number One Sauna', district: 'Macau', therapists: '130+', hours: '1:00 PM – 5:00 AM', open24h: true, rating: 5, priceRange: '2,199 – 7,699', serviceFee: '10%', overnight: true, lounge: true, ktv: false, themeRooms: false, show: true, isNew: false },
+  { slug: 'familia-nobre', name: 'Familia Nobre', district: 'Macau', therapists: '80+', hours: '4:00 PM – 6:00 AM', open24h: true, rating: 5, priceRange: '2,388 – 6,988', serviceFee: 'None', overnight: true, lounge: true, ktv: false, themeRooms: false, show: false, isNew: false },
+];
+
+const TOP_PICKS = [
+  { label: 'Best theme rooms', venue: 'The Excellent Sauna', slug: 'the-excellent-sauna', desc: 'DJ booth, cinema, hospital and more scene rooms' },
+  { label: 'Best value', venue: 'Shang Pin Spa', slug: 'shang-pin-spa', desc: 'Free therapist add-on with selected packages, signature Japanese soap bath' },
+  { label: 'Best show', venue: 'Manhao Spa', slug: 'manhao-spa', desc: 'Hot new Taipa venue with a therapist runway' },
+  { label: 'Best for overnight', venue: 'Majesty Spa', slug: 'majesty-spa', desc: 'Open 24h with no service charge, plus KTV rooms' },
+  { label: 'Newest & hottest', venue: 'Number Nine Spa', slug: 'number-nine-spa', desc: '2026 opening with a main-stage LED show' },
+];
+
+const INCLUDES = [
+  'Free unlimited dining', 'Free lockers', 'Bathing, dry & steam sauna',
+  'Free private shuttle', 'Free VIP massages (your choice)',
+  'Payment: Cash, Card, WeChat Pay, Alipay',
+];
+
+function ratingStars(rating: number): string {
+  let html = '';
+  for (let i = 0; i < 5; i++) {
+    const fill = i < rating ? '#DDB855' : 'transparent';
+    const stroke = i < rating ? 'none' : '#606070';
+    html += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${fill}" stroke="${stroke}" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:1px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
+  }
+  return html;
+}
+
+const jsonLdRanking = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Macau Sauna & Spa Ranking 2026",
+  "description": "All 12 licensed Macau sauna and spa venues ranked and compared: pricing, overnight options, features, and the free treatments included with every booking.",
+  "numberOfItems": RANKING.length,
+  "itemListOrder": "https://schema.org/ItemListOrderDescending",
+  "itemListElement": RANKING.map((v, i) => ({
+    "@type": "ListItem",
+    "position": i + 1,
+    "name": v.name,
+    "url": `https://macausauna.com/venues/${v.slug}`,
+  })),
+});
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_RANKING,
+    description: RANKING_DESCRIPTION,
+    keywords: RANKING_KEYWORDS,
+  }}
+>
+  <section class="rk-section">
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={jsonLdRanking}></script>
+
+    <!-- Header -->
+    <div class="rk-header">
+      <h1 class="rk-title">
+        <SlotMachineText text="Macau Sauna &amp; Spa Ranking 2026" stripLength={12} client:visible />
+      </h1>
+      <p class="rk-subtitle">All 12 Venues Ranked</p>
+      <p class="rk-intro">
+        One table for all 12 licensed Macau sauna &amp; spa venues: pricing, overnight
+        options and features, plus the free massages and treatments included
+        with every booking.
+      </p>
+    </div>
+
+    <!-- Mega Ranking Table -->
+    <div class="rk-table-container">
+      <table class="rk-table">
+        <thead>
+          <tr class="rk-tr-head">
+            <th class="rk-th rk-th-sticky">Venue</th>
+            <th class="rk-th rk-th-sep-l">District</th>
+            <th class="rk-th">Therapists</th>
+            <th class="rk-th">Hours</th>
+            <th class="rk-th">24h</th>
+            <th class="rk-th rk-th-sep-r">Rating</th>
+            <th class="rk-th rk-th-sep-l">Price Range (MOP)</th>
+            <th class="rk-th rk-th-sep-r">Fee</th>
+            <th class="rk-th rk-th-sep-l">Overnight</th>
+            <th class="rk-th rk-th-sep-r">Lounge</th>
+            <th class="rk-th rk-th-sep-l">KTV</th>
+            <th class="rk-th">Rooms</th>
+            <th class="rk-th">Show</th>
+            <th class="rk-th rk-th-sep-r">New</th>
+          </tr>
+        </thead>
+        <tbody>
+          {RANKING.map((v) => (
+            <tr class="rk-tr">
+              <td class="rk-td rk-td-sticky rk-td-venue">
+                <a href={`/venues/${v.slug}`} class="rk-venue-link">{v.name}</a>
+              </td>
+              <td class="rk-td rk-td-sep-l">{v.district}</td>
+              <td class="rk-td">{v.therapists}</td>
+              <td class="rk-td rk-td-hours">{v.hours}</td>
+              <td class="rk-td rk-td-bool">{v.open24h ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-sep-r"><Fragment set:html={ratingStars(v.rating)} /></td>
+              <td class="rk-td rk-td-price rk-td-sep-l">{v.priceRange}</td>
+              <td class="rk-td rk-td-sep-r">{v.serviceFee === 'None' ? <span class="rk-none-label">None</span> : v.serviceFee}</td>
+              <td class="rk-td rk-td-bool rk-td-sep-l">{v.overnight ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-bool rk-td-sep-r">{v.lounge ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-bool rk-td-sep-l">{v.ktv ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-bool">{v.themeRooms ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-bool">{v.show ? <span class="rk-yes">&#10003;</span> : <span class="rk-no">&ndash;</span>}</td>
+              <td class="rk-td rk-td-bool rk-td-sep-r">{v.isNew ? <span class="rk-badge-new">New</span> : <span class="rk-no">&ndash;</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Top Picks -->
+    <div class="rk-picks-section">
+      <h2 class="rk-picks-title">
+        <SlotMachineText text="Top pick for each need" stripLength={8} client:visible />
+      </h2>
+      <div class="rk-picks-grid">
+        {TOP_PICKS.map((pick) => (
+          <a href={`/venues/${pick.slug}`} class="rk-pick-card">
+            <span class="rk-pick-label">{pick.label}</span>
+            <span class="rk-pick-venue">{pick.venue}</span>
+            <p class="rk-pick-desc">{pick.desc}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Every venue includes -->
+    <div class="rk-includes-section">
+      <h2 class="rk-includes-title">
+        <SlotMachineText text="Every one of the 12 venues includes" stripLength={12} client:visible />
+      </h2>
+      <div class="rk-includes-grid">
+        {INCLUDES.map((item) => (
+          <div class="rk-includes-card">
+            <svg class="rk-check-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="8 12 11 15 16 9" />
+            </svg>
+            <span>{item}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Contact />
+</BaseLayout>
+
+<style is:global>
+  /* ── Section ── */
+  .rk-section {
+    background: #0A0A0A;
+    padding: 5rem 0 6rem;
+  }
+
+  /* ── Header ── */
+  .rk-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 4rem;
+    padding-inline: 1.5rem;
+  }
+
+  .rk-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .rk-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-top: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .rk-intro {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    max-width: 38rem;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ════════ TABLE ════════ */
+  .rk-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 5rem;
+  }
+
+  .rk-table {
+    width: 100%;
+    min-width: 1020px;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #B0A890;
+    background: #0A0A0A;
+  }
+
+  .rk-tr-head {
+    background: #0A0A0A;
+  }
+
+  .rk-th {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #807860;
+    text-align: center;
+    padding: 0.85rem 0.65rem;
+    white-space: nowrap;
+    border-bottom: 2px solid rgba(201, 168, 76, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: #0A0A0A;
+  }
+
+  .rk-th-sticky {
+    position: sticky;
+    left: 0;
+    z-index: 4;
+    text-align: left;
+    min-width: 10rem;
+    padding-left: 1.5rem;
+  }
+
+  .rk-th-sep-l {
+    border-left: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .rk-th-sep-r {
+    border-right: 1px solid rgba(201, 168, 76, 0.15);
+  }
+
+  .rk-tr {
+    border: none;
+    transition: background 0.15s;
+  }
+
+  .rk-tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .rk-td {
+    padding: 0.8rem 0.65rem;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: #0A0A0A;
+  }
+
+  .rk-tr:hover .rk-td {
+    background: rgba(255, 255, 255, 0.025);
+  }
+
+  .rk-td-sticky {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    text-align: left;
+    padding-left: 1.5rem;
+  }
+
+  .rk-td-sep-l {
+    border-left: 1px solid rgba(201, 168, 76, 0.08);
+  }
+
+  .rk-td-sep-r {
+    border-right: 1px solid rgba(201, 168, 76, 0.08);
+  }
+
+  .rk-td-venue {
+    min-width: 10rem;
+  }
+
+  .rk-venue-link {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .rk-venue-link:hover {
+    color: #DDB855;
+  }
+
+  .rk-td-hours {
+    font-size: 0.73rem;
+    color: #909090;
+  }
+
+  .rk-td-price {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: #DDB855;
+    font-feature-settings: "lnum";
+  }
+
+  .rk-td-bool {
+    font-size: 0.9rem;
+  }
+
+  .rk-yes {
+    color: #7B9B7B;
+    font-weight: 700;
+  }
+
+  .rk-no {
+    color: #404050;
+  }
+
+  .rk-none-label {
+    font-weight: 600;
+    color: #7B9B7B;
+  }
+
+  .rk-badge-new {
+    display: inline-block;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0A0A0A;
+    background: linear-gradient(135deg, #9D7815, #E8C96A, #9D7815);
+    border-radius: 0.2rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .rk-th-sticky {
+      min-width: 9rem;
+      padding-left: 1rem;
+    }
+    .rk-td-sticky {
+      padding-left: 1rem;
+    }
+    .rk-td-venue {
+      min-width: 9rem;
+    }
+  }
+
+  /* ── Top Picks ── */
+  .rk-picks-section {
+    max-width: 64rem;
+    margin: 0 auto 5rem;
+    padding-inline: 0;
+  }
+
+  .rk-picks-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0 0 2.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .rk-picks-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 0.85rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: 1.5rem;
+    scroll-padding-inline: 1.5rem;
+  }
+
+  .rk-picks-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .rk-pick-card {
+    flex: 0 0 280px;
+    width: 280px;
+    scroll-snap-align: start;
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .rk-pick-card:hover {
+    border-color: rgba(221, 184, 85, 0.25);
+    box-shadow: 0 8px 24px rgba(221, 184, 85, 0.04);
+  }
+
+  .rk-pick-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #C9A84C;
+  }
+
+  .rk-pick-venue {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    line-height: 1.2;
+  }
+
+  .rk-pick-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── Every Venue Includes ── */
+  .rk-includes-section {
+    max-width: 56rem;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 4rem;
+    padding-inline: 1.5rem;
+  }
+
+  .rk-includes-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 2.75rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    letter-spacing: -0.02em;
+    margin: 0 0 2.5rem;
+  }
+
+  .rk-includes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .rk-includes-card {
+    background: #000000;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0.5rem;
+    padding: 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .rk-includes-card:hover {
+    border-color: rgba(221, 184, 85, 0.2);
+    box-shadow: 0 4px 16px rgba(221, 184, 85, 0.04);
+  }
+
+  .rk-includes-card span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #B0A890;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .rk-check-icon {
+    flex-shrink: 0;
+    color: #C9A84C;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .rk-includes-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .rk-includes-card span {
+      font-size: 0.78rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .rk-section {
+      padding: 3.5rem 0 4.5rem;
+    }
+    .rk-header {
+      margin-bottom: 3rem;
+      padding-inline: 0.5rem;
+    }
+    .rk-title {
+      font-size: clamp(1.6rem, 8vw, 2rem);
+    }
+    .rk-intro {
+      font-size: 0.85rem;
+    }
+    .rk-picks-section {
+      padding-inline: 0;
+      margin-bottom: 3.5rem;
+    }
+    .rk-picks-title {
+      padding-inline: 1rem;
+    }
+    .rk-picks-grid {
+      padding-inline: 1rem;
+      scroll-padding-inline: 1rem;
+      gap: 0.75rem;
+    }
+    .rk-pick-card {
+      flex: 0 0 85vw;
+      width: 85vw;
+    }
+    .rk-picks-title {
+      margin-bottom: 1.75rem;
+    }
+    .rk-includes-section {
+      padding-inline: 1rem;
+    }
+    .rk-includes-title {
+      font-size: 1.25rem;
+      padding-inline: 0.5rem;
+    }
+    .rk-includes-grid {
+      grid-template-columns: 1fr;
+    }
+    .rk-includes-card span {
+      font-size: 0.82rem;
+    }
+  }
+</style>

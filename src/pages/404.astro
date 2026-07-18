@@ -1,0 +1,135 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SlotMachineText from '../components/ui/SlotMachineText';
+import { TITLE_404 } from '../utils/seo-titles';
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_404,
+    description: 'Page not found.',
+    keywords: '',
+    noindex: true,
+  }}
+>
+  <section class="nf-wrapper">
+    <div class="nf-card">
+      <span class="nf-number">404</span>
+      <h1 class="nf-heading">
+        <SlotMachineText text="Page Not Found" stripLength={10} client:visible />
+      </h1>
+      <p class="nf-body">
+        The page you&rsquo;re looking for doesn&rsquo;t exist or has moved.
+        Let us point you back to something real.
+      </p>
+      <a href="/" class="nf-cta">Back to Home</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .nf-wrapper {
+    background: #0A0A0A;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1.5rem;
+  }
+
+  .nf-card {
+    max-width: 28rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nf-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(5rem, 14vw, 9rem);
+    font-weight: 800;
+    color: transparent;
+    background: linear-gradient(135deg, #9D7815, #E8C96A, #9D7815);
+    background-clip: text;
+    -webkit-background-clip: text;
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .nf-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.25rem);
+    font-weight: 700;
+    color: #FFF8F0;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .nf-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.65;
+    margin: 0 0 2.5rem;
+  }
+
+  .nf-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.85rem 2.25rem;
+    border-radius: 0.375rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #0A0A0A;
+    background: linear-gradient(135deg, #9D7815, #E8C96A, #9D7815);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.20), 0 4px 14px rgba(157,120,21,0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .nf-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 6px 20px rgba(157,120,21,0.35);
+  }
+
+  @media (max-width: 480px) {
+    .nf-wrapper {
+      min-height: 60vh;
+      padding: 3rem 1rem;
+    }
+    .nf-body {
+      font-size: 0.85rem;
+      margin-bottom: 2rem;
+    }
+    .nf-cta {
+      padding: 0.75rem 1.75rem;
+      font-size: 0.82rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .nf-wrapper {
+      padding: 2.5rem 0.75rem;
+      min-height: 55vh;
+    }
+    .nf-number {
+      font-size: clamp(4rem, 18vw, 6rem);
+    }
+    .nf-heading {
+      font-size: 1.25rem;
+    }
+    .nf-body {
+      font-size: 0.78rem;
+    }
+    .nf-cta {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.78rem;
+      width: 100%;
+      max-width: 16rem;
+    }
+  }
+</style>

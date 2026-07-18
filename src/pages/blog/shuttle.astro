@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Contact from '../../components/home/Contact.astro';
+import '../../styles/blog-post.css';
+import { SEO_KEYWORDS } from '../../utils/constants';
+import { titleBlogDetail } from '../../utils/seo-titles';
+
+const title = titleBlogDetail("Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels");
+const OTHER = [
+  { slug: 'first-timer', cat: 'Beginner Guides', title: 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking', img: '/images/blog01.webp' },
+  { slug: 'prices', cat: 'Prices & Budget', title: 'Macau Sauna Prices 2026: Entry, Service Tiers & Overnight Costs Explained', img: '/images/blog03.jpg' },
+];
+---
+
+<BaseLayout
+  seo={{
+    title,
+    description: "How the free Macau sauna shuttle works — taxi-time estimates from every border gate and ferry terminal, plus three steps to book our private 7-seater.",
+    keywords: `Macau sauna shuttle, free Macau spa pickup, Macau sauna transport, Macau border gate taxi, ${SEO_KEYWORDS}`,
+    image: '/images/blog02.webp',
+    imageWidth: '1200',
+    imageHeight: '630',
+  }}
+>
+  <main class="bp-page">
+    <section class="bp-hero">
+      <div class="bp-hero-wrap">
+        <span class="bp-eyebrow">Itinerary &amp; Pickup</span>
+        <h1 class="bp-hero-title">Macau Sauna Shuttle Guide: Border Gates, Ferries &amp; Hotels</h1>
+        <div class="bp-meta">
+          <span>Relax Macau Team</span>
+          <span class="bp-meta-sep">·</span>
+          <span>Jul 17, 2026</span>
+          <span class="bp-meta-sep">·</span>
+          <span>3 min read</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="bp-body">
+      <div class="bp-body-wrap">
+        <a href="/blog" class="bp-back">&larr; All articles</a>
+
+        <figure class="bp-figure">
+          <img src="/images/blog02.webp" alt="Golden-lit arrival hallway inside a Macau sauna" loading="lazy" style="width: 100%; aspect-ratio: 21/9; object-fit: cover; border-radius: 0.5rem;" />
+          <figcaption class="bp-figcaption">Golden-lit arrival hallway inside a Macau sauna</figcaption>
+        </figure>
+
+        <nav class="bp-toc">
+          <span class="bp-toc-heading">In this article</span>
+          <ol>
+            <li><a href="#sh-why">Why arrange the pickup first</a></li>
+            <li><a href="#sh-times">Travel times from each entry point</a></li>
+            <li><a href="#sh-steps">Our free private 7-seater: booked in three steps</a></li>
+            <li><a href="#sh-faq">Pickup FAQ</a></li>
+            <li><a href="#sh-tips">Tips and caveats</a></li>
+          </ol>
+        </nav>
+
+        <p class="bp-lead">Eight on a Friday evening at the Border Gate: the taxi queue folds around two corners, and travellers inch forward dragging their luggage. For many visitors that queue is the first hour of the Macau trip &mdash; and sauna plans mostly start in the evening, exactly when a cab is hardest to find. This guide covers the travel times from each entry point and how the free Macau sauna pickup actually works.</p>
+
+        <h2 id="sh-why">Why arrange the pickup first</h2>
+        <p>Macau&rsquo;s taxi fleet is small, the border gates and ferry terminals are the worst queues on holiday evenings, and ride-hailing options are thinner than in most cities. If the first and last legs of the trip are left to chance, they tend to become the most tiring part of it. Lock in the transfer and everything after landing runs smoothly &mdash; especially with two or three people and luggage in tow, when squeezing into a cab costs the most and one 7-seater picking everyone up at once is simply the easier option.</p>
+
+        <h2 id="sh-times">Travel times from each entry point</h2>
+        <p>Start from wherever you enter Macau (times are rough and traffic-dependent):</p>
+
+        <div class="bp-table-wrap"><table class="bp-table">
+          <thead><tr><th>Starting point</th><th>Taxi-time estimate</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Border Gate (Portas do Cerco)</td><td>~10&ndash;15 min to the Peninsula</td><td>Biggest crowds, longest peak-hour queues</td></tr>
+            <tr><td>HZMB port</td><td>~15&ndash;20 min to the Peninsula</td><td>Arrivals via the bridge from Hong Kong or Zhuhai</td></tr>
+            <tr><td>Outer Harbour Ferry Terminal</td><td>~5&ndash;10 min to the Peninsula</td><td>Main Hong Kong ferry stop, closest to Peninsula venues</td></tr>
+            <tr><td>Taipa Ferry Terminal</td><td>~10 min within Taipa, ~15&ndash;20 min to the Peninsula</td><td>Near the airport and the Cotai resorts</td></tr>
+          </tbody>
+        </table></div>
+
+        <p>The Peninsula and Taipa are linked by cross-harbour bridges, so nothing is truly far &mdash; the real variable is whether you can get a car at peak hours. And if you&rsquo;re already checked in at a hotel, the same arrangement applies &mdash; the lobby entrance is the easiest pick-up point of all.</p>
+
+        <h2 id="sh-steps">Our free private 7-seater: booked in three steps</h2>
+        <p>Guests who book through us get the shuttle included free by default, and it takes three steps:</p>
+
+        <ol class="bp-steps">
+          <li><strong>Share the plan:</strong> contact us with the date, headcount and pick-up point &mdash; any border gate, ferry terminal, the airport or your hotel.</li>
+          <li><strong>Get the car details:</strong> before departure you receive the vehicle and driver information, and the dedicated driver meets you at the point.</li>
+          <li><strong>Set the return:</strong> before leaving the venue, give a rough time and the driver takes you back to your hotel or border gate as agreed.</li>
+        </ol>
+
+        <p>It&rsquo;s our own private 7-seater with a dedicated driver &mdash; straight to the venue door, no detours, no ride-sharing &mdash; covering the whole Peninsula and Taipa, not a street-hailed cab.</p>
+
+        <h2 id="sh-faq">Pickup FAQ</h2>
+        <dl class="bp-faq">
+          <div><dt>Will everyone fit?</dt><dd>It&rsquo;s a 7-seater, so a small group travels in one car; for larger parties, tell us in advance and we split across cars.</dd></div>
+          <div><dt>What if my timing changes?</dt><dd>Message through the same channel you booked on and the driver adjusts &mdash; the earlier, the easier.</dd></div>
+          <div><dt>Is the return leg free too?</dt><dd>Yes. Both directions can be arranged, and it&rsquo;s easiest to agree a rough leaving time when you check in.</dd></div>
+        </dl>
+
+        <h2 id="sh-tips">Tips and caveats</h2>
+        <ul class="bp-checklist">
+          <li>Border crossings get crowded on holiday evenings &mdash; build in an extra half hour</li>
+          <li>Board at the exact spot your contact pins; entry points have designated pick-up zones, so don&rsquo;t wait at the taxi rank</li>
+          <li>Bring your luggage straight to the venue for storage instead of detouring to the hotel first</li>
+          <li>On big-event days or in bad weather, traffic gets unpredictable &mdash; leave more slack in the plan</li>
+          <li>Keep your phone online throughout so the driver can reach you</li>
+        </ul>
+
+        <p>If this is your first visit, start with the <a href="/blog/first-timer">first-timer&rsquo;s guide</a>; for budgeting, see the <a href="/blog/prices">price guide</a>. Send us your date and flight or ferry time &mdash; the pick-up point, the shuttle and the venue itinerary get lined up in one go, and after landing you just follow the plan.</p>
+
+        <div class="bp-keepreading">
+          <span class="bp-keepreading-heading">Keep reading</span>
+          <div class="bp-keepreading-grid">
+            {OTHER.map((o) => (
+              <a href={`/blog/${o.slug}`} class="bp-kr-card">
+                <img src={o.img} alt={o.title} loading="lazy" class="bp-kr-img" />
+                <span class="bp-kr-cat">{o.cat}</span>
+                <span class="bp-kr-title">{o.title}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+</BaseLayout>

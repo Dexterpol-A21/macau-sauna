@@ -1,0 +1,1169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { FEATURED_VENUES } from '../utils/parseVenues';
+import { SITE_DESCRIPTION, SEO_KEYWORDS } from '../utils/constants';
+import { TITLE_HOW_IT_WORKS } from '../utils/seo-titles';
+import SlotMachineText from '../components/ui/SlotMachineText';
+import ContactCTA from '../components/home/ContactCTA';
+import SecondaryCTA from '../components/home/SecondaryCTA';
+import Testimonials from '../components/home/Testimonials';
+import type { Venue } from '../types';
+
+const RECOMMENDATIONS: { want: string; slug: string; reason: string }[] = [
+  { want: 'First time', slug: 'number-one-sauna', reason: "Most therapists in all of Macau (140+), widest selection spanning 8 nationalities. The selection show is spectacular, processes are mature and reliable — least likely to have a bad experience, making it the safest choice for newcomers." },
+  { want: 'Best value', slug: 'familia-nobre', reason: "Zero service fee — the listed price is the final price with no hidden charges. Largest venue in Macau with ample rooms so you rarely wait, and the food quality has an excellent reputation in the industry." },
+  { want: 'Luxury', slug: 'majesty-spa', reason: "Over 100 million MOP in renovations, largest rooms in Macau with private bathtubs. No service charge at all, open 24 hours with a comfortable recliner lounge and paid private rest rooms in peak season — one of the most comfortable overnight options." },
+  { want: 'Themed rooms', slug: 'east-castle-spa', reason: "The pioneer of themed rooms in Macau with 20+ meticulously designed scenes including prison, classroom, and airplane cabin. Staff are trained in professional roleplay — fully customizable scripts and interactions." },
+  { want: 'Taipa area', slug: 'oceanic-royal-spa', reason: "The only sauna in Taipa/Cotai, next to The Venetian and MGM Cotai — no need to cross the bridge if staying in the area. Highest proportion of Japanese and Korean therapists in Macau, with dual-service surcharge of only 20-30%, far below industry standard." },
+  { want: '24-hour access', slug: 'the-excellent-sauna', reason: "The only venue in Macau with therapists on duty 24 hours, no time restrictions. Offers both waterbed services and themed rooms (office, classroom, hospital, etc.) — the only place where you can try both types of experience." },
+  { want: 'Newest venue', slug: 'number-nine-spa', reason: "Brand new — opened April 2026 with all-new facilities. Features professional stage-lit selection shows, multiple atmosphere-themed rooms, and offers Balinese and Japanese-style massage. Grand opening promotions make it the most attractively priced." },
+  { want: 'Newest premium luxury', slug: 'empire-sauna', reason: "Opened 15 May 2026 — a brand-new HK$80M luxury build on the Macau peninsula. Themed suites with hotel-grade amenities, Taiwanese-influencer and Japanese-celebrity headlining therapists, and signature waterbed treatment rooms. Macau's most ambitious sauna debut of 2026." },
+  { want: 'Largest model showcase', slug: 'manhao-spa', reason: "Opened 1 May 2026 inside the Grandview Hotel on Taipa. Features Macau's largest model showcase — a multi-tiered glass-railed catwalk hall under deep blue neon. Integrated suites combine a hotel-grade bedroom with the venue's signature red waterbed under spotlight." },
+  { want: 'Near Lisboeta (Cotai)', slug: 'shang-pin-spa', reason: "Located inside Lisboeta Macau in Cotai — zero-step convenience if you're staying in the area. One of Macau's newest venues with an upscale fit-out, plus a free therapist add-on with selected packages." },
+  { want: 'Crowd-free', slug: 'victoria-sauna', reason: "Simple, understated atmosphere with a spacious bathhouse and roomy sauna areas. Best pick if you want a calm, quiet experience without the bustle of the larger venues — service quality stays sharp without the crowd." },
+  { want: 'Themed nights / KTV', slug: 'm-club', reason: "Futuristic cyberpunk-style decor with a curated set of themed rooms — built for guests who want novelty over scale. KTV-style rooms make it a strong pick for groups looking for a different kind of night." },
+];
+
+const venueMap = new Map<string, Venue>(FEATURED_VENUES.map((v) => [v.slug, v]));
+
+const TIPS = [
+  { title: 'Arrive after 7 PM for the widest staff selection.', body: "Most therapists start their shifts around 1 PM and are all present by 7 PM, which is also when selection shows begin." },
+  { title: 'Bring earplugs and an eye mask for overnight stays.', body: 'The rest area is a shared space (except Majesty Spa), and other guests coming and going plus venue music can affect sleep — these two small items dramatically improve overnight comfort.' },
+  { title: 'Pay in MOP cash to save 1-3% on exchange fees.', body: 'Credit cards and electronic payments incur international exchange surcharges — MOP cash is the most economical payment method. You can exchange at border gates or hotel ATMs.' },
+  { title: 'Travel light — robes and slippers are provided on arrival.', body: "Bring your phone, wallet, and ID; everything else stays in your locker for the duration. Most guests come in casual clothes and change into the venue's robe straight away — no dress code, no luggage to carry around." },
+  { title: 'Ask us about current promotions and staff availability before you go.', body: 'Spas run periodic promotions, and therapist attendance varies daily. Checking in advance avoids arriving only to find your preferred type of therapist isn\'t available.' },
+  { title: 'Tell us your preferred language up front.', body: "We'll match you with a venue and a therapist comfortable in English (or Mandarin, Cantonese, Japanese, or Korean depending on the day). Communicating clearly with your therapist makes a noticeable difference — and saves a lot of guesswork for first-timers." },
+  { title: 'Coming just for the day? The 24-hour locker storage means you can arrive, sauna, and head back without ever checking into a hotel.', body: "Same for guests who've already checked out — drop your luggage safely and enjoy the venue right up to your departure." },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_HOW_IT_WORKS,
+    description: 'First time at a Macau sauna? We handle everything — free shuttle, VIP entry, venue recommendation, exclusive pricing, and 24/7 English support. 10-step guide for first-timers.',
+    keywords: `Macau sauna guide, how to visit Macau sauna, Macau sauna first time, Macau spa guide, Macau sauna tips, Macau sauna process, Macau sauna steps, ${SEO_KEYWORDS}`,
+  }}
+>
+  <main class="hiw-page">
+    <!-- ── Hero ── -->
+    <section class="hiw-hero">
+      <div class="hiw-hero-wrap">
+        <span class="hiw-hero-eyebrow">First Time at a Macau Sauna?</span>
+        <h1 class="hiw-hero-title">
+          <SlotMachineText text="We'll take care of everything" stripLength={16} client:visible />
+        </h1>
+        <p class="hiw-hero-sub">From transport to venue recommendation — zero stress, all VIP.</p>
+        <div class="hiw-hero-cta">
+          <ContactCTA client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── What to Expect ── -->
+    <section class="hiw-expect">
+      <div class="hiw-expect-wrap">
+        <h2 class="hiw-section-title">
+          <SlotMachineText text="What to Expect" stripLength={8} client:visible />
+        </h2>
+        <div class="hiw-expect-grid">
+          <a href="https://www.macaotourism.gov.mo/en/" target="_blank" rel="noopener noreferrer" class="hiw-expect-card hiw-expect-card-link">
+            <div class="hiw-expect-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <h3 class="hiw-expect-name">Safe &amp; Legal</h3>
+            <p class="hiw-expect-desc">All legitimate venues hold a "Steam Bath and Massage Establishment License" issued by the Macao Government Tourism Office, regulated under the same government framework as casinos. Spas undergo regular joint inspections by the Health Bureau, Fire Services, and Tourism Office to ensure hygiene and fire safety compliance.</p>
+            <span class="hiw-expect-link">
+              Verify on MGTO website
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
+            </span>
+          </a>
+          <div class="hiw-expect-card">
+            <div class="hiw-expect-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" />
+              </svg>
+            </div>
+            <h3 class="hiw-expect-name">All-in-One Experience</h3>
+            <p class="hiw-expect-desc">From the moment you step in, everything is included: the bathing area features jacuzzis, dry and wet saunas; the dining area offers unlimited free steak, fresh seafood, slow-simmered Cantonese soups, Sichuan-style stir-fries, fried rice, fresh fruit, and cold beer; the entertainment area hosts selection shows and interactive segments; the rest area has recliners for overnight stays. The entire experience can last 12–15 hours.</p>
+          </div>
+          <div class="hiw-expect-card">
+            <div class="hiw-expect-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <h3 class="hiw-expect-name">We Handle Everything</h3>
+            <p class="hiw-expect-desc">You don't need to research, compare, or arrange anything yourself. Tell us your preferences and budget, and we'll recommend the best venue, arrange free private car pickup (anywhere in Macau), negotiate exclusive pricing for you, and inform you of therapist availability and wait times in advance. Walking in alone may mean 1–2 hour waits and higher prices — booking through us avoids all of that.</p>
+          </div>
+          <a href="/vip-extras" class="hiw-expect-card hiw-expect-card-link">
+            <div class="hiw-expect-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8" /><path d="M22 7H2v5h20V7Z" /><path d="M12 22v-10" /><path d="M12 7V2l4 3-4 3V7Z" /><path d="M2 7l10-5 10 5" />
+              </svg>
+            </div>
+            <h3 class="hiw-expect-name">VIP Extras</h3>
+            <p class="hiw-expect-desc">Every booking through us includes 1 complimentary VIP Extra — pick from Back Rubbing, head massage, reflexology, manicure, pedicure, hand massage, ear cleaning, and more. We let the venue know you're coming — simply pick what you want on arrival. Plus priority entry — no front-desk wait.</p>
+            <span class="hiw-expect-link">
+              See all 8
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+            </span>
+          </a>
+        </div>
+        <div class="hiw-expect-bottom">
+          <p class="hiw-expect-bottom-text">Want the full ranking of all 12 venues — price, overnight, KTV, and the free massages included with every booking?</p>
+          <SecondaryCTA href="/ranking" label="See the Macau sauna ranking" client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Step-by-Step Process ── -->
+    <section class="hiw-steps">
+      <div class="hiw-steps-wrap">
+        <h2 class="hiw-section-title">
+          <SlotMachineText text="Step-by-Step Process" stripLength={14} client:visible />
+        </h2>
+        <p class="hiw-steps-note">Each venue may differ slightly. Contact us for details.</p>
+
+        <div class="hiw-timeline">
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">1</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Contact Us</h3>
+              <p class="hiw-step-desc">Tell us your preferences (venue style, budget range, therapist type), and we'll recommend the best venue based on your needs. We know each venue's specialties and latest updates, so we can make the most accurate match for you.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">2</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Free Pickup</h3>
+              <p class="hiw-step-desc">Once the venue is confirmed, we arrange a 7-seater private car (Alphard/Mercedes) to pick you up at your designated location — any hotel or spot in Macau. Completely free, no need to hail a taxi or navigate on your own.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">3</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Arrive &amp; Check In</h3>
+              <p class="hiw-step-desc">Skip the front-desk queue — partner staff has you priority-checked in on arrival. Pick up your wristband and locker key, then head to the changing room to put on a robe and store your luggage. All venues provide free secure lockers — no need to worry about your belongings.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">4</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Bathe &amp; Relax</h3>
+              <p class="hiw-step-desc">Spend 20–30 minutes enjoying the jacuzzi, dry sauna, and steam room to let your body unwind. This is an important step to get into the right mindset and is part of the experience — don't rush, take your time.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">5</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Free Dining</h3>
+              <p class="hiw-step-desc">All venues offer unlimited free dining — premium steak, fresh seafood, slow-simmered Cantonese soups, Sichuan-style stir-fries, fried rice, noodles, fresh fruit, cold beer, and a full drinks list. Available throughout your stay at no extra charge. Some venues are particularly famous for their signature steak, seafood platters, and slow-cooked soups — well worth lingering over.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">6</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Selection Show</h3>
+              <p class="hiw-step-desc">This is the highlight — therapists parade through the main hall for you to view up close before making your choice. Each venue has its own style: Number One Sauna features 140+ person grand parades and Oceanic Royal Spa has stage performances. Shows typically start after 7 PM when the atmosphere peaks.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">7</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">60-Minute Service</h3>
+              <p class="hiw-step-desc">After choosing your therapist, you enter a private room for a 60-minute one-on-one session. Services vary by venue and therapist type, and may include massage, waterbed experiences, or themed room role-play. Everything takes place in a private setting.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">8</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Rest &amp; Stay Overnight</h3>
+              <p class="hiw-step-desc">No need to rush out after your session. All venues have rest areas with recliners where you can relax or stay overnight for free (12–15 hours). Continue enjoying free dining and bathing facilities in comfort until the next day. Your complimentary VIP Extras are typically scheduled during this rest window — making the overnight even fuller. For the best overnight experience, we recommend Majesty Spa — open 24 hours with a comfortable recliner lounge, plus paid private rest rooms in peak season.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">9</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Breakfast &amp; Depart</h3>
+              <p class="hiw-step-desc">The next morning, enjoy a free breakfast, shower and freshen up, then leave at your leisure. The entire experience from entry to departure can last up to 15 hours — equivalent to saving one night's hotel cost (MOP 1,000–3,000), while enjoying dining, bathing, service, and rest.</p>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-step-marker"><span class="hiw-step-num">10</span></div>
+            <div class="hiw-step-body">
+              <h3 class="hiw-step-title">Free Return — Anywhere in Macau</h3>
+              <p class="hiw-step-desc">Just text us when you're ready to leave — after your meal, right after your service, anytime. We'll send the same private car to take you back to your hotel, the airport, the ferry terminal, or anywhere in Macau. Door-to-door, same zero cost as the pickup — no taxi-hunting, no working out the route.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hiw-steps-cta">
+          <p class="hiw-steps-cta-text">Don't want to read? Just ask us directly</p>
+          <ContactCTA client:load />
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Free Shuttle ── -->
+    <section class="hiw-shuttle">
+      <div class="hiw-shuttle-wrap">
+        <span class="hiw-shuttle-eyebrow">Free pickup &middot; complimentary return</span>
+        <h2 class="hiw-section-title">
+          <SlotMachineText text="Free Macau Sauna Shuttle" stripLength={14} client:visible />
+        </h2>
+        <p class="hiw-shuttle-lead">
+          Book any sauna through us and we pick you up free in a private chauffeured car
+          anywhere in Macau or Taipa, straight to the venue. It&rsquo;s a 7-seater, so a group
+          rides together comfortably &mdash; same car and dedicated driver throughout. When
+          you&rsquo;re done, we&rsquo;ll drive you back to your hotel, complimentary. One message,
+          that&rsquo;s it.
+        </p>
+
+        <div class="hiw-shuttle-grid">
+          <div class="hiw-shuttle-block hiw-shuttle-block-full">
+            <h3 class="hiw-shuttle-block-title">Pickup anywhere</h3>
+            <p class="hiw-shuttle-block-sub">Hotel, casino, border, airport — we come to you.</p>
+            <div class="hiw-shuttle-zones">
+              <div class="hiw-shuttle-zone">
+                <span class="hiw-shuttle-zone-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                </span>
+                <span class="hiw-shuttle-zone-name">Macau Peninsula</span>
+              </div>
+              <div class="hiw-shuttle-zone">
+                <span class="hiw-shuttle-zone-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                </span>
+                <span class="hiw-shuttle-zone-name">Taipa</span>
+              </div>
+            </div>
+            <ul class="hiw-shuttle-points">
+              <li>Border Gate / Qingmao / Hengqin checkpoints</li>
+              <li>HZMB (Hong Kong–Zhuhai–Macau Bridge)</li>
+              <li>Taipa &amp; Outer Harbour ferry terminals</li>
+              <li>Macau International Airport</li>
+              <li>Any major hotel or casino</li>
+              <li>Cotai Strip resorts</li>
+            </ul>
+          </div>
+
+          <div class="hiw-shuttle-block hiw-shuttle-block-full">
+            <h3 class="hiw-shuttle-block-title">How it works</h3>
+            <ol class="hiw-shuttle-steps">
+              <li>
+                <span class="hiw-shuttle-step-num">1</span>
+                <span class="hiw-shuttle-step-text">Message us your location and the venue you&rsquo;d like to book.</span>
+              </li>
+              <li>
+                <span class="hiw-shuttle-step-num">2</span>
+                <span class="hiw-shuttle-step-text">We send a private car to pick you up at your chosen time.</span>
+              </li>
+              <li>
+                <span class="hiw-shuttle-step-num">3</span>
+                <span class="hiw-shuttle-step-text">When you&rsquo;re done, message us and we&rsquo;ll drive you back to your hotel, complimentary.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="hiw-shuttle-block hiw-shuttle-block-full">
+            <h3 class="hiw-shuttle-block-title">What&rsquo;s included</h3>
+            <div class="hiw-shuttle-included">
+              <div class="hiw-shuttle-included-item">
+                <span class="hiw-shuttle-included-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" /></svg>
+                </span>
+                <span>Free pickup anywhere in Macau or Taipa</span>
+              </div>
+              <div class="hiw-shuttle-included-item">
+                <span class="hiw-shuttle-included-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" /></svg>
+                </span>
+                <span>Complimentary ride back to your hotel</span>
+              </div>
+              <div class="hiw-shuttle-included-item">
+                <span class="hiw-shuttle-included-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" /></svg>
+                </span>
+                <span>7-seater private car with dedicated driver</span>
+              </div>
+              <div class="hiw-shuttle-included-item">
+                <span class="hiw-shuttle-included-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12" /></svg>
+                </span>
+                <span>Available 24 hours</span>
+              </div>
+            </div>
+            <p class="hiw-shuttle-tip">
+              Return tip: tell us your expected finish time in advance so we can reserve your complimentary ride back.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Sauna Recommendations ── -->
+    <section class="hiw-recs">
+      <div class="hiw-recs-wrap">
+        <h2 class="hiw-section-title">
+          <SlotMachineText text="Sauna Recommendations" stripLength={14} client:visible />
+        </h2>
+        <p class="hiw-recs-sub">Every venue serves a different kind of night. Tell us what you want, and we'll point you to the one that fits.</p>
+
+        <div class="hiw-recs-grid">
+          {RECOMMENDATIONS.map((rec) => {
+            const v = venueMap.get(rec.slug);
+            if (!v) return null;
+            return (
+              <a href={`/venues/${v.slug}`} class="hiw-rec-card">
+                <div class="hiw-rec-img-wrap">
+                  <img src={v.image} alt={v.name} class="hiw-rec-img" loading="lazy" />
+                </div>
+                <div class="hiw-rec-body">
+                  <span class="hiw-rec-want">I want: {rec.want}</span>
+                  <h3 class="hiw-rec-name">{v.name}</h3>
+                  <p class="hiw-rec-reason">{rec.reason}</p>
+                  <span class="hiw-rec-link">
+                    Details
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+                  </span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Insider Tips ── -->
+    <section class="hiw-tips">
+      <div class="hiw-tips-wrap">
+        <h2 class="hiw-section-title">
+          <SlotMachineText text="Insider Tips" stripLength={8} client:visible />
+        </h2>
+        <div class="hiw-tips-list">
+          {TIPS.map((tip, i) => (
+            <div class="hiw-tip">
+              <span class="hiw-tip-num">{String(i + 1).padStart(2, '0')}</span>
+              <div class="hiw-tip-body">
+                <h3 class="hiw-tip-title">{tip.title}</h3>
+                <p class="hiw-tip-desc">{tip.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Testimonials ── -->
+    <Testimonials client:load />
+
+    <!-- ── Final CTA ── -->
+    <section class="hiw-final">
+      <div class="hiw-final-wrap">
+        <span class="hiw-final-eyebrow">Still Have Questions?</span>
+        <h2 class="hiw-final-title">We'll answer everything and arrange the best experience for you</h2>
+        <div class="hiw-final-btn">
+          <ContactCTA client:load />
+          <SecondaryCTA href="/faq" label="View FAQ" client:load />
+        </div>
+        <p class="hiw-final-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  /* Prevent word-breaking on all headings */
+  h1, h2, h3, h4, h5, h6 { hyphens: none; }
+
+  .hiw-page {
+    background: #000000;
+    color: #FFF8F0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ── Hero ── */
+  .hiw-hero {
+    background: #000000;
+    padding: 7rem 2rem 6rem;
+    text-align: center;
+  }
+
+  .hiw-hero-wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+  }
+
+  .hiw-hero-eyebrow {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.5rem;
+  }
+
+  .hiw-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+
+  .hiw-hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    color: #807860;
+    margin: 0 0 2.5rem;
+  }
+
+  .hiw-hero-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ── Section Title (shared) ── */
+  .hiw-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0 0 3rem;
+  }
+
+  /* ── What to Expect ── */
+  .hiw-expect {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-expect-wrap {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .hiw-expect-grid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: 2rem;
+    scroll-padding-inline: 2rem;
+    margin-inline: -2rem;
+  }
+
+  .hiw-expect-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hiw-expect-card {
+    flex: 0 0 340px;
+    width: 340px;
+    scroll-snap-align: start;
+    background: #000000;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1.75rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hiw-expect-card-link {
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .hiw-expect-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    box-shadow: 0 0 20px rgba(201,168,76,0.06);
+  }
+
+  .hiw-expect-icon {
+    display: flex;
+    color: #DDB855;
+    margin-bottom: 1rem;
+  }
+
+  .hiw-expect-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0 0 0.65rem;
+    line-height: 1.2;
+  }
+
+  .hiw-expect-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #807860;
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+  }
+
+  .hiw-expect-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #DDB855;
+    text-decoration: none;
+    transition: color 0.2s, gap 0.2s;
+    margin-top: auto;
+    padding-top: 0.8rem;
+  }
+
+  .hiw-expect-card-link:hover .hiw-expect-link {
+    gap: 0.55rem;
+    color: #E8C96A;
+  }
+
+  .hiw-expect-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .hiw-expect-bottom-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #807860;
+    margin: 0 0 0.75rem;
+  }
+
+  /* ── Steps ── */
+  .hiw-steps {
+    background: #000000;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-steps-wrap {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .hiw-steps-note {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #606070;
+    margin: -1.5rem 0 3rem;
+  }
+
+  .hiw-timeline {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hiw-step {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .hiw-step:first-child { padding-top: 0; }
+
+  .hiw-step-marker {
+    flex-shrink: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(221,184,85,0.1);
+    border: 1px solid rgba(221,184,85,0.2);
+    margin-top: 0.1rem;
+  }
+
+  .hiw-step-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #DDB855;
+    line-height: 1;
+  }
+
+  .hiw-step-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hiw-step-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0 0 0.35rem;
+    line-height: 1.3;
+  }
+
+  .hiw-step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #807860;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .hiw-steps-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .hiw-steps-cta-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #807860;
+    margin: 0;
+  }
+
+  /* ── Recommendations ── */
+  .hiw-recs {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-recs-wrap {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .hiw-recs-sub {
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #807860;
+    margin: -1.5rem 0 3rem;
+    line-height: 1.6;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hiw-recs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+
+  .hiw-rec-card {
+    background: #000000;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hiw-rec-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    box-shadow: 0 0 20px rgba(201,168,76,0.06);
+  }
+
+  .hiw-rec-img-wrap {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .hiw-rec-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .hiw-rec-card:hover .hiw-rec-img {
+    transform: scale(1.05);
+  }
+
+  .hiw-rec-body {
+    padding: 1rem 1.25rem 1.25rem;
+  }
+
+  .hiw-rec-want {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #DDB855;
+  }
+
+  .hiw-rec-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0.35rem 0 0.5rem;
+    line-height: 1.2;
+  }
+
+  .hiw-rec-reason {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #807860;
+    line-height: 1.6;
+    margin: 0 0 0.85rem;
+  }
+
+  .hiw-rec-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #DDB855;
+    text-decoration: none;
+    transition: color 0.2s, gap 0.2s;
+  }
+
+  .hiw-rec-card:hover .hiw-rec-link {
+    color: #E8C96A;
+    gap: 0.55rem;
+  }
+
+  /* ── Insider Tips ── */
+  .hiw-tips {
+    background: #000000;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-tips-wrap {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .hiw-tips-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hiw-tip {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .hiw-tip:first-child { padding-top: 0; }
+
+  .hiw-tip-num {
+    flex-shrink: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(201,168,76,0.4);
+    width: 2.5rem;
+    padding-top: 0.15rem;
+  }
+
+  .hiw-tip-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hiw-tip-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0 0 0.35rem;
+    line-height: 1.3;
+  }
+
+  .hiw-tip-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #807860;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── Free Shuttle ── */
+  .hiw-shuttle {
+    background: #000000;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-shuttle-wrap {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .hiw-shuttle-eyebrow {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+
+  .hiw-shuttle-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 1.7;
+    text-align: center;
+    max-width: 40rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .hiw-shuttle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .hiw-shuttle-block {
+    background: #0A0A0A;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.375rem;
+    padding: 1.5rem;
+  }
+
+  .hiw-shuttle-block-full {
+    grid-column: 1 / -1;
+  }
+
+  .hiw-shuttle-block-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0 0 0.4rem;
+    line-height: 1.3;
+  }
+
+  .hiw-shuttle-block-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #9E9E9E;
+    line-height: 1.5;
+    margin: 0 0 0.75rem;
+  }
+
+  .hiw-shuttle-zones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hiw-shuttle-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.5rem 1rem;
+    background: #000000;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 0.5rem;
+  }
+
+  .hiw-shuttle-zone-icon {
+    color: #DDB855;
+    opacity: 0.7;
+    display: flex;
+  }
+
+  .hiw-shuttle-zone-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #DDB855;
+    letter-spacing: -0.01em;
+    text-align: center;
+  }
+
+  .hiw-shuttle-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.45rem 1.5rem;
+  }
+
+  .hiw-shuttle-points li {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    color: #A0A0A0;
+    line-height: 1.45;
+    padding-left: 0.85rem;
+    position: relative;
+  }
+
+  .hiw-shuttle-points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #C9A84C;
+  }
+
+  @media (max-width: 500px) {
+    .hiw-shuttle-points {
+      grid-template-columns: 1fr;
+    }
+    .hiw-shuttle-zone-name {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .hiw-shuttle-grid {
+      grid-template-columns: 1fr;
+    }
+    .hiw-shuttle-included {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .hiw-shuttle-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: #000000;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 0.375rem;
+    overflow: hidden;
+  }
+
+  .hiw-shuttle-steps li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.15rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .hiw-shuttle-steps li:last-child {
+    border-bottom: none;
+  }
+
+  .hiw-shuttle-step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(221,184,85,0.1);
+    border: 1px solid rgba(221,184,85,0.2);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #DDB855;
+    line-height: 1;
+  }
+
+  .hiw-shuttle-step-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    color: #A0A0A0;
+    line-height: 1.55;
+    padding-top: 0.2rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .hiw-shuttle-included {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin: 0.75rem 0 1.5rem;
+  }
+
+  .hiw-shuttle-included-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.9rem 1rem;
+    background: #000000;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 0.375rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.84rem;
+    color: #A0A0A0;
+    line-height: 1.4;
+  }
+
+  .hiw-shuttle-included-icon {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(221,184,85,0.1);
+    color: #DDB855;
+  }
+
+  .hiw-shuttle-tip {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #D0C0A0;
+    line-height: 1.5;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 700px) {
+    .hiw-shuttle-grid {
+      grid-template-columns: 1fr;
+    }
+    .hiw-shuttle-included {
+      grid-template-columns: 1fr;
+    }
+    .hiw-shuttle-tip {
+      font-size: 1rem;
+    }
+  }
+
+  /* ── Final CTA ── */
+  .hiw-final {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .hiw-final-wrap {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hiw-final-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+
+  .hiw-final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #FFF8F0;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .hiw-final-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 639px) {
+    .hiw-final-btn {
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+  }
+
+  .hiw-final-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #606070;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hiw-recs-grid { grid-template-columns: 1fr 1fr; }
+    .hiw-step { gap: 1rem; padding: 1.25rem 0; }
+    .hiw-tip { gap: 1rem; padding: 1.25rem 0; }
+  }
+
+  @media (max-width: 600px) {
+    .hiw-hero { padding: 5rem 1.25rem 4rem; }
+    .hiw-expect { padding: 3.5rem 0 4.5rem; }
+    .hiw-expect-grid {
+      padding-inline: 1.25rem;
+      scroll-padding-inline: 1.25rem;
+      margin-inline: 0;
+      gap: 1rem;
+    }
+    .hiw-expect-card {
+      flex: 0 0 85vw;
+      width: 85vw;
+    }
+    .hiw-expect-bottom {
+      padding-inline: 1.25rem;
+    }
+    .hiw-steps { padding: 3.5rem 1.25rem 4.5rem; }
+    .hiw-recs { padding: 3.5rem 1.25rem 4.5rem; }
+    .hiw-tips { padding: 3.5rem 1.25rem 4.5rem; }
+    .hiw-final { padding: 3.5rem 1.25rem 4.5rem; }
+    .hiw-recs-grid { grid-template-columns: 1fr; }
+    .hiw-section-title { margin-bottom: 2rem; }
+    .hiw-recs-sub { margin-bottom: 2rem; }
+    .hiw-steps-note { margin-bottom: 2rem; }
+  }
+</style>

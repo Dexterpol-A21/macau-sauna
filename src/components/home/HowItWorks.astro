@@ -1,0 +1,168 @@
+---
+import SlotMachineText from '../ui/SlotMachineText';
+import HowItWorksCTA from './HowItWorksCTA';
+
+const STEPS = [
+  { number: '01', title: 'Let us recommend', description: "We'll book for you through our internal network. You don't need to know which sauna is right. Tell us what interests you, or let our team match you. We have years of experience and know each sauna's strengths." },
+  { number: '02', title: 'Instant private shuttle', description: "Hotel lobby, airport, Outer Harbour Pier, Taipa Pier, even a street corner. Tell us where and we collect you in minutes. Drop-off anywhere in Macau when you're done. Coming with friends? Our 7-seater handles it easily, everyone gets the same perks, no extra cost." },
+  { number: '03', title: 'VIP Entry + special pricing', description: "Internal-network booking means you skip the front desk and walk straight in. Each sauna has special pricing for our guests. Tell us where you'd like to go and we'll secure the discount for you." },
+  { number: '04', title: 'Pick 1 VIP Extra', description: 'Our way of saying thanks for booking through us. We let the venue know you\'re coming, then you pick your VIP Extras (head massage, reflexology, manicure, and more) on arrival.' },
+  { number: '05', title: 'Complimentary return ride', description: "When you're done, after your meal, right after your service, anytime, just text us. We'll send the same shuttle back to take you to your hotel, the airport, the ferry terminal, or anywhere in Macau. Same zero cost as the pickup." },
+];
+---
+
+<section id="how-it-works" class="hiw-section">
+  <div class="hiw-wrap">
+    <div class="hiw-head">
+      <h2 class="hiw-title">
+        <SlotMachineText text="How It Works" stripLength={12} client:visible />
+      </h2>
+      <span class="hiw-label">Complimentary Concierge Service</span>
+      <p class="hiw-lead">We take care of everything for you: recommendation, transport, VIP entry, VIP Extras, and your ride home.</p>
+    </div>
+    <div class="hiw-steps">
+      {STEPS.map((step) => (
+        <div class="hiw-step">
+          <span class="hiw-step-num">{step.number}</span>
+          <div>
+            <h3 class="hiw-step-title">{step.title}</h3>
+            <p class="hiw-step-desc">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+    <HowItWorksCTA client:load />
+  </div>
+</section>
+
+<style is:global>
+  .hiw-section {
+    background: #000000;
+    padding: 7rem 2rem 8rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .hiw-wrap {
+    max-width: 64rem;
+    margin-inline: auto;
+  }
+
+  .hiw-head {
+    text-align: center;
+    margin-bottom: 4.5rem;
+  }
+
+  .hiw-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .hiw-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    display: block;
+    margin-top: 0.75rem;
+  }
+
+  .hiw-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #B0A890;
+    max-width: 34rem;
+    margin: 1.25rem auto 0;
+    line-height: 1.6;
+  }
+
+  .hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .hiw-step {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .hiw-step-num {
+    flex-shrink: 0;
+    width: 5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: rgba(201,168,76,0.16);
+    line-height: 0.8;
+    text-align: right;
+    letter-spacing: -0.03em;
+    user-select: none;
+  }
+
+  .hiw-step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.4rem;
+  }
+
+  .hiw-step-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #B0A890;
+    line-height: 1.65;
+    max-width: 44rem;
+  }
+
+  @media (min-width: 768px) {
+    .hiw-steps {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 4rem;
+      max-width: 64rem;
+    }
+    .hiw-step:last-child {
+      grid-column: 1 / -1;
+      max-width: 48rem;
+      margin-inline: auto;
+    }
+    .hiw-step { gap: 1.5rem; }
+    .hiw-step-num { width: 4rem; font-size: 3rem; }
+  }
+
+  @media (max-width: 640px) {
+    .hiw-section { padding: 5rem 1.25rem 6rem; }
+    .hiw-head { margin-bottom: 3rem; }
+    .hiw-steps { gap: 2.5rem; }
+    .hiw-step { gap: 1.25rem; }
+    .hiw-step-num { width: 3rem; font-size: 2.5rem; }
+    .hiw-step-title { font-size: 1.15rem; }
+    .hiw-step-desc { font-size: 0.82rem; }
+  }
+
+  @media (max-width: 420px) {
+    .hiw-section { padding: 4rem 0.75rem 5rem; }
+    .hiw-head { margin-bottom: 2.5rem; }
+    .hiw-lead { font-size: 0.85rem; padding-inline: 0.5rem; }
+    .hiw-steps { gap: 2rem; }
+    .hiw-step { gap: 1rem; }
+    .hiw-step-num { width: 2.25rem; font-size: 2rem; }
+    .hiw-step-title { font-size: 1.05rem; }
+    .hiw-step-desc { font-size: 0.78rem; }
+  }
+</style>

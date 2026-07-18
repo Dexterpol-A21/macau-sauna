@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64"><metadata><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"><rdf:Description><dc:creator>RealFaviconGenerator</dc:creator><dc:source>https://realfavicongenerator.net</dc:source></rdf:Description></rdf:RDF></metadata><circle cx="32" cy="32" r="30" fill="#D4AF37"></circle><g fill="#0a0a0a" stroke="#D4AF37" stroke-width="1.5" stroke-linejoin="round" transform="translate(32 47)">
+    <path d="M 0 -33 Q 11 -17 0 0 Q -11 -17 0 -33 Z"></path>
+    <path transform="rotate(-36)" d="M 0 -27 Q 10 -14 0 0 Q -10 -14 0 -27 Z"></path>
+    <path transform="rotate(36)" d="M 0 -27 Q 10 -14 0 0 Q -10 -14 0 -27 Z"></path>
+    <path transform="rotate(-72)" d="M 0 -23 Q 10 -12 0 0 Q -10 -12 0 -23 Z"></path>
+    <path transform="rotate(72)" d="M 0 -23 Q 10 -12 0 0 Q -10 -12 0 -23 Z"></path>
+  </g><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>

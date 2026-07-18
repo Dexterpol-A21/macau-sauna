@@ -1,0 +1,1344 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { FEATURED_VENUES } from '../../utils/parseVenues';
+import { buildVenueTags } from '../../utils/filterColors';
+import { SEO_KEYWORDS } from '../../utils/constants';
+import { titleVenueDetail } from '../../utils/seo-titles';
+import type { Venue } from '../../types';
+import VenueParallaxHero from '../../components/venues/VenueParallaxHero';
+import VenueGallery from '../../components/venues/VenueGallery';
+import VenueFlow from '../../components/venues/VenueFlow';
+import SlotMachineText from '../../components/ui/SlotMachineText';
+import ContactCTA from '../../components/home/ContactCTA';
+
+export function getStaticPaths() {
+  return FEATURED_VENUES.map((v) => ({
+    params: { slug: v.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const venue = FEATURED_VENUES.find((v) => v.slug === slug) as Venue;
+
+if (!venue) {
+  return Astro.redirect('/404');
+}
+
+const tags = buildVenueTags(venue);
+const accent = tags[0]?.color ?? '#DDB855';
+
+// Maps slug → local image folder + base name. Add entries as you populate folders.
+const VENUE_IMAGE_CONFIG: Record<string, { folder: string; base: string }> = {
+  'manhao-spa': { folder: '/images/venues/sauna1', base: 'manhaospa' },
+  'number-nine-spa': { folder: '/images/venues/sauna2', base: 'numbernine' },
+  'shang-pin-spa': { folder: '/images/venues/sauna3', base: 'shangpin' },
+  'majesty-spa': { folder: '/images/venues/sauna4', base: 'majesty' },
+  'the-excellent-sauna': { folder: '/images/venues/sauna5', base: 'excellent' },
+  'empire-sauna': { folder: '/images/venues/sauna6', base: 'empire' },
+  'east-castle-spa': { folder: '/images/venues/sauna7', base: 'eastcastle' },
+  'victoria-sauna': { folder: '/images/venues/sauna8', base: 'victoria' },
+  'm-club': { folder: '/images/venues/sauna9', base: 'mclub' },
+  'oceanic-royal-spa': { folder: '/images/venues/sauna10', base: 'oceanic' },
+  'number-one-sauna': { folder: '/images/venues/sauna11', base: 'numberone' },
+  'familia-nobre': { folder: '/images/venues/sauna12', base: 'familia' },
+};
+
+const imageConfig = VENUE_IMAGE_CONFIG[slug];
+const imageFolder = imageConfig?.folder ?? '';
+const heroImage = imageConfig
+  ? `${imageConfig.folder}/${imageConfig.base}.webp`
+  : venue.image;
+
+// Gallery data — keyed by slug
+const GALLERY_DATA: Record<string, { title: string; description: string }[]> = {
+  'manhao-spa': [
+    { title: 'Manhao Spa gold crowned marble signage', description: "The signature gold crowned 'MH' monogram set against calacatta marble — the imperial-luxe tone is announced the moment you reach the entrance." },
+    { title: 'Manhao Spa model showcase hall', description: "Manhao Spa's headline feature: Macau's largest model showcase, a multi-tiered glass-railed catwalk lit in deep blue neon that makes selection feel like the main event." },
+    { title: 'Manhao Spa signature red waterbed suite', description: 'The signature red waterbed glows under one dramatic spotlight — an integrated suite that keeps bedroom and waterbed in a single private room.' },
+    { title: 'Manhao Spa mural bedroom suite', description: 'A mural-papered bedroom suite with an oversized bed, sofa and soft lamps — hotel-grade comfort for an unhurried, private stay.' },
+    { title: 'Manhao Spa tree-mural luxury suite', description: 'A tree-mural luxury suite where naturalistic wall art and low mood lighting make the room feel like a quiet retreat.' },
+    { title: 'Manhao Spa marble changing room', description: 'The changing room sets the standard with a calacatta marble feature wall, gold-toggle custom lockers and tufted benches.' },
+    { title: 'Manhao Spa marble shower stalls', description: 'Marble shower stalls offer private wash positions with brand-new, immaculate fittings for an easy pre-service rinse.' },
+    { title: 'Manhao Spa jacuzzi bathing zone', description: 'The bathing zone in dark mosaic tile and green-veined marble, with a spacious immersion pool for a relaxed soak before service.' },
+    { title: 'Manhao Spa dark steam shower room', description: 'A secluded dark steam shower room, brand-new throughout and built for a quiet, immersive moment in the wet area.' },
+    { title: 'Manhao Spa marble dining lounge', description: 'The marble dining lounge pairs hotel-grade seating with a private-bar feel — where complimentary food and drinks are served.' },
+    { title: 'Manhao Spa starlight recliner lounge', description: 'The dedicated starlight recliner lounge, with soft light and plush recliners for unwinding before or after service.' },
+    { title: 'Manhao Spa mural corridor', description: 'Mural-wrapped corridors connect the venue\'s zones, with refined wall art and gentle light that read more boutique-hotel than sauna.' },
+  ],
+  'number-nine-spa': [
+    { title: 'Number Nine Spa modern-luxury suite', description: "Number Nine Spa's signature modern-luxury suite — soft mood lighting and refined gold-and-marble decor in one of Macau's newest venues, opened April 2026." },
+    { title: 'Number Nine Spa red round-bed room', description: "Sink into a red-themed round-bed suite, its starry-sky ceiling and immersive glow setting the tone — one of Number Nine's signature mood rooms." },
+    { title: 'Number Nine Spa purple aurora room', description: 'A purple aurora-lit themed bedroom where soft gradients wrap the space in a quiet, modern-luxury calm.' },
+    { title: 'Number Nine Spa recliner lounge', description: 'A mural-lined recliner lounge bathed in soft light — an easy place to settle before or after your session.' },
+    { title: 'Number Nine Spa massage-chair room', description: 'A brand-new massage-chair room — pristine equipment and a private corner to ease into.' },
+    { title: 'Number Nine Spa premium locker area', description: "Premium wooden lockers and a tidy towel station — spotless, orderly facilities that signal the venue's grade from the start." },
+    { title: 'Number Nine Spa Royal Dragon Hotel exterior', description: 'Number Nine Spa sits inside the central Royal Dragon Hotel — a convenient location that announces the venue from the door.' },
+    { title: 'Number Nine Spa bath and wash area', description: 'A newly built bath and wash area — pristine fixtures and a fresh wet zone to rinse the day away.' },
+    { title: 'Number Nine Spa purple-light bedroom', description: 'A purple-lit themed bedroom where soft light and refined bedding invite an easy, restful pause.' },
+    { title: 'Number Nine Spa main-stage hall', description: "The main-stage hall glows under a neon star backdrop and professional lighting — Number Nine's signature immersive runway, the most modern selection show in Macau." },
+    { title: 'Number Nine Spa dining area', description: 'A refined dining area — complimentary steak, seafood, noodles and more turn the meal into part of the experience.' },
+    { title: 'Number Nine Spa waterbed room', description: 'A waterbed feature room — mood lighting and a comfortable waterbed make for a distinctive, immersive stay.' },
+  ],
+  'shang-pin-spa': [
+    { title: 'Shang Pin Spa purple showcase stage', description: "Shang Pin Spa's signature purple showcase stage — a Cotai club inside Lisboeta Macau, mood-lit for a lavish first impression." },
+    { title: 'Shang Pin Spa gold-signage reception', description: "A gold-signage reception sets the upscale tone the moment you arrive, an easy choice for guests staying in Cotai's new district." },
+    { title: 'Shang Pin Spa arched-door lounge', description: 'An arched-door lounge in modern, lavish finishes and soft light — a calm space to settle before or after your service.' },
+    { title: 'Shang Pin Spa porthole-mirror stage', description: 'A porthole-mirror stage with stepped seating: the boutique, private selection space that replaces large-scale shows.' },
+    { title: 'Shang Pin Spa jacuzzi wet area', description: 'A modern jacuzzi wet area, bright and immaculate — fitting bathing surroundings for a venue known for Japanese-style bubble bath.' },
+    { title: 'Shang Pin Spa blue-LED corridor', description: 'A blue-LED corridor leading to the rooms, part of a private, contemporary layout that runs throughout.' },
+    { title: 'Shang Pin Spa private-room corridor', description: 'A refined corridor to the private suites — calm, quiet and screened from view.' },
+    { title: 'Shang Pin Spa mirror-headboard bedroom', description: 'A mirror-headboard bedroom with modern, lavish styling — private and quietly comfortable.' },
+    { title: 'Shang Pin Spa starlight magenta bedroom', description: 'A feature bedroom under a starlight ceiling washed in magenta light — romantic mood and brand-new fittings.' },
+    { title: 'Shang Pin Spa wide recliner lounge', description: 'A spacious recliner lounge where the complimentary chairs let overnight guests rest right through till morning.' },
+    { title: 'Shang Pin Spa selection stage', description: 'The boutique selection stage: share your preferences and budget, and the manager arranges introductions one by one.' },
+    { title: 'Shang Pin Spa massage-chair rest area', description: 'A massage-chair rest area — a quiet, comfortable corner paired with complimentary food and drinks.' },
+  ],
+  'majesty-spa': [
+    { title: 'Majesty Spa KTV party room', description: "Majesty Spa's signature KTV party room — one of only two Macau venues with KTV, a lavish private suite built for lively gatherings that run late." },
+    { title: 'Majesty Spa entrance signage', description: "The composed, premium entrance signage sets the tone the moment you arrive at Macau's most lavishly appointed club." },
+    { title: 'Majesty Spa gold-chandelier bath pool', description: 'A gilded-chandelier bathing pool, spacious and softly lit — the kind of top-grade wet area worth lingering in before the night begins.' },
+    { title: 'Majesty Spa curved-wood corridor', description: 'A curved-wood corridor links the themed suites, its soft lighting and flowing lines making for a quiet, private passage.' },
+    { title: 'Majesty Spa Chinese marriage-bed themed room', description: 'A Chinese marriage-bed themed room with a carved heritage bedframe and red-and-gold dressing — one of over ten finely designed themed suites.' },
+    { title: 'Majesty Spa Egyptian pharaoh themed room', description: 'An Egyptian pharaoh themed room, with gilded wall reliefs and temple-inspired styling that show off the range of theming here.' },
+    { title: 'Majesty Spa gym-boxing themed room', description: 'A gym-and-boxing themed room with bold athletic styling — a playful pick among the dozen-plus themed suites.' },
+    { title: 'Majesty Spa medical themed room', description: 'A medical themed room with a clean, cosplay-ready setting, part of the carefully curated themed collection.' },
+    { title: 'Majesty Spa cosplay themed room', description: 'A cosplay themed room stocked with uniforms and props — one of the highlights among the ten-plus themed suites to play in.' },
+  ],
+  'the-excellent-sauna': [
+    { title: 'The Excellent Sauna blue bathing pool', description: 'The signature bathing pool glows under blue mood lighting — a spacious wet area to ease into the moment the door closes behind you.' },
+    { title: 'The Excellent Sauna hospital theme room', description: 'Step into the brand-new hospital-themed scene room, fully kitted out for immersive role-play as a MOP 440 themed-room upgrade.' },
+    { title: 'The Excellent Sauna themed-room hallway', description: 'A patterned-tile hallway threads past the scenario rooms — DJ booth, office, cinema and more, each waiting under soft light.' },
+    { title: 'The Excellent Sauna leather-headboard suite', description: 'A leather-headboard suite wrapped in custom mood lighting and hotel-grade bedding — a private, unhurried space for your session.' },
+    { title: 'The Excellent Sauna mosaic waterbed room', description: 'A mosaic-tiled water bed room, set for a relaxed, unhurried session.' },
+    { title: 'The Excellent Sauna mirror vanity area', description: 'A bright mirror vanity with tidy amenities and soft lighting, ready for a quick freshen-up before or after your service.' },
+    { title: 'The Excellent Sauna wood locker room', description: 'Wood-panelled lockers and an immaculate finish make changing in on arrival feel discreet and effortless.' },
+    { title: 'The Excellent Sauna diamond-accent rest area', description: 'A diamond-accent rest area pairs soft lighting with comfortable seating — somewhere to unwind or settle in overnight.' },
+    { title: 'The Excellent Sauna purple VIP lounge', description: 'Sink into the purple-lit VIP lounge, where plush sofas and a private layout make resting between moments easy.' },
+    { title: 'The Excellent Sauna recliner reception lounge', description: 'Roomy recliners fill the reception lounge under soft light, doubling as the complimentary overnight rest area.' },
+    { title: 'The Excellent Sauna marble dining area', description: 'The marble dining area serves complimentary food around the clock — steak, seafood, noodle soups and more, whenever you arrive.' },
+    { title: 'The Excellent Sauna themed scene suite', description: "A themed scene suite finished with mood lighting and bespoke styling, one of The Excellent Sauna's Japanese-theme rooms." },
+  ],
+  'empire-sauna': [
+    { title: 'Empire Sauna marble bathing pools', description: "Sink into Empire Sauna's marble bathing pools and let the warm water and low light ease the day out of you." },
+    { title: 'Empire Sauna grand lobby', description: 'The hush of the grand lobby is your first breath of calm as you arrive.' },
+    { title: 'Empire Sauna marble staircase', description: 'Follow the marble staircase up, deeper into the quiet.' },
+    { title: 'Empire Sauna white-marble suite', description: 'Unwind in a candlelit white-marble suite — Calacatta walls and warm light from the HK$80-million build.' },
+    { title: 'Empire Sauna signature waterbed room', description: "Drift on the signature waterbed beneath ocean-blue light — Empire Sauna's hallmark indulgence." },
+    { title: 'Empire Sauna gold-ceiling suite', description: 'A gilded-ceiling suite glows in custom light, hotel-soft bedding waiting.' },
+    { title: 'Empire Sauna private wash room', description: 'Rinse off in a private dark-marble wash room, secluded and spotless.' },
+    { title: 'Empire Sauna forest-mural room', description: 'Drift off in a forest-mural suite, soft light and calm all around.' },
+    { title: 'Empire Sauna recliner lounge', description: 'Sink into a recliner under the chandeliers and rest, before or after your service.' },
+    { title: 'Empire Sauna marble cafe lounge', description: 'Linger in the marble cafe lounge — a quiet corner all to yourself.' },
+    { title: 'Empire Sauna dining hall', description: 'Help yourself to complimentary steak, seafood and hot dishes in the mood-lit dining hall.' },
+    { title: 'Empire Sauna atrium restaurant', description: 'Take your time over the included meal in the airy atrium restaurant.' },
+  ],
+  'east-castle-spa': [
+    { title: 'East Castle Spa gym theme room', description: "East Castle Spa's signature gym-themed room comes with a full equipment set and props — pure proof of why this is Macau's pioneer of immersive roleplay." },
+    { title: 'East Castle Spa lobby brand wall', description: 'Step into the lobby and an LED brand wall with mood lighting sets the tone for the themed venue waiting beyond.' },
+    { title: 'East Castle Spa LED stage bath pool', description: 'A spacious bathing pool with dramatic lighting — soak here and quietly scout the floor before you choose.' },
+    { title: 'East Castle Spa classroom theme room', description: 'The classroom-themed room — desks, blackboard and full props turn a roleplay session into something seamless and convincing.' },
+    { title: 'East Castle Spa hospital ward room', description: 'A hospital-ward themed room with a detailed bed-and-clinic set, built for fully immersive roleplay.' },
+    { title: 'East Castle Spa eye-exam medical room', description: 'An eye-exam medical room with clinical set and props — one of the 20-plus scenario rooms you can choose from at East Castle Spa.' },
+    { title: 'East Castle Spa jail theme room', description: 'A jail-bars interrogation room, a true-to-life set built for guests chasing maximum thrill.' },
+    { title: 'East Castle Spa airplane cabin room', description: 'An airplane-cabin themed room — seats and cabin detailing that take roleplay scenarios to another level.' },
+    { title: 'East Castle Spa boxing-ring theme room', description: 'An octagon boxing-ring themed room — a complete arena set for a session unlike anywhere else.' },
+  ],
+  'victoria-sauna': [
+    { title: 'Victoria Sauna massage chair row', description: "Victoria Sauna's long row of massage recliners — a spacious, hushed rest zone that never feels crowded, true to this hidden-gem venue." },
+    { title: "L'Arc Hotel exterior at night", description: "Set inside L'Arc Hotel in the heart of the Macau Peninsula, an easy stroll from MGM, Wynn and Grand Lisboa." },
+    { title: 'Victoria Sauna catwalk show stage', description: 'The catwalk stage glows under soft runway lighting, set for a relaxed, unhurried show.' },
+    { title: 'Victoria Sauna mosaic jacuzzi pool', description: 'A mosaic-tiled jacuzzi pool anchors the spacious bathhouse, built for slow, quiet soaking.' },
+    { title: 'Victoria Sauna black-marble corridor', description: 'A black-marble corridor in understated tones, its soft light guiding a private path between zones.' },
+    { title: 'Victoria Sauna wood locker room', description: 'The wood-panelled locker room is clean and roomy — an easy, serene start to the visit.' },
+    { title: 'Victoria Sauna premium recliner lounge', description: "A premium recliner lounge, spacious and restful, ideal for Victoria Sauna's signature overnight stays." },
+    { title: 'Victoria Sauna private waterbed room', description: 'A private water bed room — a quiet space for one-on-one service.' },
+    { title: 'Victoria Sauna show viewing area', description: 'A comfortable show viewing area faces the stage for an unhurried look before you choose.' },
+  ],
+  'm-club': [
+    { title: 'M Club sports-TV lounge', description: "M Club's signature sports-TV lounge, styled in cyberpunk tech with big-screen live broadcasts — settle in to unwind before or after your session." },
+    { title: 'M Club golf theme room', description: 'A golf-themed room with cart-styled staging, one of the venue\'s many immersive themed suites built for a different world each visit.' },
+    { title: 'M Club neon mirror corridor', description: "Neon-lit corridors laced with cyberpunk lighting set the tone for Macau's most high-tech sauna interior." },
+    { title: 'M Club marble locker room', description: 'A marble locker room — clean, private changing space where the futuristic finish reaches every corner.' },
+    { title: 'M Club panoramic KTV room', description: "M Club's panoramic KTV room headlines its signature party mode, one of only two Macau saunas with karaoke." },
+    { title: 'M Club big-screen KTV lounge', description: 'A private big-screen KTV lounge where you sing while you enjoy service, party-mode energy turned all the way up.' },
+    { title: 'M Club galaxy aurora room', description: "A galaxy bedroom glowing under aurora mood lighting — part of M Club's signature planet-series scenes at peak tech." },
+    { title: 'M Club Japanese hot-spring room', description: 'A Japanese hot-spring bubble-bath room for a private soak in a fully styled Japanese setting.' },
+    { title: 'M Club cosplay theme display', description: 'A cosplay-theme display with candlelight and themed-uniform props, setting an immersive scene.' },
+    { title: 'M Club pool-table suite', description: 'A pool-table themed suite blending billiards staging with the scene — play and service in one room.' },
+    { title: 'M Club racing simulator room', description: 'A racing-simulator game room with futuristic décor and gaming gear for a cyberpunk play experience.' },
+    { title: 'M Club classroom theme room', description: 'A classroom-themed room staged for an immersive cosplay scenario.' },
+    { title: 'M Club dart games lounge', description: 'A dart-games lounge — well-equipped entertainment and an easy social space within the high-tech interior.' },
+    { title: 'M Club red theme playroom', description: 'A bold red-themed playroom dressed for an immersive cosplay scene.' },
+    { title: 'M Club neon M-logo entrance', description: "The neon M-logo entrance — a cyberpunk facade announcing Macau's most high-tech sauna from the door." },
+  ],
+  'oceanic-royal-spa': [
+    { title: 'Oceanic Royal Spa classical bedroom', description: "Oceanic Royal Spa's signature classical bedroom — a mirrored wall, warm lighting and hotel-grade bedding set the tone for this Taipa venue." },
+    { title: 'Oceanic Royal Spa exterior at night', description: 'Oceanic Royal Spa lit up at night — just moments from the Cotai hotels, easy to reach without crossing to the peninsula.' },
+    { title: 'Oceanic Royal Spa recliner lounge', description: 'A spacious recliner lounge under soft light — an easy place to unwind that doubles as the free overnight rest area.' },
+    { title: 'Oceanic Royal Spa gold-ceiling pool', description: 'The gold-ceiling pool and sauna zone — warm ambient light over a generous wet area for an unhurried soak.' },
+    { title: 'Oceanic Royal Spa wood-deck bath pool', description: 'A wood-deck bath pool and shower area — bright, immaculate wet facilities with a resort-grade calm.' },
+    { title: 'Oceanic Royal Spa poolside bar corner', description: 'A tiled poolside bar corner — a relaxed spot to pause and refresh between soaks.' },
+    { title: 'Oceanic Royal Spa chandelier bedroom', description: 'A chandelier-lit classical bedroom with period detailing and soft mood lighting, one of several themed rooms.' },
+    { title: 'Oceanic Royal Spa twin-bed room', description: 'A private twin-bed service room — self-contained, with the dual-therapist option priced at just 20–30% extra.' },
+    { title: 'Oceanic Royal Spa sashimi boat platter', description: 'A salmon sashimi boat from the complimentary 5–8 PM seafood buffet, a nod to the strong Japanese-Korean menu.' },
+    { title: 'Oceanic Royal Spa shellfish spread', description: 'A sashimi and shellfish spread — prawn, crab and geoduck among the highlights of the free seafood buffet.' },
+    { title: 'Oceanic Royal Spa steak and crab buffet', description: 'A steak and crab buffet station — complimentary dining spanning steak, seafood, noodles and more.' },
+    { title: 'Oceanic Royal Spa show stage seating', description: 'The exhibition-style show seating — comfortable chairs facing the central stage where therapists present one by one.' },
+  ],
+  'number-one-sauna': [
+    { title: 'Number One Sauna LED lounge', description: 'The signature lounge glows with LED cube seating and soft mood lighting — an easy place to settle before or after the selection show.' },
+    { title: 'Number One Sauna changing-room vanity', description: 'A spacious changing and vanity area right at the entrance, bright and immaculate, with everything laid out for an unhurried start.' },
+    { title: 'Number One Sauna marble signage', description: 'The brand signage set against polished marble — a composed welcome the moment you arrive.' },
+    { title: 'Number One Sauna locker corridor', description: 'A warm wood-panelled locker corridor, orderly and private, where the evening quietly begins.' },
+    { title: 'Number One Sauna indoor bath pool', description: 'The large indoor bathing pool sits beneath soft lighting alongside dry and steam rooms — soak and unwind before service.' },
+    { title: 'Number One Sauna premium suite', description: 'A premium spa suite: a secluded private room with hotel-grade bedding made for the one-on-one session.' },
+    { title: 'Number One Sauna gold waterbed room', description: 'A gold-toned water bed room finished with refined mood lighting.' },
+    { title: 'Number One Sauna glass-wall room', description: 'A glass-wall themed bedroom, modern in design with soft lighting — private yet open.' },
+    { title: 'Number One Sauna lounge', description: 'A Chesterfield-leather TV lounge with deep seating and a large screen, perfect for relaxed waiting and rest.' },
+    { title: 'Number One Sauna entertainment room', description: 'A private entertainment room with mood lighting and comfortable seating — a social space to share with friends.' },
+    { title: 'Number One Sauna complimentary dining', description: 'Unlimited complimentary dining throughout your stay, led by the signature steak, with seafood, fried rice and noodles, soups and cold beer.' },
+    { title: 'Number One Sauna reception lobby', description: 'The reception lobby at Number One Sauna — a composed welcome where check-in opens the selection-show experience.' },
+  ],
+  'familia-nobre': [
+    { title: 'Familia Nobre entrance and logo', description: "The grand entrance and logo of Familia Nobre — the imposing facade of Macau's largest sauna, and the first stop for many before the city falls away." },
+    { title: 'Familia Nobre crown lightbox signage', description: "A crown lightbox glows at the threshold, a luxe note that sets the venue's grade the moment you arrive." },
+    { title: 'Familia Nobre purple grand staircase', description: 'A soaring purple-lit grand staircase shows off the largest floorplate in Macau, with room to breathe at every turn.' },
+    { title: 'Familia Nobre red-lantern hallway', description: 'A red-lantern hallway bathed in Eastern theatre lighting leads quietly toward the private rooms.' },
+    { title: 'Familia Nobre purple-LED room', description: 'A purple-LED themed room with soft lighting and hotel-grade bedding, set for private one-on-one service.' },
+    { title: 'Familia Nobre red-lattice massage room', description: 'A red-lattice massage room with classical Eastern lines and a private layout — one of many room types to choose from.' },
+    { title: 'Familia Nobre mirror-and-chandelier room', description: 'Crystal light spills across a mirror-and-chandelier room, spacious and well-appointed for an unhurried session.' },
+    { title: 'Familia Nobre mirror sitting-room suite', description: "A mirror sitting-room suite with its own seating area and roomy layout — part of Macau's largest room count, so you rarely wait." },
+    { title: 'Familia Nobre silver waterbed room', description: 'A silver-toned waterbed room glows under mood lighting, the soft waterbed inviting you to sink in.' },
+    { title: 'Familia Nobre marble bar and dining area', description: 'The marble bar and dining area, where complimentary steak, seafood, stir-fry and cold beer keep regulars coming back.' },
+    { title: 'Familia Nobre complimentary beer and dining spread', description: 'A complimentary spread of cold beer, soft drinks, juices and hot dishes — served unlimited throughout your stay, no extra charge.' },
+    { title: 'Familia Nobre therapist selection area', description: 'The therapist selection area, where an eight-nationality roster meets you face-to-face before 18:00, then takes to a hall runway after.' },
+  ],
+};
+
+const galleryItems = (GALLERY_DATA[slug] ?? []).map((item, i) => ({
+  ...item,
+  src: imageConfig ? `${imageConfig.folder}/${imageConfig.base}${i + 1}.webp` : '',
+}));
+
+// Flow steps — keyed by slug
+const FLOW_STEPS_MAP: Record<string, { num: number; title: string; description: string }[]> = {
+  'manhao-spa': [
+    { num: 1, title: 'Arrive at Grandview Hotel, Taipa', description: 'Manhao Spa is located inside the Grandview Hotel on Taipa — a five-minute drive from the Cotai Strip and the most accessible new luxury sauna option for Taipa-side guests. The lobby greets you with the gold crowned MH monogram on calacatta marble; check in at the front desk and collect your wristband from the concierge.' },
+    { num: 2, title: 'Luxury Changing Room', description: 'Step into the changing area — calacatta marble feature wall, dark wood lockers with gold-toggle pulls, and tufted bench seating. The hardware tone is consistently imperial-luxe rather than utilitarian, setting expectations for the rest of the visit.' },
+    { num: 3, title: 'Bath & Wet Area', description: 'Move through to the bath area, finished in dark mosaic tile and green-veined marble with multiple shower stations and a small immersion pool. The wet zone is brand-new throughout, sized for a relaxed pre-service soak.' },
+    { num: 4, title: 'Dining Lounge', description: 'Take complimentary food and drinks in the marble-topped dining lounge — quiet, hotel-grade seating with a private bar feel, designed for taking your time before or after service.' },
+    { num: 5, title: "Macau's Largest Model Showcase", description: "The marquee feature: a multi-tiered glass-railed catwalk hall lit in deep blue neon, which Manhao positions as the largest model showcase in Macau. The runway-scale presentation makes the selection process a centerpiece experience rather than a side step. Once you've decided, the manager confirms the price tier (MOP 888 – 5,388)." },
+    { num: 6, title: 'Integrated Suite & Signature Waterbed', description: "Treatment rooms are integrated suites — premium bedroom finishes (mural-papered walls, oversized bed, sofa, lamps) combined with the venue's signature red waterbed lit by a single dramatic spotlight. The two surfaces share one private room so you don't have to relocate during service." },
+    { num: 7, title: '60-Minute Service', description: 'Settle into the 60-minute session in your private suite. The multinational therapist roster spans Chinese, Vietnamese, Thai, Taiwanese, Japanese, Korean, Russian, and Ukrainian backgrounds, with massage styles offered to match. Lighting, sound, and bath are controllable from the room.' },
+    { num: 8, title: 'Rest Area', description: 'Retreat to the dedicated rest area — a calm, dim room of stargazer-lit recliners for unwinding after service. The venue is currently on transitional hours of 14:00–04:00, with overnight not yet available; 24-hour service and overnight stays are returning soon. Check out at the front desk; cash, card, WeChat Pay, and Alipay are all accepted.' },
+  ],
+  'number-nine-spa': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Number Nine Spa, brand new as of April 2026, located inside Royal Dragon Hotel in central Macau. As the newest venue in the city, all facilities are in pristine condition. The overall design follows a modern luxury aesthetic with gold and marble elements paired with professional lighting systems.' },
+    { num: 2, title: 'Bathe & Relax', description: 'Enjoy newly built modern bathing and sauna facilities with brand-new equipment throughout. The changing room features wooden lockers in a clean, orderly design, while the bathing area is decorated with green mosaic tiles for a fresh, inviting feel.' },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining with an emphasis on diverse, premium food selections — the venue treats dining as an integral part of the overall experience.' },
+    { num: 4, title: 'Stage Selection Show', description: 'The entertainment hall features professional stage lighting and LED screens, delivering the most modern visual experience of any selection show in Macau. Multi-national therapists showcase on stage in a fresh, distinctive format.' },
+    { num: 5, title: 'Choose Themed Room', description: 'Number Nine offers multiple ambient themed rooms, each featuring unique mood lighting — red, pink-purple, blue-violet, and other color tones paired with starry-sky ceilings and refined decor for an immersive experience. Round oversized beds are a signature feature in select rooms.' },
+    { num: 6, title: '60-Minute Session', description: "Choose between Balinese-style and Japanese-style massage, blending Southeast Asian and Japanese techniques. Number Nine's signature 'original Japanese + Balinese' fusion sets it apart from traditional venues." },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Overnight stays available with brand-new facilities ensuring comfort. As a new venue, early-stage foot traffic is lower and the atmosphere is quiet. Book through us for the latest special prices.' },
+  ],
+  'shang-pin-spa': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Shang Pin Spa, located inside Lisboeta Macau (Cotai). The entire venue features a European-modern design aesthetic with a contemporary look. Register at the front desk and collect your wristband.' },
+    { num: 2, title: 'Bathe & Relax', description: 'Brand-new bathing facilities with well-appointed equipment. The pool and sauna areas are bright and immaculate, a stark contrast to traditional venue styles.' },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining in a clean, comfortable setting that matches the venue\'s overall modern design language.' },
+    { num: 4, title: 'Boutique Selection', description: 'Shang Pin uses a boutique selection model — share your preferences and budget with the manager, who then arranges face-to-face introductions one at a time. No large-scale shows to watch; the entire process is private and unhurried, ideal for guests who prefer a quieter atmosphere.' },
+    { num: 5, title: 'Choose Your Therapist', description: '90+ quality-focused staff, primarily Chinese and Japanese, with consistently high standards in both appearance and service. Shang Pin positions itself as "mid-range price, high-end quality" — the value proposition is outstanding.' },
+    { num: 6, title: '60-Minute Session', description: 'Every room features its own private bathtub for a high level of privacy. Shang Pin specializes in Japanese-style soapland (bubble bath) service.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Overnight stays available — rest in the free lobby recliner lounge, or opt for a paid private rest room. As a boutique-scale venue, foot traffic is lower and the atmosphere is peaceful. Staff numbers may be smaller during off-peak hours — evening visits are recommended.' },
+  ],
+  'majesty-spa': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Majesty Spa, the most luxuriously decorated sauna venue in Macau. Gold accents and marble elements run throughout, creating an immediate sense of top-tier opulence. Register at the front desk and collect your wristband.' },
+    { num: 2, title: 'Bathe & Relax', description: 'Enjoy luxurious bathing facilities and sauna with spacious pools and soft ambient lighting in an elegant, grand atmosphere. Take your time here — Majesty Spa has the finest hardware and fixtures of any venue in Macau.' },
+    { num: 3, title: 'Free Dining', description: "Complimentary steak, fresh fruit, cold beer, and more with a generous selection of dishes. Majesty's food quality is widely praised in the industry, with unlimited servings throughout your stay." },
+    { num: 4, title: 'Scenic Line Show', description: "The hall 'scenic line' selection format features 70+ therapists lined up in a row, with some proactively smiling and lightly engaging with guests. The atmosphere is relaxed and natural — less formal than other venues. You can observe up close with minimal selection pressure." },
+    { num: 5, title: 'Choose Your Therapist', description: 'After selecting your preferred therapist, the manager confirms the price tier. Prices range from MOP 1,099 to MOP 5,899.' },
+    { num: 6, title: '60-Minute Session', description: 'Enter spacious luxury rooms with mood lighting and premium furniture. The sense of space is generous — a top choice for those who prioritize environment quality.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Majesty Spa is open 24 hours and overnight-friendly — rest in the free lobby recliner lounge, or opt for a paid private rest room in peak season. With free dining included, it\'s a comfortable place to stay until morning.' },
+  ],
+  'the-excellent-sauna': [
+    { num: 1, title: 'Arrive & Check In', description: "Arrive at The Excellent Sauna inside the Grand Emperor Hotel main building — the venue is open 24 hours with dining served 24 hours, and therapists work 1:00 PM – 5:00 AM. Whether it's the middle of the night, early morning, or afternoon, you can walk in anytime to rest." },
+    { num: 2, title: 'Bathe & Relax', description: "Enjoy the bathing facilities and sauna in a relatively quiet, serene setting. The Excellent has lower foot traffic than larger venues, so there's none of the crowded, noisy atmosphere." },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining available 24 hours a day. Since the venue never closes, food service is always ready no matter when you arrive.' },
+    { num: 4, title: 'Boutique Selection', description: "The Excellent uses a boutique face-to-face selection model — around 40 carefully screened, high-quality therapists following a 'fewer but finer' philosophy. No large runway shows; the manager introduces options one by one based on your preferences in a private, unhurried setting." },
+    { num: 5, title: 'Water Bed or Themed Room', description: 'The Excellent offers both water bed service and scenario-based themed rooms — choose a traditional water bed experience, or pick a themed room (office, classroom, hospital, cinema, etc.). Themed rooms cost an extra MOP 440, and you can fully customize costumes and interaction style.' },
+    { num: 6, title: '60-Minute Session', description: "Enter your chosen room for approximately 60 minutes of dedicated service with zero service fee. The Excellent's massage services are professionally excellent even without special services — worth experiencing purely for the massage alone." },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Open 24 hours. The rest area is available for overnight stays in a quiet, comfortable setting. Perfect for guests with unpredictable schedules who want maximum flexibility.' },
+  ],
+  'empire-sauna': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Empire Sauna, the newest premium sauna on the Macau peninsula. The lobby and stairway entrance set the tone — Eastern zen lines paired with modern luxury finishings, all freshly built. Register at the front desk and collect your wristband from the concierge.' },
+    { num: 2, title: 'Bathe & Relax', description: 'Step into the signature marble bathing pool — warm ambient lighting, generous space, and a calm, almost spa-resort quality unusual for Macau. The wet-area hardware is brand-new throughout, including a full sauna suite, making this the centerpiece of the venue.' },
+    { num: 3, title: 'Dining Lounge', description: 'Move through to the dining area for complimentary food and drinks. The room is styled to hotel-grade standards rather than typical sauna canteen — quiet, private, with comfortable seating designed for taking your time before or after service.' },
+    { num: 4, title: 'Therapist Selection', description: 'Meet the multinational lineup, including Taiwanese-influencer and Japanese-celebrity headliners. Selection is conducted in a private viewing format rather than a stage, in keeping with the brand\'s quieter, concierge-led tone. Once you\'ve decided, the manager confirms the price tier (MOP 1,088 – 6,388).' },
+    { num: 5, title: 'Themed Suite or Waterbed Room', description: "Choose from multiple themed suites — each with custom mood lighting, premium bedding, and luxury hotel finishings — or one of the signature waterbed massage rooms designed specifically for Empire's signature service. Optional themed costume / signature attire service is available on request." },
+    { num: 6, title: '60-Minute Service', description: "Settle into the 60-minute session in your private room. Massage styles span Taiwan-style, Japanese-style, and the venue's signature waterbed treatments. Rooms are sized for comfort, with bath, lighting, and sound all controllable from the bed." },
+    { num: 7, title: 'Rest Area & Overnight', description: 'After service, retreat to the dedicated rest area — quiet, dimly lit, and built for actual sleep rather than chair-naps. Overnight stays are welcomed, and the wet area, dining lounge, and rest area remain accessible for the duration of your visit.' },
+    { num: 8, title: 'Departure', description: 'Check out at the front desk. Empire Sauna accepts cash, card, WeChat Pay, and Alipay. Book through our concierge in advance and your site-exclusive perks (free add-ons, free shuttle, no entrance fee) are settled accurately at checkout.' },
+  ],
+  'east-castle-spa': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at East Castle Spa, the original pioneer of themed rooms in Macau, famous for its narrative-driven roleplay services. Register at the front desk and collect your wristband. There is a MOP 1,738 entry fee (waived once you select a therapist).' },
+    { num: 2, title: 'Bathe & Relax', description: 'Enjoy the bathing facilities and sauna to unwind. A unique feature of East Castle is that therapists mingle throughout the venue, so you can observe and browse while soaking.' },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining available — enjoy a meal in the dining area while keeping an eye on the therapists moving around the venue.' },
+    { num: 4, title: 'Browse & Pick', description: "East Castle uses a 'free browse' model — there's no fixed show schedule. Over 60 therapists are spread across different areas of the venue, and you can approach or select anyone you like at any time by telling the manager. This format makes the selection process feel natural and pressure-free." },
+    { num: 5, title: 'Themed Rooms', description: "East Castle's biggest draw — over 20 meticulously designed themed rooms including a prison interrogation room, classroom, office, airplane cabin, hospital, ambulance (signature room), boxing ring, and golf course. Each room has full set design, props, and costumes, with therapists professionally trained in roleplay." },
+    { num: 6, title: '60-Minute Session', description: 'A fully immersive, narrative-driven interactive session where you can customize the entire script — choose the scene, specify costumes, design dialogue and interactions. Therapists stay in character throughout for an intensely engaging experience. A 15% service fee applies.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: "Lobby reclining chairs are available for overnight rest. East Castle's core experience centers on the themed rooms rather than rest facilities — if overnight comfort is your priority, Majesty Spa is a better choice." },
+  ],
+  'victoria-sauna': [
+    { num: 1, title: 'Arrive & Check In', description: "Arrive at Victoria Sauna on the 5th floor of L'Arc Hotel, centrally located on the Macau Peninsula near MGM, Wynn, and Grand Lisboa. Register at the front desk and collect your wristband — the overall atmosphere is quiet and private." },
+    { num: 2, title: 'Bathe & Relax', description: 'Enjoy the bathing facilities and sauna in a clean, serene setting. Victoria deliberately manages guest volume, so it never feels crowded even during peak hours.' },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining in a quiet, comfortable setting — none of the noise you\'d find at larger venues.' },
+    { num: 4, title: 'Relaxed Matching', description: "Victoria has no fixed selection shows or runway events — simply tell the manager your preferences and they'll arrange suitable therapists to meet you. The entire process moves at your own pace with zero pressure or rushing, making it the most relaxed selection experience in Macau." },
+    { num: 5, title: 'Choose Your Therapist', description: 'Around 70 therapists on-site, including Chinese, Vietnamese, Japanese, and Korean nationalities. Victoria is known for meticulous, attentive service with consistently high standards. Prices range from MOP 2,298 to MOP 6,998, plus a 10% service fee.' },
+    { num: 6, title: '60-Minute Session', description: 'Enter a room for a 60-minute one-on-one session. The signature water-bed rooms are quiet and private — quality on par with Oceanic Royal at a friendlier price.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Quiet and private — one of the best venues in Macau for peaceful rest and overnight stays. The lounge is full of recliners, foot traffic is low and noise is minimal, so you can stay the night with peace of mind.' },
+  ],
+  'm-club': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at M Club, the luxury sister venue to East Castle Spa, positioned as a more premium, upscale experience. The decor is more refined than East Castle, featuring exclusive KTV rooms and hot spring rooms. Register at the front desk and collect your wristband.' },
+    { num: 2, title: 'Bathe & Relax', description: 'Enjoy the bathing facilities and sauna. M Club features hot spring rooms where you can enjoy a private hot spring soak — a unique facility not found at other venues.' },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining in a setting that matches the overall luxurious decor, providing a comfortable dining experience.' },
+    { num: 4, title: 'Browse & Pick', description: 'Same free-browse model as East Castle — 60+ therapists move freely throughout the venue and you can choose at any time. No fixed show schedule to wait for.' },
+    { num: 5, title: 'KTV & Themed Rooms', description: "M Club's exclusive KTV themed rooms let you sing karaoke while enjoying service. Additional luxury themed options include hot spring rooms, with higher-end decor and more expensive room builds than East Castle." },
+    { num: 6, title: '60-Minute Session', description: 'A fully immersive, narrative-driven interactive service where you can customize the script and scene. Prices are somewhat higher than East Castle, but room facilities and decor are more luxurious. A 10% service fee applies.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'Lobby reclining chairs available for overnight rest. M Club has lower foot traffic than East Castle, making for a relatively quieter environment.' },
+  ],
+  'oceanic-royal-spa': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Oceanic Royal Spa in Taipa, conveniently located near The Venetian and MGM Cotai — the most popular spa venue in the Taipa/Cotai area. Register at the front desk, collect your wristband, and change into a robe.' },
+    { num: 2, title: 'Bathe & Relax', description: "Enjoy the clean, comfortable bathing facilities and sauna. Oceanic Royal's rest-area massage therapists are also quite skilled — the standalone massage service is worth trying on its own." },
+    { num: 3, title: 'Free Dining', description: 'Complimentary dining included. From 5 to 8 PM, Oceanic Royal serves a free seafood buffet — shrimp, crab, shellfish, salmon sashimi, and geoduck — a dining highlight unique to Oceanic Royal.' },
+    { num: 4, title: 'Stage Selection Show', description: "In the evening, scheduled selection shows have staff step onto the central stage one by one, fashion-show style. Oceanic Royal's shows are more brisk and refined compared to Number One's larger-scale format. Its Japanese and Korean lineup is strong, on par with Number Nine among Macau's top venues. During daytime, the manager arranges a face-to-face lineup instead." },
+    { num: 5, title: 'Choose Your Therapist', description: "Tell the manager your pick and confirm the service tier and price. Oceanic Royal has one of Macau's strongest Japanese and Korean lineups, on par with Number Nine — a top choice for those seeking that experience. Note that Oceanic Royal charges a 10% service fee." },
+    { num: 6, title: '60-Minute Session', description: 'Enter a private room for a one-on-one session. Oceanic Royal also offers a dual-therapist option for guests who want a fuller lineup experience.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: "Stay overnight using the reclining chairs in the free lounge area. Oceanic Royal's convenient Taipa location means guests staying at Cotai hotels can reach it without crossing to the peninsula — just head back to your hotel when you're done." },
+  ],
+  'number-one-sauna': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Number One Sauna and register at the front desk to collect your wristband and locker key. The changing rooms are spacious with brand-new facilities.' },
+    { num: 2, title: 'Bathe & Relax', description: 'The venue features a large jacuzzi, dry sauna, and steam room with soft, ambient lighting. We recommend spending 20–30 minutes soaking first to unwind and ease into the experience.' },
+    { num: 3, title: 'Free Dining', description: "Unlimited complimentary food throughout your stay — the signature steak is Number One's most popular dish, alongside fried rice, fried noodles, fresh fruit platters, and cold beer. The spacious dining area overlooks the main hall activity." },
+    { num: 4, title: 'Grand Selection Show', description: 'Each night, 130+ staff walk the hall runway in groups with professional lighting and sound — a spectacular sight. Each round takes about 30 minutes, featuring staff from China, Vietnam, Thailand, Taiwan, Japan, Korea, Russia, and Ukraine — the largest and most international show in all of Macau.' },
+    { num: 5, title: 'Choose Your Therapist', description: 'Tell the manager your preferred number and they\'ll confirm the service tier and corresponding price. Prices range from MOP 2,199 to MOP 7,699 depending on the staff category. During peak hours (22:00–00:00 on weekends), popular therapists may require a wait — arriving early is recommended.' },
+    { num: 6, title: '60-Minute Session', description: 'Enter a private room for an exclusive one-on-one water bed session — Number One is famous across Macau for its water bed service. You can add a dual service with a second therapist for an additional fee. Additional paid mini-services include ear cleaning, nail care, and back massage.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'After your session, rest in reclining chairs or stay overnight. Note that the rest area gets lively during peak hours; for quiet sleep, aim to settle in after 2 AM, with 6–8 AM being the quietest. Enjoy a complimentary breakfast the next morning before heading out.' },
+  ],
+  'familia-nobre': [
+    { num: 1, title: 'Arrive & Check In', description: 'Arrive at Familia Nobre and register at the front desk to collect your wristband and locker key. The changing room has secure lockers for free luggage storage — slip into a robe and you\'re ready to go.' },
+    { num: 2, title: 'Bathe & Relax', description: 'The bathing area is the largest in all of Macau, with multiple jacuzzis and sauna rooms in a spacious, uncrowded setting. Even during peak hours, you won\'t find yourself waiting in line.' },
+    { num: 3, title: 'Free Dining', description: "Complimentary steak, cold beer, and various stir-fry dishes — Familia Nobre's steak and beer are highly praised among regulars. The dining area is spacious and comfortable, with unlimited servings at no extra charge." },
+    { num: 4, title: 'Selection', description: 'The manager lines up a row of therapists for you to observe up close and choose at your own pace. Price tiers for each group are announced in advance so you know the cost before selecting.' },
+    { num: 5, title: 'Choose Your Therapist', description: 'Zero service fee — the listed price is the final price with no hidden charges or surcharges. Prices range from MOP 2,388 to MOP 6,988, making it the best value in Macau. With ample space and rooms, there\'s virtually no waiting.' },
+    { num: 6, title: '60-Minute Session', description: 'Enter a private room for an exclusive one-on-one session. Familia Nobre has the most rooms of any venue in Macau, so even during busy periods you\'ll rarely have to wait — a smooth and seamless experience.' },
+    { num: 7, title: 'Rest & Stay Overnight', description: 'The most reclining chairs of any venue in a spacious rest area with generous spacing between seats for comfortable overnight stays. No noisy entertainment shows to disturb you — ideal for quiet rest. Enjoy a complimentary breakfast the next morning before leaving.' },
+  ],
+};
+
+const flowSteps = FLOW_STEPS_MAP[slug] ?? [];
+
+// Split fullDescription into paragraphs and footer
+const descParts = venue.fullDescription ? venue.fullDescription.split('|||') : [];
+const paragraphs = descParts[0]?.split('||') ?? [];
+const footerNote = descParts[1] ?? '';
+
+// ── SEO helpers ──
+const seoTitle = titleVenueDetail(venue.name);
+const seoDescription = (() => {
+  // Use first paragraph of fullDescription, trimmed to ~160 chars
+  if (paragraphs[0]) {
+    const t = paragraphs[0].replace(/<[^>]+>/g, '').trim();
+    if (t.length > 160) return t.slice(0, 157) + '...';
+    return t;
+  }
+  return venue.description;
+})();
+const seoKeywords = `${venue.name.toLowerCase()}, ${venue.name.toLowerCase()} Macau, ${venue.name.toLowerCase()} Macao, Macau sauna ${venue.name.toLowerCase()}, Macau spa ${venue.name.toLowerCase()}, ${venue.name.toLowerCase()} prices, ${venue.name.toLowerCase()} booking, ${venue.name.toLowerCase()} ${venue.location?.split(',')[0]?.trim() || 'Macau'}, ${SEO_KEYWORDS}`;
+
+// ── Structured Data: LocalBusiness ──
+const localBusinessSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: venue.name,
+  description: venue.description,
+  image: heroImage,
+  url: `${Astro.site || 'https://macausauna.com'}/venues/${venue.slug}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: venue.location?.includes(',') ? venue.location.split(',')[0].trim() : "Macau",
+    addressCountry: "MO",
+  },
+  ...(venue.priceRange && { priceRange: venue.priceRange }),
+  ...(venue.hours && { openingHours: venue.hours }),
+  ...(venue.rating && { aggregateRating: { "@type": "AggregateRating", ratingValue: venue.rating, bestRating: "5" } }),
+});
+---
+
+<BaseLayout
+  seo={{
+    title: seoTitle,
+    description: seoDescription,
+    keywords: seoKeywords,
+    image: heroImage,
+  }}
+>
+  <!-- Venue LocalBusiness JSON-LD -->
+  <script type="application/ld+json" set:html={localBusinessSchema}></script>
+  <main class="vd-page">
+    <!-- Parallax Hero -->
+    <VenueParallaxHero venue={venue} accent={accent} tags={tags} imageFolder={imageFolder} heroImage={heroImage} imageBase={imageConfig?.base ?? ''} client:load />
+
+    <!-- Venue Name -->
+    <section class="vd-name-block">
+      <div class="vd-tags">
+        {tags.map((t) => (
+          <span
+            class="vd-tag"
+            style={t.primary
+              ? `background-color: ${t.color}; color: #0A0A0A;`
+              : `color: ${t.color}; background: transparent; border: 1px solid ${t.color}33;`}
+          >
+            {t.label}
+          </span>
+        ))}
+      </div>
+      <h1 class="vd-name-big">
+        <SlotMachineText text={venue.name} stripLength={10} client:visible />
+      </h1>
+      <p class="vd-subtitle">{venue.subtitle}</p>
+      <div class="vd-location">
+        <svg class="vd-location-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        {venue.location}
+      </div>
+    </section>
+
+    <!-- Body Section -->
+    {venue.fullDescription && (
+      <section class="vd-body-section">
+        <div class="vd-body-wrap">
+
+          {/* Full Description */}
+          {paragraphs.map((p) => (
+            <p class="vd-desc-full">{p}</p>
+          ))}
+          {footerNote && (
+            <div class="vd-footer-row">
+              <p class="vd-desc-footer">{footerNote}</p>
+              {venue.website && (
+                <span class="vd-footer-site">
+                  <a href={`https://${venue.website}`} target="_blank" rel="noopener noreferrer" class="vd-details-website">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="2" y1="12" x2="22" y2="12" />
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                    </svg>
+                    {venue.website}
+                  </a>
+                  <span class="vd-stars-inline">
+                    {Array.from({ length: 5 }).map(() => (
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="#DDB855" stroke="none">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      </svg>
+                    ))}
+                  </span>
+                </span>
+              )}
+            </div>
+          )}
+          {!footerNote && venue.website && (
+            <div class="vd-footer-row">
+              <span class="vd-footer-site">
+                <a href={`https://${venue.website}`} target="_blank" rel="noopener noreferrer" class="vd-details-website">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                  {venue.website}
+                </a>
+                <span class="vd-stars-inline">
+                  {Array.from({ length: 5 }).map(() => (
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#DDB855" stroke="none">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  ))}
+                </span>
+              </span>
+            </div>
+          )}
+
+          {/* Info Cards Grid */}
+          {venue.referencePrice && (<>
+            <div class="vd-card-grid">
+
+              {/* Reference Price */}
+              <div class="vd-card">
+                <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="23" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                <span class="vd-card-label">Reference Price</span>
+                <span class="vd-card-value vd-card-price">{venue.referencePrice}</span>
+                <a href="/#contact" class="vd-card-link">Contact us for a discount</a>
+              </div>
+
+              {/* Staff */}
+              {venue.staffNationalities && (
+                <div class="vd-card">
+                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  <span class="vd-card-label">Staff</span>
+                  <span class="vd-card-value">Multinational</span>
+                  <span class="vd-card-sub">{venue.staffNationalities}</span>
+                </div>
+              )}
+
+              {/* Hours */}
+              <div class="vd-card">
+                <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+                <span class="vd-card-label">Hours</span>
+                <span class="vd-card-value">{venue.hours}</span>
+                {venue.staffHours && (
+                  <span class="vd-card-sub">{venue.staffHours}</span>
+                )}
+              </div>
+
+              {/* Overnight */}
+              {venue.overnight && (() => {
+                const overnightUnavailable = venue.overnight.toLowerCase().includes('not available');
+                return (
+                  <div class={`vd-card ${overnightUnavailable ? 'vd-card-overnight-red' : 'vd-card-overnight-green'}`}>
+                    <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    <span class="vd-card-label">Overnight</span>
+                    <span class="vd-card-value vd-card-overnight">{venue.overnight}</span>
+                  </div>
+                );
+              })()}
+
+              {/* Best For */}
+              {venue.bestFor && (
+                <div class="vd-card">
+                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                  <span class="vd-card-label">Best For</span>
+                  <span class="vd-card-value">{venue.bestFor}</span>
+                </div>
+              )}
+
+              {/* Payment */}
+              {venue.payment && (
+                <div class="vd-card">
+                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                    <line x1="1" y1="10" x2="23" y2="10" />
+                  </svg>
+                  <span class="vd-card-label">Payment</span>
+                  <div class="vd-payment-list">
+                    {venue.payment.map((p) => (
+                      <span class="vd-payment-badge">{p}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+            </div>
+
+            {/* Highlights */}
+            {venue.highlights && (
+              <div class="vd-hl-row">
+                {venue.highlights.map((h, i) => (
+                  <div class={`vd-hl-tile ${i === 0 ? 'vd-hl-tile-accent' : ''}`}>
+                    <span class="vd-hl-tile-text">{h}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>)}
+
+          {/* Contact CTA */}
+          <div class="vd-contact-cta">
+            <ContactCTA client:load />
+          </div>
+
+        </div>
+      </section>
+    )}
+
+    {/* Gallery */}
+    {imageFolder && galleryItems.length > 0 && (
+      <section class="vd-gallery-section">
+        <div class="vd-gallery-wrap">
+          <h2 class="vd-gallery-title">
+            <SlotMachineText text="Gallery" stripLength={6} client:visible />
+          </h2>
+          <VenueGallery items={galleryItems} client:load />
+        </div>
+      </section>
+    )}
+
+    {/* Detailed Flow */}
+    {flowSteps.length > 0 && (
+      <section class="vd-flow-section">
+        <div class="vd-flow-wrap">
+          <h2 class="vd-flow-title">
+            <SlotMachineText text="Detailed Flow" stripLength={10} client:visible />
+          </h2>
+          <VenueFlow steps={flowSteps} client:load />
+        </div>
+      </section>
+    )}
+
+    {/* Other Popular Spas */}
+    <section class="vd-other-section">
+      <div class="vd-other-wrap">
+        <h2 class="vd-other-title">
+          <SlotMachineText text="Other Popular Spas" stripLength={12} client:visible />
+        </h2>
+        <div class="vd-other-grid">
+          {FEATURED_VENUES
+            .filter((v) => v.slug !== venue.slug)
+            .slice(0, 3)
+            .map((v, i) => (
+              <a href={`/venues/${v.slug}`} class={`vd-other-card ${i === 0 ? 'vd-other-card--hero' : ''}`}>
+                <div class="vd-other-img-wrap">
+                  <img src={v.image} alt={v.name} class="vd-other-img" loading="lazy" />
+                </div>
+                <div class="vd-other-info">
+                  <h4 class="vd-other-name">{v.name}</h4>
+                  <p class="vd-other-desc">{v.description}</p>
+                  <span class="vd-other-link">
+                    Learn More
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12" />
+                      <polyline points="12 5 19 12 12 19" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Final CTA */}
+    <section class="vd-final-section">
+      <div class="vd-final-wrap">
+        <span class="vd-final-eyebrow">24/7 Support</span>
+        <h2 class="vd-final-title">Let&apos;s Talk</h2>
+        <p class="vd-final-message">More than a service. A memory you&rsquo;ll keep.</p>
+        <p class="vd-final-body">
+          Macau runs on hospitality. Every guest deserves a night that stays with them,
+          and we make sure yours is nothing short of <em>unforgettable</em>.
+        </p>
+        <div class="vd-final-btn">
+          <ContactCTA client:load />
+        </div>
+        <p class="vd-final-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .vd-page {
+    background: #000000;
+    color: #FFF8F0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .vd-name-block {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+  }
+
+  .vd-name-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.5rem;
+  }
+
+  .vd-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .vd-tag {
+    display: inline-block;
+    padding: 0.35rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-radius: 0.25rem;
+  }
+
+  .vd-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #B0A890;
+    margin: 0.5rem 0 0.25rem;
+  }
+
+  .vd-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #9E9E9E;
+    margin-top: 0.5rem;
+  }
+
+  .vd-location-icon {
+    flex-shrink: 0;
+    color: rgba(201,168,76,0.5);
+  }
+
+  /* ── Body Section (desc + cards + highlights + CTA) ── */
+  .vd-body-section {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .vd-body-wrap {
+    max-width: 52rem;
+    margin: 0 auto;
+  }
+
+  .vd-desc-full {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #B0A890;
+    line-height: 1.8;
+    margin: 0 0 1.5rem;
+  }
+
+  .vd-desc-full:last-child {
+    margin-bottom: 0;
+  }
+
+  .vd-desc-footer {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgba(201,168,76,0.5);
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .vd-name-block {
+      padding: 4rem 1.25rem 3rem;
+    }
+    .vd-desc-full {
+      font-size: 0.92rem;
+    }
+  }
+
+  /* ── Card Grid (2 cols) ── */
+  .vd-card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin: 2rem 0;
+  }
+
+  .vd-card {
+    background: #000000;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .vd-card-bg-icon {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    opacity: 0.06;
+    color: #FFF8F0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .vd-card:hover .vd-card-bg-icon {
+    opacity: 0.12;
+  }
+
+  /* Overnight unavailable (red) */
+  .vd-card-overnight-red {
+    border-color: rgba(220, 38, 38, 0.25);
+    background: rgba(220, 38, 38, 0.05);
+  }
+
+  .vd-card-overnight-red .vd-card-bg-icon {
+    color: rgba(220, 38, 38, 0.25);
+    opacity: 0.2;
+  }
+
+  .vd-card-overnight-red:hover .vd-card-bg-icon {
+    opacity: 0.3;
+  }
+
+  .vd-card-overnight-red .vd-card-value {
+    color: #FCA5A5;
+  }
+
+  /* Overnight available (green) */
+  .vd-card-overnight-green {
+    border-color: rgba(34, 197, 94, 0.25);
+    background: rgba(34, 197, 94, 0.05);
+  }
+
+  .vd-card-overnight-green .vd-card-bg-icon {
+    color: rgba(34, 197, 94, 0.25);
+    opacity: 0.2;
+  }
+
+  .vd-card-overnight-green:hover .vd-card-bg-icon {
+    opacity: 0.3;
+  }
+
+  .vd-card-overnight-green .vd-card-value {
+    color: #86EFAC;
+  }
+
+  .vd-card-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #807860;
+  }
+
+  .vd-card-value {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #FFF8F0;
+    line-height: 1.4;
+  }
+
+  .vd-card-price {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #DDB855;
+    font-feature-settings: "lnum";
+  }
+
+  .vd-card-overnight {
+    font-size: 0.9rem;
+  }
+
+  .vd-card-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    color: #807860;
+    line-height: 1.5;
+  }
+
+  .vd-card-link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #DDB855;
+    text-decoration: none;
+    margin-top: 0.3rem;
+    transition: color 0.2s;
+  }
+
+  .vd-card-link:hover {
+    color: #E8C96A;
+  }
+
+  .vd-payment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .vd-payment-badge {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #B0A890;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.65rem;
+  }
+
+  /* ── Details (Highlights + Website) ── */
+  .vd-details-website {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: rgba(176, 168, 144, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+    align-self: flex-start;
+  }
+
+  .vd-details-website:hover {
+    color: #DDB855;
+  }
+
+  .vd-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    flex-wrap: wrap;
+  }
+
+  .vd-footer-site {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .vd-stars-inline {
+    display: inline-flex;
+    gap: 1px;
+    flex-shrink: 0;
+  }
+
+  .vd-hl-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.65rem;
+  }
+
+  .vd-hl-tile {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+  }
+
+  .vd-hl-tile:hover {
+    border-color: rgba(221,184,85,0.2);
+    background: rgba(221,184,85,0.04);
+  }
+
+  .vd-hl-tile-accent {
+    border-color: rgba(221,184,85,0.15);
+    background: rgba(221,184,85,0.05);
+  }
+
+  .vd-hl-tile-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #B0A890;
+    line-height: 1.3;
+  }
+
+  .vd-hl-tile-accent .vd-hl-tile-text {
+    color: #DDB855;
+  }
+
+  /* ── Contact CTA ── */
+  .vd-contact-cta {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  /* ── Other Popular Spas ── */
+  .vd-other-section {
+    background: #000000;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .vd-other-wrap {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .vd-other-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0 0 3rem;
+  }
+
+  .vd-other-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.25rem;
+  }
+
+  .vd-other-card {
+    text-decoration: none;
+    background: #0A0A0A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vd-other-card--hero {
+    grid-row: 1 / span 2;
+  }
+
+  .vd-other-card--hero .vd-other-img-wrap {
+    aspect-ratio: 4 / 5;
+  }
+
+  .vd-other-card--hero .vd-other-name {
+    font-size: 1.3rem;
+  }
+
+  .vd-other-card--hero .vd-other-desc {
+    -webkit-line-clamp: 4;
+  }
+
+  .vd-other-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    box-shadow: 0 0 20px rgba(201,168,76,0.06);
+  }
+
+  .vd-other-img-wrap {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .vd-other-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .vd-other-card:hover .vd-other-img {
+    transform: scale(1.05);
+  }
+
+  .vd-other-info {
+    padding: 1rem 1.25rem 1.25rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .vd-other-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    margin: 0 0 0.4rem;
+    line-height: 1.2;
+  }
+
+  .vd-other-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: #807860;
+    line-height: 1.55;
+    margin: 0 0 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .vd-other-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #DDB855;
+    transition: gap 0.2s, color 0.2s;
+    margin-top: auto;
+  }
+
+  .vd-other-card:hover .vd-other-link {
+    gap: 0.55rem;
+    color: #E8C96A;
+  }
+
+  @media (max-width: 768px) {
+    .vd-other-grid {
+      grid-template-columns: 1fr;
+      max-width: 28rem;
+      margin-inline: auto;
+    }
+
+    .vd-other-card--hero {
+      grid-row: auto;
+    }
+
+    .vd-other-card--hero .vd-other-img-wrap {
+      aspect-ratio: 16 / 10;
+    }
+
+    .vd-other-card--hero .vd-other-name {
+      font-size: 1.1rem;
+    }
+
+    .vd-other-card--hero .vd-other-desc {
+      -webkit-line-clamp: 3;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .vd-other-section {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+  }
+
+  /* ── Final CTA ── */
+  .vd-final-section {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .vd-final-wrap {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .vd-final-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+
+  .vd-final-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .vd-final-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #D0C0A0;
+    line-height: 1.4;
+    margin: 0 0 0.65rem;
+  }
+
+  .vd-final-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.65;
+    max-width: 28rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .vd-final-body em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .vd-final-btn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .vd-final-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #606070;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 639px) {
+    .vd-final-section {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .vd-final-message {
+      font-size: 1.15rem;
+    }
+
+    .vd-final-body {
+      margin-bottom: 2rem;
+    }
+
+    .vd-final-btn {
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .vd-final-section {
+      padding: 3rem 1rem 4rem;
+    }
+
+    .vd-final-eyebrow {
+      margin-bottom: 1rem;
+      font-size: 0.6rem;
+    }
+
+    .vd-final-message {
+      font-size: 1.05rem;
+    }
+
+    .vd-final-body {
+      font-size: 0.8rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .vd-final-btn {
+      margin-bottom: 1.5rem;
+    }
+
+    .vd-final-note {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .vd-card-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .vd-body-section {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .vd-hl-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ── Detailed Flow ── */
+  .vd-flow-section {
+    background: #0A0A0A;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .vd-flow-wrap {
+    max-width: 48rem;
+    margin: 0 auto;
+  }
+
+  .vd-flow-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0 0 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .vd-flow-section {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .vd-flow-title {
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* ── Gallery ── */
+  .vd-gallery-section {
+    background: #000000;
+    border-top: 2px solid rgba(201,168,76,0.12);
+    padding: 5rem 2rem 6rem;
+  }
+
+  .vd-gallery-wrap {
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  .vd-gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin: 0 0 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .vd-gallery-section {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .vd-gallery-title {
+      margin-bottom: 2rem;
+    }
+  }
+</style>

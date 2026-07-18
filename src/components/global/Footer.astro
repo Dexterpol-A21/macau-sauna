@@ -1,0 +1,403 @@
+---
+import { SITE_TITLE } from '../../utils/constants';
+---
+
+<footer class="mc-footer">
+  <div class="mc-footer-inner">
+    <div class="mc-footer-top">
+      <!-- Col 1: Brand -->
+      <div class="mc-footer-brand">
+        <div class="mc-footer-logo-wrap">
+          <img src="/favicon/favicon.svg" alt="" class="mc-footer-icon" aria-hidden="true" />
+          <h2 class="mc-footer-logo">{SITE_TITLE}</h2>
+        </div>
+        <p class="mc-footer-desc">
+          The ultimate VIP concierge for luxury saunas and spas in Macau. Complimentary private shuttle, VIP entry, and exclusive extras.
+        </p>
+      </div>
+
+      <!-- Col 2: Links -->
+      <div class="mc-footer-links">
+        <div class="mc-link-group">
+          <h3 class="mc-link-title">Explore</h3>
+          <ul>
+            <li><a href="/venues">All Venues</a></li>
+            <li><a href="/how-it-works">How It Works</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/ranking">Top Picks</a></li>
+          </ul>
+        </div>
+        <div class="mc-link-group">
+          <h3 class="mc-link-title">Support</h3>
+          <ul>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Col 3: Contact -->
+      <div class="mc-footer-contact">
+        <a href="https://wa.me/message/YOURNUMBER" class="mc-contact-btn">
+          <img src="/whatsapp.svg" alt="WhatsApp" class="mc-contact-icon" />
+          <div class="mc-contact-text">
+            <span class="mc-contact-label">WhatsApp</span>
+            <span class="mc-contact-handle">Message us</span>
+          </div>
+        </a>
+        <a href="https://t.me/Aomensauna" class="mc-contact-btn">
+          <img src="/telegram.svg" alt="Telegram" class="mc-contact-icon" />
+          <div class="mc-contact-text">
+            <span class="mc-contact-label">Telegram</span>
+            <span class="mc-contact-handle">@Aomensauna</span>
+          </div>
+        </a>
+        <a href="#" class="mc-contact-btn">
+          <img src="/wechat.svg" alt="WeChat" class="mc-contact-icon" />
+          <div class="mc-contact-text">
+            <span class="mc-contact-label">WeChat</span>
+            <span class="mc-contact-handle">AN99348</span>
+          </div>
+        </a>
+        <a href="https://line.me/ti/p/16880348" class="mc-contact-btn">
+          <img src="/line.svg" alt="LINE" class="mc-contact-icon" />
+          <div class="mc-contact-text">
+            <span class="mc-contact-label">LINE</span>
+            <span class="mc-contact-handle">16880348</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="mc-footer-bottom">
+      <p class="mc-copyright">
+        &copy; {new Date().getFullYear()} {SITE_TITLE}. All rights reserved.
+      </p>
+      <div class="mc-legal-links">
+        <a href="/privacy">Privacy Policy</a>
+        <span class="mc-legal-sep">|</span>
+        <a href="/terms">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .mc-footer {
+    background: #0A0A0A;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+    padding: 5rem 1.5rem 8rem; /* Extra bottom padding for PokerHandNavigation */
+    position: relative;
+    z-index: 10;
+  }
+
+  .mc-footer-inner {
+    max-width: 72rem;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+
+  .mc-footer-top {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 768px) {
+    .mc-footer-top {
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  /* ── Brand ── */
+  .mc-footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .mc-footer-logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .mc-footer-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+  }
+
+  .mc-footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #FFF8F0;
+    letter-spacing: -0.02em;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .mc-footer-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 1.5;
+    max-width: 24rem;
+    margin: 0;
+  }
+
+  .mc-footer-contact {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-auto-rows: min-content;
+    justify-content: start;
+    align-content: start;
+    align-items: start;
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
+    height: min-content;
+  }
+
+  .mc-contact-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 0.375rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #E0E0E0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .mc-contact-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+  }
+
+  .mc-contact-handle {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #C0C0C0;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .mc-contact-btn:hover {
+    background: rgba(221, 184, 85, 0.08);
+    border-color: rgba(221, 184, 85, 0.35);
+  }
+
+  .mc-contact-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(201, 168, 76, 0.6);
+    transition: color 0.3s ease;
+    line-height: 1.3;
+  }
+
+  .mc-contact-icon {
+    width: 1.35rem;
+    height: 1.35rem;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .mc-contact-btn:hover .mc-contact-icon {
+    transform: scale(1.1);
+  }
+
+  .mc-contact-btn:hover .mc-contact-label {
+    color: #DDB855;
+  }
+
+  /* ── Links ── */
+  .mc-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .mc-footer-links {
+      margin-left: 2.5rem;
+    }
+  }
+
+  .mc-link-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+  }
+
+  .mc-link-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .mc-link-group ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .mc-link-group a {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .mc-link-group a:hover {
+    color: #DDB855;
+  }
+
+  /* ── Bottom ── */
+  .mc-footer-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  @media (min-width: 768px) {
+    .mc-footer-bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .mc-copyright {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #9E9E9E;
+    margin: 0;
+  }
+
+  .mc-legal-links {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #666666;
+  }
+
+  .mc-legal-links a {
+    color: #9E9E9E;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .mc-legal-links a:hover {
+    color: #DDB855;
+  }
+
+  .mc-legal-sep {
+    color: #444444;
+    user-select: none;
+  }
+
+  @media (max-width: 480px) {
+    .mc-footer {
+      padding: 3.5rem 1rem 7rem;
+    }
+    .mc-footer-inner {
+      gap: 3rem;
+    }
+    .mc-footer-top {
+      gap: 2.5rem;
+    }
+    .mc-footer-logo {
+      font-size: 1.35rem;
+    }
+    .mc-footer-desc {
+      font-size: 0.8rem;
+    }
+    /* Contact buttons — bigger, keep 2 columns */
+    .mc-footer-contact {
+      row-gap: 0.5rem;
+      column-gap: 0.5rem;
+      justify-content: stretch;
+    }
+    .mc-contact-btn {
+      padding: 0.55rem 0.85rem;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+    }
+    .mc-contact-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+    .mc-contact-label {
+      font-size: 0.62rem;
+    }
+    .mc-contact-handle {
+      font-size: 0.82rem;
+    }
+    /* Links — bigger */
+    .mc-footer-links {
+      gap: 1.5rem;
+    }
+    .mc-link-group {
+      gap: 1rem;
+    }
+    .mc-link-title {
+      font-size: 0.8rem;
+    }
+    .mc-link-group ul {
+      gap: 0.55rem;
+    }
+    .mc-link-group a {
+      font-size: 0.88rem;
+    }
+    .mc-footer-bottom {
+      padding-top: 1.5rem;
+      gap: 0.75rem;
+    }
+    .mc-copyright {
+      font-size: 0.7rem;
+    }
+    .mc-legal-links {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .mc-footer-contact {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

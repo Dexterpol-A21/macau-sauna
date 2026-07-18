@@ -1,0 +1,569 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactCTA from '../components/home/ContactCTA';
+import SecondaryCTA from '../components/home/SecondaryCTA';
+import { ABOUT_DESCRIPTION, ABOUT_KEYWORDS, SITE_TITLE } from '../utils/constants';
+import { TITLE_ABOUT } from '../utils/seo-titles';
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_ABOUT,
+    description: ABOUT_DESCRIPTION,
+    keywords: ABOUT_KEYWORDS,
+  }}
+>
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About Macau Sauna Booking",
+    "description": ABOUT_DESCRIPTION,
+    "about": {
+      "@type": "Organization",
+      "name": SITE_TITLE,
+      "url": "https://macausauna.com",
+      "logo": "https://macausauna.com/logo.svg",
+      "description": ABOUT_DESCRIPTION,
+    },
+  })}></script>
+
+  <!-- HERO -->
+  <section class="ab-hero">
+    <div class="ab-hero-wrap">
+      <span class="ab-eyebrow">About Us</span>
+      <h1 class="ab-hero-title">Macau's Concierge for Premium Saunas</h1>
+      <p class="ab-hero-body">
+        We&rsquo;re the team behind {SITE_TITLE}, a small concierge crew with members from Taiwan, Hong Kong, and Macau, serving visitors coming to a Macau sauna (selection show, private 1-on-1 sessions, themed rooms, 12-hour overnight stays). Complimentary transport, exclusive pricing, complimentary VIP Extras, and a real human on chat 24/7.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="ab-what">
+    <div class="ab-what-wrap">
+      <h2 class="ab-section-title">What we actually do for you</h2>
+
+      <div class="ab-do-grid">
+        <!-- Curate -->
+        <div class="ab-do-card">
+          <div class="ab-do-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <h3 class="ab-do-heading">We Curate</h3>
+          <p class="ab-do-text">
+            Macau has many sauna venues. Only 12 meet our quality, safety, and value bar. We&rsquo;ll match you to the right one based on your preferences, language, vibe, price, staff nationality. No guesswork on your end.
+          </p>
+        </div>
+
+        <!-- Drive -->
+        <div class="ab-do-card">
+          <div class="ab-do-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.4 16 10 16 10s-1.3-1.4-2.2-2.2c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+          </div>
+          <h3 class="ab-do-heading">We Drive</h3>
+          <p class="ab-do-text">
+            Free luxury vehicle pickup from your hotel, the airport, the ferry terminal, anywhere in Macau or Taipa, plus a complimentary ride back to your hotel when you&rsquo;re done. Same vehicle, same driver, just a text away.
+          </p>
+        </div>
+
+        <!-- VIP Extra -->
+        <div class="ab-do-card">
+          <div class="ab-do-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 2 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 2 12 8 12 8"/></svg>
+          </div>
+          <h3 class="ab-do-heading">We Add a VIP Extra</h3>
+          <p class="ab-do-text">
+            1 complimentary VIP Extra with every booking: head massage, reflexology, manicure, and more. We let the venue know you&rsquo;re coming, pick on arrival.
+          </p>
+        </div>
+
+        <!-- Stay With You -->
+        <div class="ab-do-card">
+          <div class="ab-do-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M12 11v1"/><path d="M12 16h.01"/></svg>
+          </div>
+          <h3 class="ab-do-heading">We Stay With You</h3>
+          <p class="ab-do-text">
+            We don&rsquo;t disappear after you arrive. Need something during your visit? Want a different recommendation? Want help with anything? Text us, same chat, 24/7, until you say you&rsquo;re happy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="ab-stats">
+    <div class="ab-stats-wrap">
+      <h2 class="ab-section-title">Why guests trust us</h2>
+
+      <div class="ab-stats-grid">
+        <div class="ab-stat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="ab-stat-num">1,000+</span>
+          <span class="ab-stat-label">Guests served</span>
+        </div>
+        <div class="ab-stat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="ab-stat-num">24/7</span>
+          <span class="ab-stat-label">Chat support</span>
+        </div>
+        <div class="ab-stat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.06 1.06 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span class="ab-stat-num">MGTO</span>
+          <span class="ab-stat-label">Every venue licensed</span>
+        </div>
+        <div class="ab-stat">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span class="ab-stat-num">12</span>
+          <span class="ab-stat-label">Curated saunas</span>
+        </div>
+      </div>
+
+      <p class="ab-stats-note">
+        Every venue we recommend holds a current license from the Macao Government Tourism Office (MGTO) and operates under the same regulatory framework as Macau's casinos.
+      </p>
+    </div>
+  </section>
+
+  <!-- THE WHY -->
+  <section class="ab-why">
+    <div class="ab-why-wrap">
+      <h2 class="ab-section-title">The personal why</h2>
+
+      <p class="ab-why-text">
+        Most first-time visitors to Macau saunas walk in cold: wrong venue for their preferences, no transport arranged, walk-in pricing, no idea what&rsquo;s included, no idea what isn&rsquo;t. They have an OK time and they leave a little disappointed.
+      </p>
+
+      <p class="ab-why-text">
+        We started {SITE_TITLE} because that was avoidable. With one chat, you get the right venue, complimentary transport both ways, the best price, complimentary VIP Extras, and someone in your corner if anything feels off. Better experience, lower cost, zero hassle.
+      </p>
+
+      <p class="ab-why-highlight">
+        You pay what you&rsquo;d pay at the door. Often less. The car, the extras, the 24/7 chat — that&rsquo;s all on us. No strings, no markup, no catch.
+      </p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="cu-section">
+    <div class="cu-wrap">
+      <span class="cu-eyebrow">24/7 Support</span>
+
+      <h2 class="cu-title">
+        Let&rsquo;s Talk
+      </h2>
+
+      <p class="cu-message">
+        Macau lives on hospitality. Every guest deserves a night they&rsquo;ll remember, not just &ldquo;fine,&rdquo; but unforgettable. We do all of this so your sauna experience becomes one of the best memories you take home from Macau.
+      </p>
+
+      <div class="cu-cta">
+        <ContactCTA client:load />
+        <SecondaryCTA href="/how-it-works" label="How It Works" client:load />
+      </div>
+
+      <p class="cu-note">We don't just serve. We care about your happiness.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* ── Shared ── */
+  .ab-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .ab-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 3rem;
+    text-align: center;
+  }
+
+  /* ── Hero ── */
+  .ab-hero {
+    background: #000000;
+    padding: 9rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ab-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(ellipse at center, rgba(201, 168, 76, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .ab-hero-wrap {
+    max-width: 38rem;
+    margin-inline: auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ab-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem;
+  }
+
+  .ab-hero-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #A0A0A0;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ── What We Do ── */
+  .ab-what {
+    background: #0A0A0A;
+    padding: 5rem 2rem 6rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .ab-what-wrap {
+    max-width: 56rem;
+    margin-inline: auto;
+  }
+
+  .ab-do-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .ab-do-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .ab-do-card {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.375rem;
+    padding: 2rem 1.75rem;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  .ab-do-card:hover {
+    border-color: rgba(201, 168, 76, 0.2);
+    background: rgba(201, 168, 76, 0.03);
+  }
+
+  .ab-do-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    background: rgba(201, 168, 76, 0.08);
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .ab-do-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FFF8F0;
+    line-height: 1.2;
+    margin: 0 0 0.75rem;
+  }
+
+  .ab-do-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: #9E9E9E;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Stats ── */
+  .ab-stats {
+    background: #000000;
+    padding: 5rem 2rem 6rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .ab-stats-wrap {
+    max-width: 44rem;
+    margin-inline: auto;
+  }
+
+  .ab-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 480px) {
+    .ab-stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .ab-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.75rem 0.75rem;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.375rem;
+    color: #C9A84C;
+  }
+
+  .ab-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1;
+    margin-top: 0.25rem;
+  }
+
+  .ab-stat-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #9E9E9E;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .ab-stats-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.6;
+    text-align: center;
+    max-width: 32rem;
+    margin: 0 auto;
+  }
+
+  /* ── The Why ── */
+  .ab-why {
+    background: #0A0A0A;
+    padding: 5rem 2rem 6rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .ab-why-wrap {
+    max-width: 38rem;
+    margin-inline: auto;
+  }
+
+  .ab-why-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #A0A0A0;
+    line-height: 1.75;
+    margin: 0 0 1.25rem;
+  }
+
+  .ab-why-highlight {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #D0C0A0;
+    line-height: 1.5;
+    margin: 1.5rem 0 0;
+    text-align: center;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 639px) {
+    .ab-hero {
+      padding: 6rem 1.25rem 3.5rem;
+    }
+
+    .ab-what,
+    .ab-stats,
+    .ab-why {
+      padding: 3.5rem 1.25rem 4.5rem;
+    }
+
+    .ab-do-card {
+      padding: 1.5rem 1.25rem;
+    }
+
+    .ab-stat {
+      padding: 1.25rem 0.5rem;
+    }
+
+    .ab-stat-num {
+      font-size: 1.4rem;
+    }
+
+    .ab-section-title {
+      margin-bottom: 2rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .ab-hero {
+      padding: 5rem 1rem 2.5rem;
+    }
+
+    .ab-hero-title {
+      font-size: 1.85rem;
+    }
+
+    .ab-hero-body {
+      font-size: 0.85rem;
+    }
+
+    .ab-what,
+    .ab-stats,
+    .ab-why {
+      padding: 2.5rem 1rem 3.5rem;
+    }
+
+    .ab-do-card {
+      padding: 1.25rem 1rem;
+    }
+
+    .ab-do-heading {
+      font-size: 1.1rem;
+    }
+
+    .ab-do-text {
+      font-size: 0.82rem;
+    }
+
+    .ab-why-text {
+      font-size: 0.88rem;
+    }
+
+    .ab-why-highlight {
+      font-size: 1rem;
+    }
+  }
+
+  /* ── Final CTA ── */
+  .cu-section {
+    background: #0A0A0A;
+    padding: 8rem 2rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .cu-wrap {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cu-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .cu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .cu-message {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #A0A0A0;
+    line-height: 1.65;
+    max-width: 32rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cu-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cu-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #C9A84C;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 639px) {
+    .cu-section {
+      padding: 5rem 1.25rem;
+    }
+
+    .cu-message {
+      font-size: 0.92rem;
+      margin-bottom: 2rem;
+    }
+
+    .cu-cta {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .cu-section {
+      padding: 4rem 1rem;
+    }
+
+    .cu-cta {
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .cu-message {
+      font-size: 0.85rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .cu-note {
+      font-size: 0.72rem;
+    }
+  }
+</style>

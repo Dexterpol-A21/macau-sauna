@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <!-- Background to match other PNGs -->
+  <rect width="400" height="400" fill="#000000" />
+  
+  <g stroke="#C9A84C" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <!-- Abstract geometric background lines to match the style -->
+    <circle cx="200" cy="200" r="160" stroke-width="1" stroke-dasharray="8 12" opacity="0.4" />
+    <circle cx="200" cy="200" r="180" stroke-width="1" opacity="0.1" />
+    <line x1="200" y1="20" x2="200" y2="380" stroke-width="1" opacity="0.2" />
+    <line x1="20" y1="200" x2="380" y2="200" stroke-width="1" opacity="0.2" />
+
+    <!-- Minimalist Eye Shape -->
+    <path d="M 80 200 C 130 120, 270 120, 320 200 C 270 280, 130 280, 80 200 Z" stroke-width="6" />
+    
+    <!-- Iris -->
+    <circle cx="200" cy="200" r="40" stroke-width="5" />
+    
+    <!-- Pupil -->
+    <circle cx="200" cy="200" r="12" fill="#C9A84C" />
+
+    <!-- Diagonal Slash (Privacy) -->
+    <line x1="100" y1="100" x2="300" y2="300" stroke-width="8" />
+  </g>
+</svg>

@@ -1,0 +1,137 @@
+---
+import SlotMachineText from '../ui/SlotMachineText';
+import ContactCTA from './ContactCTA';
+import SecondaryCTA from './SecondaryCTA';
+---
+
+<section class="cu-section">
+  <div class="cu-wrap">
+    <span class="cu-eyebrow">24/7 Support</span>
+
+    <h2 class="cu-title">
+      <SlotMachineText text="Let's Talk" stripLength={10} client:visible />
+    </h2>
+
+    <p class="cu-message">More than a service. A memory you&rsquo;ll keep.</p>
+
+    <p class="cu-body">
+      Macau runs on hospitality. Every guest deserves a night that stays with them,
+      and we make sure yours is nothing short of <em>unforgettable</em>.
+    </p>
+
+    <div class="cu-cta">
+      <ContactCTA client:load />
+      <SecondaryCTA href="/ranking" label="See Ranking" client:load />
+    </div>
+
+    <p class="cu-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+  </div>
+</section>
+
+<style is:global>
+  .cu-section {
+    background: #0A0A0A;
+    padding: 8rem 2rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .cu-wrap {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cu-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .cu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .cu-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #D0C0A0;
+    line-height: 1.4;
+    margin: 0 0 0.65rem;
+  }
+
+  .cu-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.65;
+    max-width: 28rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cu-body em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .cu-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 639px) {
+    .cu-section {
+      padding: 5rem 1.25rem;
+    }
+    .cu-message {
+      font-size: 1.15rem;
+    }
+    .cu-body {
+      margin-bottom: 2rem;
+    }
+    .cu-cta {
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .cu-section {
+      padding: 4rem 1rem;
+    }
+    .cu-eyebrow {
+      margin-bottom: 1rem;
+      font-size: 0.6rem;
+    }
+    .cu-message {
+      font-size: 1.05rem;
+    }
+    .cu-body {
+      font-size: 0.8rem;
+      margin-bottom: 1.75rem;
+      padding-inline: 0.25rem;
+    }
+    .cu-cta {
+      margin-bottom: 1.5rem;
+    }
+    .cu-note {
+      font-size: 0.7rem;
+    }
+  }
+</style>

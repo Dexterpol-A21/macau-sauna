@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Contact from '../../components/home/Contact.astro';
+import '../../styles/blog-listing.css';
+import { SEO_KEYWORDS } from '../../utils/constants';
+import { TITLE_BLOG } from '../../utils/seo-titles';
+import SlotMachineText from '../../components/ui/SlotMachineText';
+
+const POSTS = [
+  {
+    slug: 'first-timer',
+    title: 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking',
+    cat: 'Beginner Guides',
+    excerpt: 'A first-timer\'s 2026 Macau sauna guide — the step-by-step flow from check-in to lounge, how to pick a venue, and how booking and the free shuttle work.',
+    img: '/images/blog01.webp',
+    date: 'Jul 2026',
+    time: '4 min read',
+  },
+  {
+    slug: 'shuttle',
+    title: 'Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels',
+    cat: 'Itinerary & Pickup',
+    excerpt: 'How the free Macau sauna shuttle works — taxi-time estimates from every border gate and ferry terminal, plus three steps to book our private 7-seater.',
+    img: '/images/blog02.webp',
+    date: 'Jul 2026',
+    time: '3 min read',
+  },
+  {
+    slug: 'prices',
+    title: 'Macau Sauna Prices 2026: Entry, Service Tiers & Overnight Costs Explained',
+    cat: 'Prices & Budget',
+    excerpt: 'How much does a Macau sauna actually cost in 2026? A clear breakdown of entry fees, service tiers, add-ons and overnight stays — plus how to arrange the trip so you pay noticeably less.',
+    img: '/images/blog03.jpg',
+    date: 'Apr 2026',
+    time: '6 min read',
+  },
+];
+
+const CATEGORIES = ['All topics', 'Beginner Guides', 'Prices & Budget', 'Itinerary & Pickup'];
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_BLOG,
+    description: 'Hands-on Macau sauna blog — tips, prices, and recommendations. First-timer guide, shuttle tips, and 2026 pricing breakdown.',
+    keywords: `Macau sauna blog, Macau sauna prices, Macau sauna shuttle, first-timer Macau sauna, ${SEO_KEYWORDS}`,
+    image: '/images/blog01.webp',
+    imageWidth: '1200',
+    imageHeight: '630',
+  }}
+>
+  <main class="bl-page">
+    <!-- Hero -->
+    <section class="bl-hero">
+      <div class="bl-hero-wrap">
+        <span class="bl-eyebrow">Blog</span>
+        <h1 class="bl-hero-title">
+          <SlotMachineText text="Macau Sauna Blog" stripLength={14} client:visible />
+        </h1>
+        <p class="bl-hero-sub">New-venue comparisons and market updates.</p>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="bl-filters">
+      <div class="bl-filters-wrap">
+        {CATEGORIES.map((cat, i) => (
+          <span class={i === 0 ? 'bl-filter active' : 'bl-filter'}>{cat}</span>
+        ))}
+      </div>
+    </section>
+
+    <!-- Bento Grid -->
+    <section class="bl-grid-section">
+      <div class="bl-grid">
+        {POSTS.map((post, i) => {
+          const isFeatured = i === 0;
+          return (
+            <a
+              href={`/blog/${post.slug}`}
+              class={isFeatured ? 'bl-card bl-card--featured' : 'bl-card'}
+            >
+              <!-- Image -->
+              <div class={isFeatured ? 'bl-card-image' : 'bl-card-image bl-card-image-sm'}>
+                <img src={post.img} alt={post.title} loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
+              </div>
+
+              <!-- Body -->
+              <div class="bl-card-body">
+                <span class="bl-card-cat">{post.cat}</span>
+                <h2 class="bl-card-title">{post.title}</h2>
+                <p class="bl-card-excerpt">{post.excerpt}</p>
+                <span class="bl-card-meta">{post.date}<span class="bl-card-meta-sep">·</span>{post.time}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <Contact />
+  </main>
+</BaseLayout>

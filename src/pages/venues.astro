@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AllSaunas from '../components/home/AllSaunas.astro';
+import SpinWheel from '../components/smart-match/SpinWheel';
+import SlotMachineText from '../components/ui/SlotMachineText';
+import ContactCTA from '../components/home/ContactCTA';
+import SecondaryCTA from '../components/home/SecondaryCTA';
+import { SEO_KEYWORDS } from '../utils/constants';
+import { TITLE_VENUES } from '../utils/seo-titles';
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_VENUES,
+    description: 'Explore all 12 hand-picked Macau saunas and spas. Newest luxury builds, best value, themed rooms, KTV — find your perfect venue with free shuttle and VIP entry.',
+    keywords: `Macau saunas, Macau spas, best Macau sauna, Macau luxury spa, Macau sauna listing, ${SEO_KEYWORDS}`,
+  }}
+>
+  <main class="av-page">
+    <section class="av-hero">
+      <div class="av-hero-wrap">
+        <span class="av-eyebrow">12 hand-picked partner venues</span>
+        <h1 class="av-hero-title">
+          <SlotMachineText text="All Saunas & Spas" stripLength={12} client:visible />
+        </h1>
+        <p class="av-hero-sub">
+          From newest luxury builds to hidden-gem values, every Macau sauna worth visiting —
+          with free shuttle, VIP entry, and exclusive pricing.
+        </p>
+        <div class="av-hero-cta">
+          <ContactCTA client:load />
+          <SecondaryCTA href="/ranking" label="See Ranking" client:load />
+        </div>
+      </div>
+    </section>
+    <AllSaunas />
+    <SpinWheel client:load />
+    <!-- Final CTA -->
+    <section class="cu-section">
+      <div class="cu-wrap">
+        <span class="cu-eyebrow">24/7 Support</span>
+        <h2 class="cu-title">
+          <SlotMachineText text="Let's Talk" stripLength={10} client:visible />
+        </h2>
+        <p class="cu-message">More than a service. A memory you&rsquo;ll keep.</p>
+        <p class="cu-body">
+          Macau runs on hospitality. Every guest deserves a night that stays with them,
+          and we make sure yours is nothing short of <em>unforgettable</em>.
+        </p>
+        <div class="cu-cta">
+          <ContactCTA client:load />
+          <SecondaryCTA href="/how-it-works" label="How It Works" client:load />
+        </div>
+        <p class="cu-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  .av-page {
+    background: #000000;
+    color: #FFF8F0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .av-hero {
+    background: #000000;
+    padding: 7rem 2rem 4rem;
+    text-align: center;
+  }
+
+  .av-hero-wrap {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .av-eyebrow {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .av-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+
+  .av-hero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #9E9E9E;
+    margin: 0 0 2rem;
+    line-height: 1.55;
+  }
+
+  .av-hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  /* Final CTA */
+  .cu-section {
+    background: #0A0A0A;
+    padding: 7rem 2rem 8rem;
+    border-top: 2px solid rgba(201,168,76,0.12);
+  }
+
+  .cu-wrap {
+    max-width: 36rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .cu-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: #C9A84C;
+    margin-bottom: 1.25rem;
+  }
+
+  .cu-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    font-weight: 800;
+    color: #FFF8F0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 2rem;
+  }
+
+  .cu-message {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #D0C0A0;
+    line-height: 1.4;
+    margin: 0 0 0.65rem;
+  }
+
+  .cu-body {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: #808090;
+    line-height: 1.65;
+    max-width: 28rem;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cu-body em {
+    font-style: italic;
+    color: #C9A84C;
+  }
+
+  .cu-cta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+  }
+
+  .cu-note {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #606070;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .av-hero {
+      padding: 5rem 1.25rem 3rem;
+    }
+    .cu-section {
+      padding: 5rem 1.25rem;
+    }
+    .cu-message {
+      font-size: 1.15rem;
+    }
+    .cu-body {
+      margin-bottom: 2rem;
+    }
+    .cu-cta {
+      margin-bottom: 1.75rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .av-hero-cta,
+    .cu-cta {
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    .cu-section {
+      padding: 4rem 1rem;
+    }
+    .cu-eyebrow {
+      margin-bottom: 1rem;
+      font-size: 0.6rem;
+    }
+    .cu-message {
+      font-size: 1.05rem;
+    }
+    .cu-body {
+      font-size: 0.8rem;
+      margin-bottom: 1.75rem;
+      padding-inline: 0.25rem;
+    }
+    .cu-cta {
+      margin-bottom: 1.5rem;
+    }
+    .cu-note {
+      font-size: 0.7rem;
+    }
+  }
+</style>

@@ -1,0 +1,15 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpinWheel from '../components/smart-match/SpinWheel';
+---
+
+<BaseLayout
+  seo={{
+    title: 'Find Your Venue — Spin the Wheel | Macau Sauna',
+    description:
+      'Spin the wheel and discover your perfect Macau spa or sauna. 12 hand-picked partner venues. Free shuttle, VIP entry, 24/7 English support.',
+    noindex: true,
+  }}
+>
+  <SpinWheel client:load />
+</BaseLayout>
