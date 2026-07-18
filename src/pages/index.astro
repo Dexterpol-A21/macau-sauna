@@ -12,8 +12,8 @@ import { SITE_DESCRIPTION, SEO_KEYWORDS } from '../utils/constants';
 import { TITLE_HOME } from '../utils/seo-titles';
 ---
 
-<!-- Preload LCP image for mobile -->
-<link rel="preload" as="image" href="/images/venues/sauna1/manhaospa.webp" fetchpriority="high" media="(max-width: 767px)" />
+<!-- Preload LCP image for mobile (400w variant) -->
+<link rel="preload" as="image" href="/images/venues/sauna1/manhaospa-400.webp" fetchpriority="high" media="(max-width: 767px)" type="image/webp" />
 
 <BaseLayout
   seo={{
@@ -28,13 +28,13 @@ import { TITLE_HOME } from '../utils/seo-titles';
 
   <HowItWorks />
 
-  <SpinWheel client:load />
+  <SpinWheel client:visible />
 
   <WhyChooseUsBento />
 
   <SlotExtras />
 
-  <Testimonials client:load />
+  <Testimonials client:visible />
 
   <Contact />
 </BaseLayout>

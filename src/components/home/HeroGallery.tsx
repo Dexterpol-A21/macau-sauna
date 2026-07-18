@@ -15,11 +15,26 @@ import SpotlightCard from "@/components/ui/SpotlightCard";
 import ContactModal from "@/components/home/ContactModal";
 
 const IMAGES = [
-  "/images/venues/sauna1/manhaospa.webp",   // Manhao Spa
-  "/images/venues/sauna2/numbernine.webp",   // Number Nine Spa
-  "/images/venues/sauna3/shangpin.webp",     // Shang Pin Spa
-  "/images/venues/sauna6/empire.webp",       // Empire Sauna
-  "/images/venues/sauna4/majesty.webp",      // Majesty Spa
+  {
+    src: "/images/venues/sauna1/manhaospa.webp",
+    srcSet: "/images/venues/sauna1/manhaospa-400.webp 400w, /images/venues/sauna1/manhaospa.webp 800w",
+  },
+  {
+    src: "/images/venues/sauna2/numbernine.webp",
+    srcSet: "/images/venues/sauna2/numbernine-400.webp 400w, /images/venues/sauna2/numbernine.webp 800w",
+  },
+  {
+    src: "/images/venues/sauna3/shangpin.webp",
+    srcSet: "/images/venues/sauna3/shangpin-400.webp 400w, /images/venues/sauna3/shangpin.webp 800w",
+  },
+  {
+    src: "/images/venues/sauna6/empire.webp",
+    srcSet: "/images/venues/sauna6/empire-400.webp 400w, /images/venues/sauna6/empire.webp 800w",
+  },
+  {
+    src: "/images/venues/sauna4/majesty.webp",
+    srcSet: "/images/venues/sauna4/majesty-400.webp 400w, /images/venues/sauna4/majesty.webp 800w",
+  },
 ];
 
 const VENUES = [
@@ -67,6 +82,7 @@ const VENUES = [
 
 function FlipCard({
   imageUrl,
+  imageSrcSet,
   venue,
   accent,
   cardAccent = accent,
@@ -75,6 +91,7 @@ function FlipCard({
   loading = "lazy",
 }: {
   imageUrl: string;
+  imageSrcSet?: string;
   venue: (typeof VENUES)[number];
   accent: string;
   cardAccent?: string;
@@ -112,6 +129,7 @@ function FlipCard({
           className="absolute inset-0 size-full object-cover object-center"
           style={{ opacity: frontOpacity, aspectRatio: "16/10" }}
           src={imageUrl}
+          srcSet={imageSrcSet}
           alt={venue.name}
           width={800}
           height={500}
@@ -669,14 +687,15 @@ export default function HeroGallery({
           </div>
         )}
         <BentoGrid className="hero-bento-grid h-full w-full p-0">
-          {IMAGES.map((imageUrl, index) => (
+          {IMAGES.map((image, index) => (
             <BentoCell
               key={index}
               className="hero-bento-cell overflow-visible"
               compactMotion={isMobile}
             >
               <FlipCard
-                imageUrl={imageUrl}
+                imageUrl={image.src}
+                imageSrcSet={image.srcSet}
                 venue={VENUES[index]}
                 accent={accent}
                 cardAccent={VENUES[index].cardAccent}

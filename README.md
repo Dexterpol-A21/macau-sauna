@@ -13,7 +13,7 @@ Spin Wheel Replaced Smart Match
 
 The original Smart Match was a self-service questionnaire: users answered a few questions, got a venue recommendation, and could leave if it didn't convince them. It was silently killing leads. Every drop-off was a lost conversation no one could recover.
 
-The Spin Wheel flips that psychology entirely. Users engage with a game-like interaction, receive a reward (a complimentary VIP Extra), and are naturally guided toward contacting you directly. The concierge closes the sale — not an algorithm. More leads, more conversations, better conversion.
+The Spin Wheel flips that psychology entirely. Users engage with a game-like interaction and are naturally guided toward contacting you directly. The concierge closes the sale — not an algorithm. More leads, more conversations, better conversion.
 
 Shuttle Moved Into Guides and How It Works
 
@@ -23,7 +23,7 @@ Design Language: High-End, Elegant, Discreet
 
 Every visual choice was deliberate:
 
-Restrained palette. Black and near-black backgrounds alternate through every section. Gold accents signal exclusivity without screaming luxury. Zero blue tones — the palette is intentionally warm and grounded.
+Restrained palette. Black and near-black backgrounds alternate through every section. Gold accents signal exclusivity without screaming luxury.
 
 Typography with authority. Playfair Display for headlines, Inter for body. Classic serif confidence backed by clean modern readability. Nothing trendy, nothing that ages.
 
