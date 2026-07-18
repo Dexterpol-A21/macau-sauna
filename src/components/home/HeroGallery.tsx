@@ -642,7 +642,7 @@ export default function HeroGallery({
       <div className="sticky left-0 top-0 z-0 h-screen w-full py-4 pr-2 bento-right-zone"
         style={isMobile
           ? { paddingLeft: "0.5rem", paddingRight: "0.5rem", top: "48vh", height: "52vh" }
-          : { paddingLeft: "28vw" }
+          : { paddingLeft: "clamp(17.5rem, 31vw, 28rem)" }
         }
       >
         {!isMobile && (
@@ -690,9 +690,9 @@ export default function HeroGallery({
             }
           : {
               left: "0", top: "50%", translate: "0 -50%",
-              maxWidth: "clamp(300px, 45vw, 650px)",
+              maxWidth: "clamp(250px, 34vw, 650px)",
               paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
-              paddingRight: "clamp(1.5rem, 3vw, 2rem)",
+              paddingRight: "clamp(1rem, 2vw, 2rem)",
               width: "fit-content", height: "fit-content",
               pointerEvents: "none",
             }
@@ -716,7 +716,7 @@ export default function HeroGallery({
           className="font-black uppercase tracking-[-0.03em] leading-[0.95] overflow-visible"
           style={{
             color: titleColor,
-            fontSize: "clamp(4rem, 12vw, 10rem)",
+            fontSize: "clamp(2.75rem, 9.5vw, 10rem)",
             paddingBlock: "0.06em",
             textShadow: "0 0 80px rgba(0,0,0,0.6)",
           }}

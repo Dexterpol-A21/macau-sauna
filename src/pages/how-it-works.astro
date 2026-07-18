@@ -673,12 +673,26 @@ const TIPS = [
   }
 
   .hiw-recs-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    flex-direction: row;
     gap: 1.25rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-inline: 2rem;
+    scroll-padding-inline: 2rem;
+    margin-inline: -2rem;
+  }
+
+  .hiw-recs-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .hiw-rec-card {
+    flex: 0 0 280px;
+    width: 280px;
+    scroll-snap-align: start;
     background: #000000;
     border: 1px solid rgba(255,255,255,0.08);
     border-radius: 0.75rem;
@@ -1136,7 +1150,6 @@ const TIPS = [
 
   /* ── Responsive ── */
   @media (max-width: 768px) {
-    .hiw-recs-grid { grid-template-columns: 1fr 1fr; }
     .hiw-step { gap: 1rem; padding: 1.25rem 0; }
     .hiw-tip { gap: 1rem; padding: 1.25rem 0; }
   }
@@ -1158,12 +1171,24 @@ const TIPS = [
       padding-inline: 1.25rem;
     }
     .hiw-steps { padding: 3.5rem 1.25rem 4.5rem; }
-    .hiw-recs { padding: 3.5rem 1.25rem 4.5rem; }
+    .hiw-recs { padding: 3.5rem 0 4.5rem; }
+    .hiw-recs-grid {
+      padding-inline: 1.25rem;
+      scroll-padding-inline: 1.25rem;
+      margin-inline: 0;
+      gap: 1rem;
+    }
+    .hiw-rec-card {
+      flex: 0 0 85vw;
+      width: 85vw;
+    }
+    .hiw-recs-sub {
+      padding-inline: 1.25rem;
+      margin-bottom: 2rem;
+    }
     .hiw-tips { padding: 3.5rem 1.25rem 4.5rem; }
     .hiw-final { padding: 3.5rem 1.25rem 4.5rem; }
-    .hiw-recs-grid { grid-template-columns: 1fr; }
     .hiw-section-title { margin-bottom: 2rem; }
-    .hiw-recs-sub { margin-bottom: 2rem; }
     .hiw-steps-note { margin-bottom: 2rem; }
   }
 </style>

@@ -120,18 +120,27 @@ export default function SlotMachineText({
   className,
   stripLength = 10,
 }: SlotMachineTextProps) {
-  const chars = text.split("");
+  const segments = text.split(/(\s+)/);
 
   return (
     <span className={className}>
-      {chars.map((char, i) => (
-        <SlotChar
-          key={i}
-          char={char}
-          index={i}
-          stripLength={stripLength}
-        />
-      ))}
+      {segments.map((segment, si) => {
+        if (/^\s+$/.test(segment)) {
+          return <span key={`s-${si}`}>{segment}</span>;
+        }
+        return (
+          <span key={`s-${si}`} style={{ whiteSpace: "nowrap", display: "inline" }}>
+            {segment.split("").map((char, i) => (
+              <SlotChar
+                key={i}
+                char={char}
+                index={i}
+                stripLength={stripLength}
+              />
+            ))}
+          </span>
+        );
+      })}
     </span>
   );
 }
