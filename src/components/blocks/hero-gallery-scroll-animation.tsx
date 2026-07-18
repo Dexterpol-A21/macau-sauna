@@ -112,11 +112,9 @@ const BentoCell = React.forwardRef<HTMLDivElement, BentoCellProps>(
       [0, 0.9],
       compactMotion ? [0.8, 1] : [0.5, 1],
     );
-    const opacity = useTransform(
-      scrollYProgress,
-      compactMotion ? [0, 0.45, 0.62] : [0, 0.9],
-      compactMotion ? [0, 0, 1] : [1, 1],
-    );
+    // Always start visible — hiding until scroll (opacity 0→1 at 0.45) made
+    // hero images invisible on mobile after mobile-first hydration.
+    const opacity = useTransform(scrollYProgress, [0, 0.9], [1, 1]);
 
     return (
       <motion.div
