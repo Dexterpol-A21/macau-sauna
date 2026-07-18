@@ -21,6 +21,13 @@ const { seo } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
     <SEO {...seo} />
+    <!-- Critical inline CSS: prevents white flash while external CSS loads -->
+    <style>
+      html,body{background:#0A0A0A;color:#FFF8F0;margin:0;padding:0}
+      body{font-family:system-ui,-apple-system,sans-serif}
+      .min-h-screen{min-height:100vh}
+      .flex{display:flex}.flex-col{flex-direction:column}.flex-1{flex:1}
+    </style>
   </head>
   <body class="min-h-screen flex flex-col">
     <main class="flex-1">
@@ -32,18 +39,22 @@ const { seo } = Astro.props;
 </html>
 
 <script>
-  import Lenis from 'lenis';
+  // Only enable smooth scroll on desktop (768px+). Mobile 4G can't afford
+  // the JS execution and forced-reflow cost Lenis introduces.
+  if (window.innerWidth >= 768) {
+    import('lenis').then(({ default: Lenis }) => {
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+        smoothWheel: true,
+      });
 
-  const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-    smoothWheel: true,
-  });
+      function raf(time: number) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
 
-  function raf(time: number) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
+      requestAnimationFrame(raf);
+    });
   }
-
-  requestAnimationFrame(raf);
 </script>

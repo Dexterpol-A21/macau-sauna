@@ -115,6 +115,7 @@ function FlipCard({
           alt={venue.name}
           width={800}
           height={500}
+          sizes="(max-width: 767px) 396px, 800px"
           loading={loading as "lazy" | "eager"}
           decoding={priority ? "sync" : "async"}
           fetchPriority={priority ? "high" : "auto"}
