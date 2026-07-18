@@ -20,6 +20,12 @@ const { seo } = Astro.props;
     <meta name="theme-color" content="#0A0A0A" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
+    <!-- Set is-mobile/is-desktop BEFORE React hydrates to prevent CLS from layout flip -->
+    <script is:inline>
+      document.documentElement.classList.add(
+        window.innerWidth < 768 ? 'is-mobile' : 'is-desktop'
+      );
+    </script>
     <SEO {...seo} />
     <!-- Critical inline CSS: prevents white flash while external CSS loads -->
     <style>

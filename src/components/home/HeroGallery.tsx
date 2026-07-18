@@ -17,22 +17,27 @@ import ContactModal from "@/components/home/ContactModal";
 const IMAGES = [
   {
     src: "/images/venues/sauna1/manhaospa.webp",
+    mobileSrc: "/images/venues/sauna1/manhaospa-400.webp",
     srcSet: "/images/venues/sauna1/manhaospa-400.webp 400w, /images/venues/sauna1/manhaospa.webp 800w",
   },
   {
     src: "/images/venues/sauna2/numbernine.webp",
+    mobileSrc: "/images/venues/sauna2/numbernine-400.webp",
     srcSet: "/images/venues/sauna2/numbernine-400.webp 400w, /images/venues/sauna2/numbernine.webp 800w",
   },
   {
     src: "/images/venues/sauna3/shangpin.webp",
+    mobileSrc: "/images/venues/sauna3/shangpin-400.webp",
     srcSet: "/images/venues/sauna3/shangpin-400.webp 400w, /images/venues/sauna3/shangpin.webp 800w",
   },
   {
     src: "/images/venues/sauna6/empire.webp",
+    mobileSrc: "/images/venues/sauna6/empire-400.webp",
     srcSet: "/images/venues/sauna6/empire-400.webp 400w, /images/venues/sauna6/empire.webp 800w",
   },
   {
     src: "/images/venues/sauna4/majesty.webp",
+    mobileSrc: "/images/venues/sauna4/majesty-400.webp",
     srcSet: "/images/venues/sauna4/majesty-400.webp 400w, /images/venues/sauna4/majesty.webp 800w",
   },
 ];
@@ -424,11 +429,22 @@ export default function HeroGallery({
   const [iconIdx, setIconIdx] = useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [contactOpen, setContactOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // Read is-mobile class set by inline script in <head> — prevents CLS from
+  // SSR desktop layout flipping to mobile after hydration.
+  // SSR defaults to mobile so Lighthouse/mobile hydration matches (no layout flip).
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.classList.contains("is-mobile");
+    }
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return true;
+  });
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
-    check();
+    check(); // correct desktop after mobile-first SSR
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
@@ -694,8 +710,9 @@ export default function HeroGallery({
               compactMotion={isMobile}
             >
               <FlipCard
-                imageUrl={image.src}
-                imageSrcSet={image.srcSet}
+                // On mobile force 400w src only — DPR otherwise picks 800w via srcset
+                imageUrl={isMobile ? image.mobileSrc : image.src}
+                imageSrcSet={isMobile ? undefined : image.srcSet}
                 venue={VENUES[index]}
                 accent={accent}
                 cardAccent={VENUES[index].cardAccent}

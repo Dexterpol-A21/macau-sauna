@@ -115,12 +115,36 @@ interface SlotMachineTextProps {
   stripLength?: number;
 }
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState(() => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.classList.contains("is-mobile");
+    }
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return true; // SSR = mobile-first to avoid hydration CLS
+  });
+  React.useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+  return isMobile;
+}
+
 export default function SlotMachineText({
   text,
   className,
   stripLength = 10,
 }: SlotMachineTextProps) {
+  const isMobile = useIsMobile();
   const segments = text.split(/(\s+)/);
+
+  // Static text on mobile: SlotMachine spring animation was the #1 CLS cause (0.40)
+  if (isMobile) {
+    return <span className={className}>{text}</span>;
+  }
 
   return (
     <span className={className}>

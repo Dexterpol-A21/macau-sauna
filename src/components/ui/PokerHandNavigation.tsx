@@ -68,10 +68,17 @@ function LogoIcon({ size = 10 }: { size?: number }) {
 }
 
 function useResponsive() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof document !== "undefined") {
+      return document.documentElement.classList.contains("is-mobile");
+    }
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 640;
+    }
+    return true; // SSR = mobile-first to avoid hydration CLS
+  });
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 640);
-    check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
@@ -219,7 +226,7 @@ export function PokerHandNavigation() {
                     : "0 8px 40px rgba(0,0,0,0.6)",
               }}
               initial={
-                reduceMotion ? false : { y: 60, opacity: 0, rotate: rotation }
+                reduceMotion || isMobile ? false : { y: 60, opacity: 0, rotate: rotation }
               }
               animate={{
                 y: isActive ? -(CARD_HEIGHT + 40) : 0,
