@@ -113,8 +113,10 @@ function FlipCard({
           style={{ opacity: frontOpacity, aspectRatio: "16/10" }}
           src={imageUrl}
           alt={venue.name}
+          width={800}
+          height={500}
           loading={loading as "lazy" | "eager"}
-          decoding="async"
+          decoding={priority ? "sync" : "async"}
           fetchPriority={priority ? "high" : "auto"}
         />
 
