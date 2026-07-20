@@ -103,7 +103,6 @@ export function PokerHandNavigation() {
   const CARD_HEIGHT = isMobile ? 170 : 196;
   const SPREAD = isMobile ? 180 : 300;
   const VISIBLE_PEEK = isMobile ? 56 : 72;
-  const HIT_ZONE_HEIGHT = isMobile ? 52 : 60;
   const CARD_CORNER_SIZE = isMobile ? 18 : 20;
   const LOGO_CORNER_SIZE = isMobile ? 4 : 9;
 
@@ -165,6 +164,23 @@ export function PokerHandNavigation() {
     }
   }, [pressedIndex]);
 
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      setHoveredIndex(getCardIndexFromX(e.clientX));
+    },
+    [getCardIndexFromX],
+  );
+
+  const handleClick = useCallback(() => {
+    if (hoveredIndex === null) return;
+    const item = NAV_ITEMS[hoveredIndex];
+    if (item.icon === "contact") {
+      setIsContactOpen(true);
+    } else {
+      window.location.assign(item.href);
+    }
+  }, [hoveredIndex]);
+
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 flex items-end justify-center touch-none select-none"
@@ -177,12 +193,14 @@ export function PokerHandNavigation() {
     >
       <div
         ref={containerRef}
-        className="relative flex items-end justify-center"
+        className="relative flex items-end justify-center cursor-pointer"
         style={{
           width: isMobile ? SPREAD + LOGO_CARD_WIDTH + 30 : SPREAD + LOGO_CARD_WIDTH + 40,
           minWidth: isMobile ? SPREAD + LOGO_CARD_WIDTH + 30 : 620,
           height: VISIBLE_PEEK + 4,
         }}
+        onMouseMove={handleMouseMove}
+        onClick={handleClick}
       >
         {NAV_ITEMS.map((item, i) => {
           const isLogo = item.logo;
@@ -201,6 +219,8 @@ export function PokerHandNavigation() {
               aria-label={item.label}
               className="absolute flex flex-col items-center justify-center rounded-xl border select-none pointer-events-none"
               style={{
+                left: "50%",
+                marginLeft: -(width / 2),
                 width,
                 height: CARD_HEIGHT,
                 paddingTop: isMobile ? 18 : 24,
@@ -306,35 +326,6 @@ export function PokerHandNavigation() {
                 }}
               />
             </motion.a>
-          );
-        })}
-
-        {NAV_ITEMS.map((item, i) => {
-          const isLogo = item.logo;
-          const { translateX } = getCardTransform(i, NAV_ITEMS.length);
-          const width = isLogo ? LOGO_CARD_WIDTH : CARD_WIDTH;
-
-          return (
-            <div
-              key={`hit-${item.label}`}
-              className="absolute z-30 cursor-pointer hidden sm:block"
-              style={{
-                width,
-                height: HIT_ZONE_HEIGHT,
-                top: 8,
-                left: "50%",
-                marginLeft: -(width / 2),
-                transform: `translateX(${translateX}px)`,
-              }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onClick={() => {
-                if (item.icon === "contact") {
-                  setIsContactOpen(true);
-                } else {
-                  window.location.assign(item.href);
-                }
-              }}
-            />
           );
         })}
       </div>
