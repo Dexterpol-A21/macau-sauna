@@ -88,8 +88,8 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
           align-items: center;
           justify-content: center;
           border-radius: 50%;
-          background: rgba(221,184,85,0.1);
-          border: 1px solid rgba(221,184,85,0.2);
+          background: rgba(255,77,166,0.1);
+          border: 1px solid rgba(255,77,166,0.2);
           margin-top: 0.1rem;
         }
 
@@ -97,7 +97,7 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
           font-family: 'Inter', sans-serif;
           font-size: 0.85rem;
           font-weight: 700;
-          color: #DDB855;
+          color: #FF4DA6;
           line-height: 1;
         }
 
@@ -147,19 +147,19 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
         }
 
         .vf-bonus-card--link:hover {
-          border-color: rgba(201,168,76,0.25);
-          background: rgba(201,168,76,0.04);
-          box-shadow: 0 0 20px rgba(201,168,76,0.06);
+          border-color: rgba(255,77,166,0.25);
+          background: rgba(255,77,166,0.04);
+          box-shadow: 0 0 20px rgba(255,77,166,0.06);
         }
 
         .vf-bonus-card--link:hover .vf-bonus-link {
-          color: #E8C96A;
+          color: #FF85C2;
           gap: 0.55rem;
         }
 
         .vf-bonus-icon {
           display: flex;
-          color: #DDB855;
+          color: #FF4DA6;
           margin-bottom: 0.75rem;
         }
 
@@ -188,13 +188,13 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
           font-family: 'Inter', sans-serif;
           font-size: 0.78rem;
           font-weight: 600;
-          color: #DDB855;
+          color: #FF4DA6;
           text-decoration: none;
           transition: color 0.2s, gap 0.2s;
         }
 
         .vf-bonus-link:hover {
-          color: #E8C96A;
+          color: #FF85C2;
           gap: 0.55rem;
         }
 

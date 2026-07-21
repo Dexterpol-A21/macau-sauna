@@ -3,7 +3,7 @@
 import { motion } from "motion/react";
 
 const BULB_COUNT = 14;
-const COLORS = ["#C9A84C", "#FF1493", "#4ADE80", "#C9A84C", "#FB923C", "#C026FF", "#C9A84C"];
+const COLORS = ["#FF4DA6", "#FF1493", "#4ADE80", "#FF4DA6", "#FB923C", "#C026FF", "#FF4DA6"];
 
 interface SlotBulbsProps {
   spinning: boolean;

@@ -1,22 +1,23 @@
-# Design Rules — Macau Sauna
+# Design Rules — Aurelia Concierge
 
-## Palette — Warm & Bold, NO BLUE
+## Palette — Hot Pink
 
-**Prohibido:** Cualquier tono azul, azul-grisáceo o frío. Nada de `#8888A8`, `#7C7CA8`, `blue`, `cyan`, `sky`, `slate-blue`, etc.
+**Primary:** `#FF4DA6` (Hot Pink). **Light:** `#FF85C2`. **Dark:** `#E0187A`. **Accent neon:** `#FF1493`.
+Gold is optional secondary only when needed.
 
-**Texto muted:** usar grises neutros/cálidos como `#9E9E9E`, `#A0A0A0`, `#8A8A8A`.
 **Fondos oscuros:** `#0A0A0A` (página), `#111111` (tarjetas).
 **Texto principal:** `#FFF8F0` (crema cálido).
+**Texto muted:** `#9E9E9E`, `#A0A0A0`, `#8A8A8A`.
 
-### Botones CTA (Call to Action)
-- **CTA Primario (gradiente dorado):** texto `#FFF8F0` (blanco crema), fondo con gradiente gold `#8A6E2E` → `#DFC878` / `#9D7815` → `#E8C96A`
-- **CTA Secundario (outline):** texto `#DDB855` (gold), fondo transparente, borde `rgba(221,184,85,0.45)`
-- Aplica a: `HeroGallery`, `ContactCTA`, `HowItWorksCTA`, `PrimaryCTA`, `CubeButton`
+### Botones CTA
+- **CTA Primario:** texto `#FFF8F0`, gradiente hot pink `#E0187A` → `#FF4DA6` → `#FF1493`
+- **CTA Secundario (outline):** texto `#FF4DA6`, fondo transparente, borde `rgba(255,77,166,0.45)`
 
-### Colores de acento (vivos, cálidos, sin azul)
-- **Gold** (default): `#DDB855`
-- **Pink Neon** (New): `#FF1493`
-- **Violet Chillón** (Theme): `#C026FF`
+### Colores de acento
+- **Hot Pink** (primary / default): `#FF4DA6`
+- **Hot Pink light**: `#FF85C2`
+- **Hot Pink dark**: `#E0187A`
+- **Accent neon** (New badges): `#FF1493`
 - **Green** (Value): `#4ADE80`
 - **Rose** (KTV): `#F43F5E`
 - **Orange** (Japan-Korea): `#FB923C`
@@ -24,7 +25,6 @@
 ## Tipografía
 - **Display / Headlines:** Playfair Display (serif)
 - **Body / UI:** Inter (sans-serif)
-- **Súper decorativo ocasional:** serif con peso black
 
 ## Reglas
 - No usar números decorativos si no son secuencia real

@@ -104,7 +104,7 @@ export default function ContactModal({ open, onClose }: Props) {
             <div className="mb-8 text-center">
               <span
                 className="mb-2 block text-[0.625rem] font-bold uppercase tracking-[0.34em]"
-                style={{ color: "#C9A84C", fontFamily: "'Inter', sans-serif" }}
+                style={{ color: "#FF4DA6", fontFamily: "'Inter', sans-serif" }}
               >
                 24/7 Support
               </span>
@@ -133,7 +133,7 @@ export default function ContactModal({ open, onClose }: Props) {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center gap-4 rounded-xl border border-white/[0.05] bg-[#1A1A1A] px-5 py-4 transition-all hover:border-[rgba(221,184,85,0.35)] hover:bg-[rgba(221,184,85,0.08)] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+                  className="group relative flex items-center gap-4 rounded-xl border border-white/[0.05] bg-[#1A1A1A] px-5 py-4 transition-all hover:border-[rgba(255,77,166,0.35)] hover:bg-[rgba(255,77,166,0.08)] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
                   style={{ textDecoration: "none" }}
                 >
                   <div
@@ -153,7 +153,7 @@ export default function ContactModal({ open, onClose }: Props) {
                       {p.name}
                     </h3>
                     <span
-                      className="text-[0.78rem] font-semibold tracking-[0.05em] text-[#C9A84C] transition-colors duration-300 group-hover:text-[#DDB855]"
+                      className="text-[0.78rem] font-semibold tracking-[0.05em] text-[#FF4DA6] transition-colors duration-300 group-hover:text-[#FF4DA6]"
                       style={{
                         fontFamily: "'Inter', sans-serif",
                       }}
@@ -162,8 +162,8 @@ export default function ContactModal({ open, onClose }: Props) {
                     </span>
                   </div>
                   <span
-                    className="flex-shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#C9A84C]"
-                    style={{ color: "rgba(201,168,76,0.3)" }}
+                    className="flex-shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#FF4DA6]"
+                    style={{ color: "rgba(255,77,166,0.3)" }}
                   >
                     <svg
                       width="18"

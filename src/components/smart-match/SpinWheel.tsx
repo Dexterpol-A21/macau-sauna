@@ -14,7 +14,7 @@ import SlotFrameButton from "../ui/SlotFrameButton";
 import ContactModal from "../home/ContactModal";
 import useWheelSound from "./useWheelSound";
 
-const DEFAULT_ACCENT = "#DDB855";
+const DEFAULT_ACCENT = "#FF4DA6";
 
 /* ── Filmstrip geometry ─────────────────────────────────────── */
 const CARD_W_DESKTOP = 260;
@@ -55,17 +55,17 @@ function CenterLine() {
   return (
     <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 -translate-x-1/2">
       <svg width="16" height="10" viewBox="0 0 16 10" className="absolute -top-1 left-1/2 -translate-x-1/2">
-        <polygon points="8,10 0,0 16,0" fill="#C9A84C" />
+        <polygon points="8,10 0,0 16,0" fill="#FF4DA6" />
       </svg>
       <div
         className="h-full w-[2px]"
         style={{
-          background: "linear-gradient(180deg, transparent, #C9A84C90 15%, #C9A84C90 85%, transparent)",
-          boxShadow: "0 0 14px rgba(201,168,76,0.55)",
+          background: "linear-gradient(180deg, transparent, #FF4DA690 15%, #FF4DA690 85%, transparent)",
+          boxShadow: "0 0 14px rgba(255,77,166,0.55)",
         }}
       />
       <svg width="16" height="10" viewBox="0 0 16 10" className="absolute -bottom-1 left-1/2 -translate-x-1/2 rotate-180">
-        <polygon points="8,10 0,0 16,0" fill="#C9A84C" />
+        <polygon points="8,10 0,0 16,0" fill="#FF4DA6" />
       </svg>
     </div>
   );
@@ -194,9 +194,9 @@ function ResultCard({ venue, onSpinAgain }: { venue: Venue; onSpinAgain: () => v
             onClick={onSpinAgain}
             className="inline-flex items-center justify-center rounded-[0.5em] border text-xs font-semibold uppercase tracking-[0.1em] no-underline whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
             style={{
-              color: "#C9A84C",
+              color: "#FF4DA6",
               background: "transparent",
-              borderColor: "rgba(201,168,76,0.25)",
+              borderColor: "rgba(255,77,166,0.25)",
               fontFamily: "'Inter', sans-serif",
               minWidth: 120,
               padding: "0 1.6rem",
@@ -329,7 +329,7 @@ export default function SpinWheel() {
   }, [playTick, playDing]);
 
   return (
-    <section className="relative flex flex-col items-center px-3 py-14 md:py-28" style={{ background: "#0A0A0A", borderTop: "2px solid rgba(201,168,76,0.12)" }}>
+    <section className="relative flex flex-col items-center px-3 py-14 md:py-28" style={{ background: "#0A0A0A", borderTop: "2px solid rgba(255,77,166,0.12)" }}>
       {showConfetti && (
         <Particles id="wheel-confetti" init={particlesInit}
           options={{ preset: "fireworks", fullScreen: { enable: false }, style: { position: "absolute", inset: 0, zIndex: 30, pointerEvents: "none" } }}
@@ -424,13 +424,13 @@ export default function SpinWheel() {
               border: "none",
               background: spinning
                 ? "#1F1F1F"
-                : "linear-gradient(325deg, #8A6E2E 0%, #DFC878 55%, #8A6E2E 90%)",
+                : "linear-gradient(325deg, #E0187A 0%, #FF4DA6 45%, #FF1493 90%)",
               backgroundSize: "280% auto",
               backgroundPosition: "left top",
               color: spinning ? "#9E9E9E" : "#FFF8F0",
               boxShadow: spinning
                 ? "none"
-                : "0 0 20px rgba(201,168,76,0.5), 0 5px 5px -1px rgba(201,168,76,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
+                : "0 0 20px rgba(255,77,166,0.5), 0 5px 5px -1px rgba(255,77,166,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
             }}
             onMouseEnter={(e) => {
               if (!spinning) e.currentTarget.style.backgroundPosition = "right top";

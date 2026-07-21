@@ -25,7 +25,7 @@ if (!venue) {
 }
 
 const tags = buildVenueTags(venue);
-const accent = tags[0]?.color ?? '#DDB855';
+const accent = tags[0]?.color ?? '#FF4DA6';
 
 // Maps slug → local image folder + base name. Add entries as you populate folders.
 const VENUE_IMAGE_CONFIG: Record<string, { folder: string; base: string }> = {
@@ -438,7 +438,7 @@ const localBusinessSchema = JSON.stringify({
                   </a>
                   <span class="vd-stars-inline">
                     {Array.from({ length: 5 }).map(() => (
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="#DDB855" stroke="none">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF4DA6" stroke="none">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                       </svg>
                     ))}
@@ -460,7 +460,7 @@ const localBusinessSchema = JSON.stringify({
                 </a>
                 <span class="vd-stars-inline">
                   {Array.from({ length: 5 }).map(() => (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#DDB855" stroke="none">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF4DA6" stroke="none">
                       <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                     </svg>
                   ))}
@@ -715,13 +715,13 @@ const localBusinessSchema = JSON.stringify({
 
   .vd-location-icon {
     flex-shrink: 0;
-    color: rgba(201,168,76,0.5);
+    color: rgba(255,77,166,0.5);
   }
 
   /* ── Body Section (desc + cards + highlights + CTA) ── */
   .vd-body-section {
     background: #0A0A0A;
-    border-top: 2px solid rgba(201,168,76,0.12);
+    border-top: 2px solid rgba(255,77,166,0.12);
     padding: 5rem 2rem 6rem;
   }
 
@@ -747,7 +747,7 @@ const localBusinessSchema = JSON.stringify({
     font-family: 'Inter', sans-serif;
     font-size: 0.75rem;
     font-weight: 500;
-    color: rgba(201,168,76,0.5);
+    color: rgba(255,77,166,0.5);
     margin: 0;
   }
 
@@ -853,7 +853,7 @@ const localBusinessSchema = JSON.stringify({
     font-family: 'Inter', sans-serif;
     font-size: 1.35rem;
     font-weight: 700;
-    color: #DDB855;
+    color: #FF4DA6;
     font-feature-settings: "lnum";
   }
 
@@ -872,14 +872,14 @@ const localBusinessSchema = JSON.stringify({
     font-family: 'Inter', sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
-    color: #DDB855;
+    color: #FF4DA6;
     text-decoration: none;
     margin-top: 0.3rem;
     transition: color 0.2s;
   }
 
   .vd-card-link:hover {
-    color: #E8C96A;
+    color: #FF85C2;
   }
 
   .vd-payment-list {
@@ -914,7 +914,7 @@ const localBusinessSchema = JSON.stringify({
   }
 
   .vd-details-website:hover {
-    color: #DDB855;
+    color: #FF4DA6;
   }
 
   .vd-footer-row {
@@ -960,13 +960,13 @@ const localBusinessSchema = JSON.stringify({
   }
 
   .vd-hl-tile:hover {
-    border-color: rgba(221,184,85,0.2);
-    background: rgba(221,184,85,0.04);
+    border-color: rgba(255,77,166,0.2);
+    background: rgba(255,77,166,0.04);
   }
 
   .vd-hl-tile-accent {
-    border-color: rgba(221,184,85,0.15);
-    background: rgba(221,184,85,0.05);
+    border-color: rgba(255,77,166,0.15);
+    background: rgba(255,77,166,0.05);
   }
 
   .vd-hl-tile-text {
@@ -978,7 +978,7 @@ const localBusinessSchema = JSON.stringify({
   }
 
   .vd-hl-tile-accent .vd-hl-tile-text {
-    color: #DDB855;
+    color: #FF4DA6;
   }
 
   /* ── Contact CTA ── */
@@ -993,7 +993,7 @@ const localBusinessSchema = JSON.stringify({
   /* ── Other Popular Spas ── */
   .vd-other-section {
     background: #000000;
-    border-top: 2px solid rgba(201,168,76,0.12);
+    border-top: 2px solid rgba(255,77,166,0.12);
     padding: 5rem 2rem 6rem;
   }
 
@@ -1047,8 +1047,8 @@ const localBusinessSchema = JSON.stringify({
   }
 
   .vd-other-card:hover {
-    border-color: rgba(201,168,76,0.25);
-    box-shadow: 0 0 20px rgba(201,168,76,0.06);
+    border-color: rgba(255,77,166,0.25);
+    box-shadow: 0 0 20px rgba(255,77,166,0.06);
   }
 
   .vd-other-img-wrap {
@@ -1104,14 +1104,14 @@ const localBusinessSchema = JSON.stringify({
     font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
     font-weight: 600;
-    color: #DDB855;
+    color: #FF4DA6;
     transition: gap 0.2s, color 0.2s;
     margin-top: auto;
   }
 
   .vd-other-card:hover .vd-other-link {
     gap: 0.55rem;
-    color: #E8C96A;
+    color: #FF85C2;
   }
 
   @media (max-width: 768px) {
@@ -1147,7 +1147,7 @@ const localBusinessSchema = JSON.stringify({
   /* ── Final CTA ── */
   .vd-final-section {
     background: #0A0A0A;
-    border-top: 2px solid rgba(201,168,76,0.12);
+    border-top: 2px solid rgba(255,77,166,0.12);
     padding: 5rem 2rem 6rem;
   }
 
@@ -1163,7 +1163,7 @@ const localBusinessSchema = JSON.stringify({
     font-weight: 700;
     letter-spacing: 0.34em;
     text-transform: uppercase;
-    color: #C9A84C;
+    color: #FF4DA6;
     margin-bottom: 1.25rem;
     display: block;
   }
@@ -1199,7 +1199,7 @@ const localBusinessSchema = JSON.stringify({
 
   .vd-final-body em {
     font-style: italic;
-    color: #C9A84C;
+    color: #FF4DA6;
   }
 
   .vd-final-btn {
@@ -1281,7 +1281,7 @@ const localBusinessSchema = JSON.stringify({
   /* ── Detailed Flow ── */
   .vd-flow-section {
     background: #0A0A0A;
-    border-top: 2px solid rgba(201,168,76,0.12);
+    border-top: 2px solid rgba(255,77,166,0.12);
     padding: 5rem 2rem 6rem;
   }
 
@@ -1313,7 +1313,7 @@ const localBusinessSchema = JSON.stringify({
   /* ── Gallery ── */
   .vd-gallery-section {
     background: #000000;
-    border-top: 2px solid rgba(201,168,76,0.12);
+    border-top: 2px solid rgba(255,77,166,0.12);
     padding: 5rem 2rem 6rem;
   }
 

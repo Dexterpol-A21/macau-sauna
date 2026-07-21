@@ -13,7 +13,7 @@ import ContactModal from "@/components/home/ContactModal";
 
 /* ── Symbols & Prizes ──────────────────────────────────── */
 const SYMBOLS = [
-  { id: "♠", color: "#C9A84C", extra: "Head Massage" },
+  { id: "♠", color: "#FF4DA6", extra: "Head Massage" },
   { id: "♥", color: "#FF1493", extra: "Reflexology" },
   { id: "♦", color: "#4ADE80", extra: "Manicure"   },
   { id: "♣", color: "#FB923C", extra: "Back Rub"    },
@@ -284,9 +284,9 @@ export default function SlotMatch() {
         >
           {/* ── Top ornament ── */}
           <div className="flex items-center justify-center gap-1 mb-3">
-            <span className="block h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #C9A84C60, transparent)" }} />
-            <span className="font-heading text-[9px] font-bold uppercase tracking-[0.25em]" style={{ color: "#C9A84C80" }}>VIP</span>
-            <span className="block h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #C9A84C60, transparent)" }} />
+            <span className="block h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #FF4DA660, transparent)" }} />
+            <span className="font-heading text-[9px] font-bold uppercase tracking-[0.25em]" style={{ color: "#FF4DA680" }}>VIP</span>
+            <span className="block h-px flex-1" style={{ background: "linear-gradient(90deg, transparent, #FF4DA660, transparent)" }} />
           </div>
 
           {/* Top bulbs */}
@@ -349,7 +349,7 @@ export default function SlotMatch() {
                       </motion.span>
                     ))}
                   </div>
-                  <span className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] mb-1" style={{ color: "#C9A84C" }}>
+                  <span className="font-heading text-[10px] font-bold uppercase tracking-[0.2em] mb-1" style={{ color: "#FF4DA6" }}>
                     Jackpot
                   </span>
                   <h4 className="font-heading text-lg md:text-xl font-bold" style={{ color: "#EDEDF5" }}>
@@ -358,7 +358,7 @@ export default function SlotMatch() {
                   <p className="mt-2 font-heading text-xs md:text-sm leading-snug max-w-sm" style={{ color: "#9E9E9E" }}>
                     {VIP_DESC}
                   </p>
-                  <p className="mt-2 font-heading text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: "#C9A84C80" }}>
+                  <p className="mt-2 font-heading text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: "#FF4DA680" }}>
                     1 free per visit
                   </p>
                   {/* Coupon Code */}
@@ -369,16 +369,16 @@ export default function SlotMatch() {
                       transition={{ delay: 0.6, type: "spring", stiffness: 200 }}
                       className="mt-3 rounded-lg border px-5 py-3"
                       style={{
-                        borderColor: "rgba(201,168,76,0.25)",
-                        background: "rgba(201,168,76,0.06)",
+                        borderColor: "rgba(255,77,166,0.25)",
+                        background: "rgba(255,77,166,0.06)",
                       }}
                     >
-                      <span className="block text-[9px] font-bold uppercase tracking-[0.2em] mb-1" style={{ color: "#C9A84C80" }}>
+                      <span className="block text-[9px] font-bold uppercase tracking-[0.2em] mb-1" style={{ color: "#FF4DA680" }}>
                         Your Coupon
                       </span>
                       <span
                         className="block font-mono text-base md:text-lg font-bold tracking-[0.15em] select-all"
-                        style={{ color: "#DDB855", textShadow: "0 0 12px rgba(221,184,85,0.3)" }}
+                        style={{ color: "#FF4DA6", textShadow: "0 0 12px rgba(255,77,166,0.3)" }}
                       >
                         {couponCode}
                       </span>
@@ -434,17 +434,17 @@ export default function SlotMatch() {
                     className="mb-4"
                   >
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 2V6" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M12 18V22" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M4.92896 4.92896L7.75738 7.75738" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M16.2426 16.2426L19.071 19.071" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M2 12H6" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M18 12H22" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M4.92896 19.071L7.75738 16.2426" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M16.2426 7.75738L19.071 4.92896" stroke="#C9A84C" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M12 2V6" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M12 18V22" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M4.92896 4.92896L7.75738 7.75738" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M16.2426 16.2426L19.071 19.071" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M2 12H6" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M18 12H22" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M4.92896 19.071L7.75738 16.2426" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
+                      <path d="M16.2426 7.75738L19.071 4.92896" stroke="#FF4DA6" strokeWidth="2" strokeLinecap="round" />
                     </svg>
                   </motion.div>
-                  <p className="font-heading text-sm font-bold uppercase tracking-[0.2em]" style={{ color: "#C9A84C" }}>
+                  <p className="font-heading text-sm font-bold uppercase tracking-[0.2em]" style={{ color: "#FF4DA6" }}>
                     Spinning...
                   </p>
                   <p className="mt-2 font-heading text-xs italic" style={{ color: "#9E9E9E" }}>
@@ -460,7 +460,7 @@ export default function SlotMatch() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] mb-3" style={{ color: "#C9A84C" }}>
+                  <p className="font-heading text-sm font-bold uppercase tracking-[0.2em] mb-3" style={{ color: "#FF4DA6" }}>
                     Your Prizes
                   </p>
                   <div className="grid grid-cols-5 gap-2 md:gap-4 w-full">
@@ -473,7 +473,7 @@ export default function SlotMatch() {
                       </div>
                     ))}
                   </div>
-                  <p className="mt-4 font-heading text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: "#C9A84C80" }}>
+                  <p className="mt-4 font-heading text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: "#FF4DA680" }}>
                     Match 3 of the same &mdash; 1 free per visit
                   </p>
                 </motion.div>
@@ -483,7 +483,7 @@ export default function SlotMatch() {
 
           {/* ── Bottom ornament ── */}
           <div className="mt-2 mb-1">
-            <span className="block h-px w-full" style={{ background: "linear-gradient(90deg, transparent, #C9A84C60, transparent)" }} />
+            <span className="block h-px w-full" style={{ background: "linear-gradient(90deg, transparent, #FF4DA660, transparent)" }} />
           </div>
         </div>
       </div>

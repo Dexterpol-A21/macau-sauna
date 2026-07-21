@@ -51,15 +51,15 @@ export default function HowItWorksCTA() {
           background-size: 280% auto;
           background-image: linear-gradient(
             325deg,
-            #9D7815 0%,
-            #E8C96A 55%,
-            #9D7815 90%
+            #E0187A 0%,
+            #FF85C2 55%,
+            #E0187A 90%
           );
           box-shadow:
-            0px 0px 20px #DDB85580,
-            0px 5px 5px -1px #DDB85540,
-            inset 4px 4px 8px #E8C96A80,
-            inset -4px -4px 8px #9D781559;
+            0px 0px 20px #FF4DA680,
+            0px 5px 5px -1px #FF4DA640,
+            inset 4px 4px 8px #FF85C280,
+            inset -4px -4px 8px #E0187A59;
           transition: transform 0.25s ease, background-position 0.8s;
         }
 
@@ -76,7 +76,7 @@ export default function HowItWorksCTA() {
           outline: none;
           box-shadow:
             0 0 0 3px #000000,
-            0 0 0 6px #9D7815;
+            0 0 0 6px #E0187A;
         }
 
         @media (max-width: 639px) {

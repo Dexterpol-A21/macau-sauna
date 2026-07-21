@@ -1,5 +1,5 @@
 /**
- * SEO Checklist — Macau Sauna Booking
+ * SEO Checklist — Aurelia Concierge
  *
  * Companion to seo-titles.ts.
  * Every page MUST pass this checklist before it's considered done.

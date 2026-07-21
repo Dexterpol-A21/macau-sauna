@@ -55,7 +55,7 @@ const INCLUDES = [
 function ratingStars(rating: number): string {
   let html = '';
   for (let i = 0; i < 5; i++) {
-    const fill = i < rating ? '#DDB855' : 'transparent';
+    const fill = i < rating ? '#FF4DA6' : 'transparent';
     const stroke = i < rating ? 'none' : '#606070';
     html += `<svg width="12" height="12" viewBox="0 0 24 24" fill="${fill}" stroke="${stroke}" stroke-width="2" style="display:inline-block;vertical-align:middle;margin-right:1px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`;
   }
@@ -219,7 +219,7 @@ const jsonLdRanking = JSON.stringify({
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #C9A84C;
+    color: #FF4DA6;
     margin-top: 0.6rem;
     margin-bottom: 1rem;
   }
@@ -267,7 +267,7 @@ const jsonLdRanking = JSON.stringify({
     text-align: center;
     padding: 0.85rem 0.65rem;
     white-space: nowrap;
-    border-bottom: 2px solid rgba(201, 168, 76, 0.25);
+    border-bottom: 2px solid rgba(255,77,166, 0.25);
     position: sticky;
     top: 0;
     z-index: 3;
@@ -284,11 +284,11 @@ const jsonLdRanking = JSON.stringify({
   }
 
   .rk-th-sep-l {
-    border-left: 1px solid rgba(201, 168, 76, 0.15);
+    border-left: 1px solid rgba(255,77,166, 0.15);
   }
 
   .rk-th-sep-r {
-    border-right: 1px solid rgba(201, 168, 76, 0.15);
+    border-right: 1px solid rgba(255,77,166, 0.15);
   }
 
   .rk-tr {
@@ -322,11 +322,11 @@ const jsonLdRanking = JSON.stringify({
   }
 
   .rk-td-sep-l {
-    border-left: 1px solid rgba(201, 168, 76, 0.08);
+    border-left: 1px solid rgba(255,77,166, 0.08);
   }
 
   .rk-td-sep-r {
-    border-right: 1px solid rgba(201, 168, 76, 0.08);
+    border-right: 1px solid rgba(255,77,166, 0.08);
   }
 
   .rk-td-venue {
@@ -343,7 +343,7 @@ const jsonLdRanking = JSON.stringify({
   }
 
   .rk-venue-link:hover {
-    color: #DDB855;
+    color: #FF4DA6;
   }
 
   .rk-td-hours {
@@ -354,7 +354,7 @@ const jsonLdRanking = JSON.stringify({
   .rk-td-price {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    color: #DDB855;
+    color: #FF4DA6;
     font-feature-settings: "lnum";
   }
 
@@ -383,7 +383,7 @@ const jsonLdRanking = JSON.stringify({
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #0A0A0A;
-    background: linear-gradient(135deg, #9D7815, #E8C96A, #9D7815);
+    background: linear-gradient(135deg, #E0187A, #FF4DA6, #FF1493);
     border-radius: 0.2rem;
     padding: 0.2rem 0.5rem;
   }
@@ -452,8 +452,8 @@ const jsonLdRanking = JSON.stringify({
   }
 
   .rk-pick-card:hover {
-    border-color: rgba(221, 184, 85, 0.25);
-    box-shadow: 0 8px 24px rgba(221, 184, 85, 0.04);
+    border-color: rgba(255,77,166, 0.25);
+    box-shadow: 0 8px 24px rgba(255,77,166, 0.04);
   }
 
   .rk-pick-label {
@@ -462,7 +462,7 @@ const jsonLdRanking = JSON.stringify({
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #C9A84C;
+    color: #FF4DA6;
   }
 
   .rk-pick-venue {
@@ -520,8 +520,8 @@ const jsonLdRanking = JSON.stringify({
   }
 
   .rk-includes-card:hover {
-    border-color: rgba(221, 184, 85, 0.2);
-    box-shadow: 0 4px 16px rgba(221, 184, 85, 0.04);
+    border-color: rgba(255,77,166, 0.2);
+    box-shadow: 0 4px 16px rgba(255,77,166, 0.04);
   }
 
   .rk-includes-card span {
@@ -535,7 +535,7 @@ const jsonLdRanking = JSON.stringify({
 
   .rk-check-icon {
     flex-shrink: 0;
-    color: #C9A84C;
+    color: #FF4DA6;
   }
 
   /* ── Responsive ── */

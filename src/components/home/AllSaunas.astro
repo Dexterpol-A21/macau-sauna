@@ -4,7 +4,7 @@ import { FILTERS, buildVenueTags } from '../../utils/filterColors';
 import type { Venue } from '../../types';
 import SlotMachineText from '../ui/SlotMachineText';
 
-const DEFAULT_ACCENT = '#DDB855';
+const DEFAULT_ACCENT = '#FF4DA6';
 
 function hexToRgba(hex: string, alpha: number): string {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -127,7 +127,7 @@ const BENTO: Record<number, { col: number; row: number }> = {
     padding: 6rem 1.5rem 8rem;
     position: relative;
     z-index: 10;
-    border-top: 2px solid rgba(201, 168, 76, 0.12);
+    border-top: 2px solid rgba(255,77,166, 0.12);
   }
 
   /* ── Header ── */
@@ -146,7 +146,7 @@ const BENTO: Record<number, { col: number; row: number }> = {
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #C9A84C;
+    color: #FF4DA6;
     margin-top: 0.6rem;
     margin-bottom: 0.75rem;
   }
@@ -218,8 +218,8 @@ const BENTO: Record<number, { col: number; row: number }> = {
   .as-filter-btn:hover,
   .as-filter-btn[aria-pressed="true"] {
     color: #0A0A0A;
-    background: var(--f-color, #DDB855);
-    border-color: var(--f-color, #DDB855);
+    background: var(--f-color, #FF4DA6);
+    border-color: var(--f-color, #FF4DA6);
   }
 
   /* ── Bento Grid (tablet+) ── */
@@ -342,7 +342,7 @@ const BENTO: Record<number, { col: number; row: number }> = {
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(201, 168, 76, 0.45);
+      color: rgba(255,77,166, 0.45);
     }
   }
 
@@ -441,7 +441,7 @@ const BENTO: Record<number, { col: number; row: number }> = {
     font-family: 'Inter', sans-serif;
     font-size: 0.72rem;
     font-weight: 600;
-    color: var(--card-accent, #DDB855);
+    color: var(--card-accent, #FF4DA6);
     line-height: 1.35;
     opacity: 0.9;
   }
@@ -482,7 +482,7 @@ const BENTO: Record<number, { col: number; row: number }> = {
     font-family: 'Inter', sans-serif;
     font-size: 0.7rem;
     font-weight: 600;
-    color: var(--card-accent, #DDB855);
+    color: var(--card-accent, #FF4DA6);
     opacity: 0;
     transform: translateX(-4px);
     transition: opacity 0.35s ease, transform 0.35s ease;

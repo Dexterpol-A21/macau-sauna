@@ -5,10 +5,10 @@
   --font-heading: 'Playfair Display', serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Noir + Gold Palette */
-  --color-primary: #C9A84C;
-  --color-primary-light: #DFC878;
-  --color-primary-dark: #A68A3E;
+  /* Noir + Hot Pink + Gold Palette (Aurelia) */
+  --color-primary: #FF4DA6;
+  --color-primary-light: #FF85C2;
+  --color-primary-dark: #E0187A;
   --color-primary-foreground: #0A0A0A;
   --color-secondary: #111111;
   --color-secondary-foreground: #FFF8F0;
@@ -18,16 +18,16 @@
   --color-border: #2A2A22;
   --color-text: #FFF8F0;
   --color-text-muted: #9E9E9E;
-  --color-accent: #7B2D8B;
+  --color-accent: #FF1493;
   --color-accent-foreground: #FFF8F0;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFF8F0;
   --color-background: #0A0A0A;
   --color-input: #2A2A22;
-  --color-ring: #C9A84C;
+  --color-ring: #FF4DA6;
 
   /* Shadows & Glows */
-  --shadow-gold: 0 0 30px rgba(201, 168, 76, 0.15);
+  --shadow-gold: 0 0 30px rgba(255, 77, 166, 0.28);
   --shadow-card: 0 4px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -167,18 +167,18 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #8A6E2E 0%, #C9A84C 50%, #8A6E2E 100%);
+  background: linear-gradient(180deg, #E0187A 0%, #FF4DA6 50%, #FF1493 100%);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #A68A3E 0%, #DFC878 50%, #A68A3E 100%);
+  background: linear-gradient(180deg, #FF4DA6 0%, #FF85C2 50%, #FF1493 100%);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #C9A84C #0A0A0A;
+  scrollbar-color: #FF4DA6 #0A0A0A;
 }
 
 /* ════════ RANKING TABLE ════════ */
@@ -214,7 +214,7 @@ html.lenis body {
   text-align: center;
   padding: 0.85rem 0.65rem;
   white-space: nowrap;
-  border-bottom: 2px solid rgba(201, 168, 76, 0.25);
+  border-bottom: 2px solid rgba(255,77,166, 0.25);
   position: sticky;
   top: 0;
   z-index: 3;
@@ -231,11 +231,11 @@ html.lenis body {
 }
 
 .rk-th-sep-l {
-  border-left: 1px solid rgba(201, 168, 76, 0.15);
+  border-left: 1px solid rgba(255,77,166, 0.15);
 }
 
 .rk-th-sep-r {
-  border-right: 1px solid rgba(201, 168, 76, 0.15);
+  border-right: 1px solid rgba(255,77,166, 0.15);
 }
 
 .rk-tr {
@@ -269,11 +269,11 @@ html.lenis body {
 }
 
 .rk-td-sep-l {
-  border-left: 1px solid rgba(201, 168, 76, 0.08);
+  border-left: 1px solid rgba(255,77,166, 0.08);
 }
 
 .rk-td-sep-r {
-  border-right: 1px solid rgba(201, 168, 76, 0.08);
+  border-right: 1px solid rgba(255,77,166, 0.08);
 }
 
 .rk-td-venue {
@@ -290,7 +290,7 @@ html.lenis body {
 }
 
 .rk-venue-link:hover {
-  color: #DDB855;
+  color: #FF4DA6;
 }
 
 .rk-td-hours {
@@ -301,7 +301,7 @@ html.lenis body {
 .rk-td-price {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
-  color: #DDB855;
+  color: #FF4DA6;
   font-feature-settings: "lnum";
 }
 
@@ -330,7 +330,7 @@ html.lenis body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #0A0A0A;
-  background: linear-gradient(135deg, #9D7815, #E8C96A, #9D7815);
+  background: linear-gradient(135deg, #E0187A, #FF4DA6, #FF1493);
   border-radius: 0.2rem;
   padding: 0.2rem 0.5rem;
 }

@@ -119,9 +119,9 @@ export default function SecondaryCTA({ href, label }: Props) {
           text-decoration: none;
           white-space: nowrap;
           cursor: pointer;
-          color: #DDB855;
+          color: #FF4DA6;
           background: transparent;
-          border: 1px solid rgba(221, 184, 85, 0.45);
+          border: 1px solid rgba(255,77,166, 0.45);
           border-radius: 0.5em;
           transition: transform 0.25s ease, border-color 0.25s;
           overflow: visible;
@@ -129,7 +129,7 @@ export default function SecondaryCTA({ href, label }: Props) {
 
         .sc-cta-link:hover {
           transform: translateY(-2px);
-          border-color: rgba(221, 184, 85, 0.7);
+          border-color: rgba(255,77,166, 0.7);
         }
 
         .sc-cta-link:active {
@@ -142,7 +142,7 @@ export default function SecondaryCTA({ href, label }: Props) {
           height: 20px;
           flex-shrink: 0;
           order: 1;
-          color: #DDB855;
+          color: #FF4DA6;
         }
 
         .sc-cta-label {
@@ -154,7 +154,7 @@ export default function SecondaryCTA({ href, label }: Props) {
           inset: 0;
           width: 20px;
           height: 20px;
-          color: #DDB855;
+          color: #FF4DA6;
           transition: opacity 0.15s, transform 0.15s;
           opacity: 0;
           transform: translateY(6px) scale(0.4);

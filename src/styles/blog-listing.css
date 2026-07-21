@@ -24,7 +24,7 @@
   font-weight: 700;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: #C9A84C;
+  color: #FF4DA6;
   margin-bottom: 1.25rem;
 }
 
@@ -85,9 +85,9 @@
 
 .bl-filter:hover,
 .bl-filter.active {
-  color: #DDB855;
-  border-color: rgba(221,184,85,0.4);
-  background: rgba(221,184,85,0.06);
+  color: #FF4DA6;
+  border-color: rgba(255,77,166,0.4);
+  background: rgba(255,77,166,0.06);
 }
 
 /* ── Grid ── */
@@ -164,7 +164,7 @@
 }
 
 .bl-card:hover {
-  border-color: rgba(221,184,85,0.3);
+  border-color: rgba(255,77,166,0.3);
   box-shadow: 0 8px 30px rgba(0,0,0,0.4);
 }
 
@@ -195,7 +195,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #DDB855;
+  color: #FF4DA6;
   margin-bottom: 0.15rem;
 }
 

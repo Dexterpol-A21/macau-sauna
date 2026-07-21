@@ -17,7 +17,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: "Spas", href: "/venues", desc: "12 hand-picked partner venues" },
   { label: "Guide", href: "/how-it-works", desc: "First-timer guide to Macau saunas" },
   { label: "Blog", href: "/blog", desc: "Tips, prices & first-timer advice" },
-  { label: "Macau Sauna Booking", href: "/", logo: true, desc: "Your VIP concierge" },
+  { label: "Aurelia", href: "/", logo: true, desc: "Your VIP concierge" },
   { label: "About", href: "/about", icon: "info", desc: "Who we are & what we do" },
   { label: "FAQ", href: "/faq", icon: "help", desc: "Instant answers, 24/7" },
   { label: "Contact", href: "#contact", icon: "contact", desc: "Discover how to reach us" },
@@ -55,8 +55,8 @@ function LogoIcon({ size = 10 }: { size?: number }) {
   const px = size * 4;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width={px} height={px} aria-hidden="true">
-      <circle cx="32" cy="32" r="30" fill="#D4AF37" />
-      <g fill="#0a0a0a" stroke="#D4AF37" strokeWidth="1.5" strokeLinejoin="round" transform="translate(32 47)">
+      <circle cx="32" cy="32" r="30" fill="#FF4DA6" />
+      <g fill="#0a0a0a" stroke="#FF4DA6" strokeWidth="1.5" strokeLinejoin="round" transform="translate(32 47)">
         <path d="M 0 -33 Q 11 -17 0 0 Q -11 -17 0 -33 Z" />
         <path transform="rotate(-36)" d="M 0 -27 Q 10 -14 0 0 Q -10 -14 0 -27 Z" />
         <path transform="rotate(36)" d="M 0 -27 Q 10 -14 0 0 Q -10 -14 0 -27 Z" />
@@ -234,15 +234,15 @@ export function PokerHandNavigation() {
                   "linear-gradient(180deg, rgba(20,20,20,0.96) 0%, rgba(22,22,22,0.92) 20%, rgba(16,16,16,0.88) 50%, rgba(8,8,8,0.94) 100%)",
                 backdropFilter: "blur(16px)",
                 borderColor: isActive
-                  ? "rgba(201,168,76,0.7)"
+                  ? "rgba(255,77,166,0.7)"
                   : isLogo
-                    ? "rgba(201,168,76,0.5)"
-                    : "rgba(201,168,76,0.32)",
+                    ? "rgba(255,77,166,0.5)"
+                    : "rgba(255,77,166,0.32)",
                 borderWidth: 1.5,
                 boxShadow: isActive
-                  ? "0 20px 60px rgba(0,0,0,0.7), 0 0 32px rgba(201,168,76,0.3)"
+                  ? "0 20px 60px rgba(0,0,0,0.7), 0 0 32px rgba(255,77,166,0.3)"
                   : isLogo
-                    ? "0 8px 40px rgba(0,0,0,0.6), 0 0 20px rgba(201,168,76,0.15)"
+                    ? "0 8px 40px rgba(0,0,0,0.6), 0 0 20px rgba(255,77,166,0.15)"
                     : "0 8px 40px rgba(0,0,0,0.6)",
               }}
               initial={
@@ -322,7 +322,7 @@ export function PokerHandNavigation() {
                 className="absolute rounded-[10px] pointer-events-none"
                 style={{
                   inset: 4,
-                  border: `1px solid rgba(201,168,76,${isLogo ? "0.12" : "0.06"})`,
+                  border: `1px solid rgba(255,77,166,${isLogo ? "0.12" : "0.06"})`,
                 }}
               />
             </motion.a>

@@ -571,8 +571,8 @@ export default function HeroGallery({
       background-image: linear-gradient(
         325deg,
         ${dark} 0%,
-        ${accentLight} 55%,
-        ${dark} 90%
+        ${accent} 40%,
+        #FF1493 90%
       );
       border: none;
       border-radius: 0.5em;

@@ -46,7 +46,7 @@ export default function Testimonials() {
         .t-section {
           background: #000000;
           padding: 7rem 0 8rem;
-          border-top: 2px solid rgba(201,168,76,0.12);
+          border-top: 2px solid rgba(255,77,166,0.12);
           overflow: hidden;
         }
         .t-head {
@@ -69,14 +69,14 @@ export default function Testimonials() {
           transition: border-color 0.4s  ease , background 0.4s  ease ;
         }
         .t-card:hover {
-          border-color: rgba(201,168,76,0.2);
+          border-color: rgba(255,77,166,0.2);
           background: #121212;
         }
         .t-quote-mark {
           font-family: 'Playfair Display', serif;
           font-size: 4.5rem;
           font-weight: 800;
-          color: rgba(201,168,76,0.06);
+          color: rgba(255,77,166,0.06);
           line-height: 0.6;
           pointer-events: none;
           user-select: none;
@@ -94,14 +94,14 @@ export default function Testimonials() {
         .t-divider {
           width: 1.75rem;
           height: 1px;
-          background: rgba(201,168,76,0.3);
+          background: rgba(255,77,166,0.3);
           margin-bottom: 0.75rem;
         }
         .t-author {
           font-family: 'Inter', sans-serif;
           font-size: 0.72rem;
           font-weight: 600;
-          color: #C9A84C;
+          color: #FF4DA6;
           letter-spacing: 0.06em;
         }
         .t-total {
@@ -110,7 +110,7 @@ export default function Testimonials() {
           font-family: 'Inter', sans-serif;
           font-size: 0.8rem;
           font-weight: 600;
-          color: rgba(201,168,76,0.5);
+          color: rgba(255,77,166,0.5);
           letter-spacing: 0.1em;
           text-transform: uppercase;
         }
