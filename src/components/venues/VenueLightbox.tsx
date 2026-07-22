@@ -120,13 +120,13 @@ export default function VenueLightbox({ items, open, initialIndex, onClose }: Pr
                   <div className="flex-1 min-w-0">
                     <h3
                       className="text-base font-bold mb-1"
-                      style={{ color: "#FFF8F0", fontFamily: "'Inter', sans-serif" }}
+                      style={{ color: "#FFF8F0", fontFamily: "'Noto Sans TC', system-ui, sans-serif" }}
                     >
                       {item.title}
                     </h3>
                     <p
                       className="text-sm leading-relaxed"
-                      style={{ color: "#807860", fontFamily: "'Inter', sans-serif" }}
+                      style={{ color: "#807860", fontFamily: "'Noto Sans TC', system-ui, sans-serif" }}
                     >
                       {item.description}
                     </p>
@@ -134,7 +134,7 @@ export default function VenueLightbox({ items, open, initialIndex, onClose }: Pr
                   {items.length > 1 && (
                     <span
                       className="text-xs font-medium flex-shrink-0 pt-0.5"
-                      style={{ color: "rgba(255,255,255,0.2)", fontFamily: "'Inter', sans-serif" }}
+                      style={{ color: "rgba(255,255,255,0.2)", fontFamily: "'Noto Sans TC', system-ui, sans-serif" }}
                     >
                       {index + 1} / {items.length}
                     </span>

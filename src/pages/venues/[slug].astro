@@ -1,16 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { FEATURED_VENUES } from '../../utils/parseVenues';
-import { buildVenueTags } from '../../utils/filterColors';
 import { SEO_KEYWORDS } from '../../utils/constants';
 import { titleVenueDetail } from '../../utils/seo-titles';
 import type { Venue } from '../../types';
-import VenueParallaxHero from '../../components/venues/VenueParallaxHero';
 import VenueGallery from '../../components/venues/VenueGallery';
 import VenueFlow from '../../components/venues/VenueFlow';
-import SlotMachineText from '../../components/ui/SlotMachineText';
-import ContactCTA from '../../components/home/ContactCTA';
-
 export function getStaticPaths() {
   return FEATURED_VENUES.map((v) => ({
     params: { slug: v.slug },
@@ -23,9 +18,6 @@ const venue = FEATURED_VENUES.find((v) => v.slug === slug) as Venue;
 if (!venue) {
   return Astro.redirect('/404');
 }
-
-const tags = buildVenueTags(venue);
-const accent = tags[0]?.color ?? '#FF4DA6';
 
 // Maps slug → local image folder + base name. Add entries as you populate folders.
 const VENUE_IMAGE_CONFIG: Record<string, { folder: string; base: string }> = {
@@ -46,7 +38,9 @@ const VENUE_IMAGE_CONFIG: Record<string, { folder: string; base: string }> = {
 const imageConfig = VENUE_IMAGE_CONFIG[slug];
 const imageFolder = imageConfig?.folder ?? '';
 const heroImage = imageConfig
-  ? `${imageConfig.folder}/${imageConfig.base}.webp`
+  ? (slug === 'manhao-spa'
+      ? `${imageConfig.folder}/${imageConfig.base}-hero.webp`
+      : `${imageConfig.folder}/${imageConfig.base}.webp`)
   : venue.image;
 
 // Gallery data — keyed by slug
@@ -371,6 +365,36 @@ const localBusinessSchema = JSON.stringify({
   ...(venue.hours && { openingHours: venue.hours }),
   ...(venue.rating && { aggregateRating: { "@type": "AggregateRating", ratingValue: venue.rating, bestRating: "5" } }),
 });
+
+const overnightParts = venue.overnight
+  ? venue.overnight.split(/s*[—–-]s*/).map((s) => s.trim()).filter(Boolean)
+  : [];
+const overnightMain = overnightParts[0] ?? '';
+const overnightNote = overnightParts.slice(1).join(' — ');
+
+const websiteHref = venue.website
+  ? (venue.website.startsWith('http') ? venue.website : `https://${venue.website}`)
+  : '';
+
+const contactMsg = encodeURIComponent(`I'm interested in ${venue.name}. Could you help arrange this?`);
+const waHref = `https://wa.me/85365670348?text=${contactMsg}`;
+const tgHref = `https://t.me/Aomensauna?text=${contactMsg}`;
+
+const featurePills = [
+  ...(venue.rating >= 4.5 ? [`Recommended ${'⭐'.repeat(Math.round(venue.rating))}`] : []),
+  ...(venue.features ?? []),
+];
+
+const relatedVenues = FEATURED_VENUES
+  .filter((v) => v.slug !== venue.slug)
+  .slice(0, 4);
+
+const contactPlatforms: { name: string; handle: string; href: string | null; icon: string }[] = [
+  { name: 'WhatsApp', handle: 'Message us', href: waHref, icon: '/whatsapp.svg' },
+  { name: 'Telegram', handle: '@Aomensauna', href: tgHref, icon: '/telegram.svg' },
+  { name: 'WeChat', handle: 'AN99348', href: null, icon: '/wechat.svg' },
+  { name: 'LINE', handle: '16880348', href: 'https://line.me/ti/p/VZHFDSZnq9', icon: '/line.svg' },
+];
 ---
 
 <BaseLayout
@@ -381,964 +405,429 @@ const localBusinessSchema = JSON.stringify({
     image: heroImage,
   }}
 >
-  <!-- Venue LocalBusiness JSON-LD -->
   <script type="application/ld+json" set:html={localBusinessSchema}></script>
-  <main class="vd-page">
-    <!-- Parallax Hero -->
-    <VenueParallaxHero venue={venue} accent={accent} tags={tags} imageFolder={imageFolder} heroImage={heroImage} imageBase={imageConfig?.base ?? ''} client:load />
 
-    <!-- Venue Name -->
-    <section class="vd-name-block">
-      <div class="vd-tags">
-        {tags.map((t) => (
-          <span
-            class="vd-tag"
-            style={t.primary
-              ? `background-color: ${t.color}; color: #0A0A0A;`
-              : `color: ${t.color}; background: transparent; border: 1px solid ${t.color}33;`}
-          >
-            {t.label}
-          </span>
-        ))}
-      </div>
-      <h1 class="vd-name-big">
-        <SlotMachineText text={venue.name} stripLength={10} client:visible />
-      </h1>
-      <p class="vd-subtitle">{venue.subtitle}</p>
-      <div class="vd-location">
-        <svg class="vd-location-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-          <circle cx="12" cy="10" r="3" />
-        </svg>
-        {venue.location}
+  <main>
+    {/* Hero */}
+    <section class="relative flex h-[50vh] items-end overflow-hidden sm:h-[60vh]">
+      <img
+        src={heroImage}
+        alt={`${venue.name} — Macau premium sauna`}
+        width="1920"
+        height="1080"
+        fetchpriority="high"
+        decoding="async"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-black/40 to-black/30"></div>
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+        <a
+          href="/"
+          class="mb-4 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-[var(--color-primary)]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+          Back to Home
+        </a>
+        <h1 class="text-3xl font-bold sm:text-4xl md:text-5xl">{venue.name}</h1>
       </div>
     </section>
 
-    <!-- Body Section -->
-    {venue.fullDescription && (
-      <section class="vd-body-section">
-        <div class="vd-body-wrap">
-
-          {/* Full Description */}
-          {paragraphs.map((p) => (
-            <p class="vd-desc-full">{p}</p>
-          ))}
+    <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      {/* Description */}
+      {paragraphs.length > 0 && (
+        <div class="mb-12 max-w-3xl">
+          <p class="whitespace-pre-line text-lg leading-relaxed text-white/70">
+            {paragraphs.join('\n\n')}
+          </p>
           {footerNote && (
-            <div class="vd-footer-row">
-              <p class="vd-desc-footer">{footerNote}</p>
-              {venue.website && (
-                <span class="vd-footer-site">
-                  <a href={`https://${venue.website}`} target="_blank" rel="noopener noreferrer" class="vd-details-website">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10" />
-                      <line x1="2" y1="12" x2="22" y2="12" />
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                    </svg>
-                    {venue.website}
-                  </a>
-                  <span class="vd-stars-inline">
-                    {Array.from({ length: 5 }).map(() => (
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF4DA6" stroke="none">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                      </svg>
-                    ))}
-                  </span>
-                </span>
+            <p class="mt-4 text-sm text-white/40">{footerNote.replace(/\.$/, '')}</p>
+          )}
+        </div>
+      )}
+
+      {/* Practical info */}
+      <div class="mb-12" data-testid="spa-practical-info">
+        <div class="overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] bg-[#141414]">
+          {/* Reference Price */}
+          {(venue.referencePrice || venue.priceRange) && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="mb-1 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" /><path d="M15 6h1v4" /><path d="m6.134 14.768.866-.5 2 3.464" /><circle cx="16" cy="8" r="6" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Reference Price</span>
+              </div>
+              <p class="ml-7 text-lg font-medium text-white">{venue.referencePrice || venue.priceRange}</p>
+              <a href="#contact" class="ml-7 mt-1 inline-block text-sm text-[var(--color-primary)] transition-colors hover:text-[var(--color-primary-light)]">
+                Contact us for a discount →
+              </a>
+            </div>
+          )}
+
+          {/* Staff */}
+          {venue.staffNationalities && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><path d="M16 3.128a4 4 0 0 1 0 7.744" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><circle cx="9" cy="7" r="4" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Staff</span>
+              </div>
+              <p class="mt-1 ml-7 font-medium text-white">
+                Multinational<span class="mx-2 text-white/50">|</span>{venue.staffNationalities.split(',').map((s) => s.trim()).join('、')}
+              </p>
+            </div>
+          )}
+
+          {/* Hours */}
+          {venue.hours && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="mb-1 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Hours</span>
+              </div>
+              <p class="ml-7 font-medium text-white">{venue.hours}</p>
+              {venue.staffHours && (
+                <p class="ml-7 text-sm text-white/50">{venue.staffHours}</p>
               )}
             </div>
           )}
-          {!footerNote && venue.website && (
-            <div class="vd-footer-row">
-              <span class="vd-footer-site">
-                <a href={`https://${venue.website}`} target="_blank" rel="noopener noreferrer" class="vd-details-website">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                  {venue.website}
+
+          {/* Website */}
+          {websiteHref && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="mb-1 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Official Website</span>
+              </div>
+              <p class="ml-7">
+                <a href={websiteHref} target="_blank" rel="noopener" class="font-medium text-[var(--color-primary)] transition-colors hover:text-[var(--color-primary-light)]">
+                  {venue.name} official website ↗
                 </a>
-                <span class="vd-stars-inline">
-                  {Array.from({ length: 5 }).map(() => (
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="#FF4DA6" stroke="none">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </span>
-              </span>
+                <span class="ml-2 text-sm text-white/40">{venue.website}</span>
+              </p>
             </div>
           )}
 
-          {/* Info Cards Grid */}
-          {venue.referencePrice && (<>
-            <div class="vd-card-grid">
-
-              {/* Reference Price */}
-              <div class="vd-card">
-                <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="1" x2="12" y2="23" />
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
-                <span class="vd-card-label">Reference Price</span>
-                <span class="vd-card-value vd-card-price">{venue.referencePrice}</span>
-                <a href="/#contact" class="vd-card-link">Contact us for a discount</a>
+          {/* Overnight */}
+          {venue.overnight && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Overnight</span>
               </div>
-
-              {/* Staff */}
-              {venue.staffNationalities && (
-                <div class="vd-card">
-                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                  <span class="vd-card-label">Staff</span>
-                  <span class="vd-card-value">Multinational</span>
-                  <span class="vd-card-sub">{venue.staffNationalities}</span>
-                </div>
-              )}
-
-              {/* Hours */}
-              <div class="vd-card">
-                <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10" />
-                  <polyline points="12 6 12 12 16 14" />
-                </svg>
-                <span class="vd-card-label">Hours</span>
-                <span class="vd-card-value">{venue.hours}</span>
-                {venue.staffHours && (
-                  <span class="vd-card-sub">{venue.staffHours}</span>
+              <p class="mt-1 ml-7 font-medium text-white">
+                {overnightMain}
+                {overnightNote && (
+                  <span class="text-sm text-white/50"> — {overnightNote}</span>
                 )}
-              </div>
-
-              {/* Overnight */}
-              {venue.overnight && (() => {
-                const overnightUnavailable = venue.overnight.toLowerCase().includes('not available');
-                return (
-                  <div class={`vd-card ${overnightUnavailable ? 'vd-card-overnight-red' : 'vd-card-overnight-green'}`}>
-                    <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                    </svg>
-                    <span class="vd-card-label">Overnight</span>
-                    <span class="vd-card-value vd-card-overnight">{venue.overnight}</span>
-                  </div>
-                );
-              })()}
-
-              {/* Best For */}
-              {venue.bestFor && (
-                <div class="vd-card">
-                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <circle cx="12" cy="12" r="6" />
-                    <circle cx="12" cy="12" r="2" />
-                  </svg>
-                  <span class="vd-card-label">Best For</span>
-                  <span class="vd-card-value">{venue.bestFor}</span>
-                </div>
-              )}
-
-              {/* Payment */}
-              {venue.payment && (
-                <div class="vd-card">
-                  <svg class="vd-card-bg-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                    <line x1="1" y1="10" x2="23" y2="10" />
-                  </svg>
-                  <span class="vd-card-label">Payment</span>
-                  <div class="vd-payment-list">
-                    {venue.payment.map((p) => (
-                      <span class="vd-payment-badge">{p}</span>
-                    ))}
-                  </div>
-                </div>
-              )}
-
+              </p>
             </div>
+          )}
 
-            {/* Highlights */}
-            {venue.highlights && (
-              <div class="vd-hl-row">
-                {venue.highlights.map((h, i) => (
-                  <div class={`vd-hl-tile ${i === 0 ? 'vd-hl-tile-accent' : ''}`}>
-                    <span class="vd-hl-tile-text">{h}</span>
-                  </div>
+          {/* Highlights */}
+          {venue.highlights && venue.highlights.length > 0 && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="mb-2 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /><path d="M20 2v4" /><path d="M22 4h-4" /><circle cx="4" cy="20" r="2" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Highlights</span>
+              </div>
+              <ul class="ml-7 space-y-1">
+                {venue.highlights.map((h) => (
+                  <li class="flex items-start gap-2 text-sm font-medium text-white">
+                    <span class="mt-0.5 text-[color-mix(in_srgb,var(--color-primary)_60%,transparent)]">•</span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Best For */}
+          {venue.bestFor && (
+            <div class="border-b border-white/5 px-5 py-4">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /><circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Best For</span>
+              </div>
+              <p class="mt-1 ml-7 font-medium text-white">{venue.bestFor}</p>
+            </div>
+          )}
+
+          {/* Payment */}
+          {venue.payment && venue.payment.length > 0 && (
+            <div class="px-5 py-4">
+              <div class="mb-2 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 text-[var(--color-primary)]" aria-hidden="true"><rect width="20" height="14" x="2" y="5" rx="2" /><line x1="2" x2="22" y1="10" y2="10" /></svg>
+                <span class="text-xs uppercase tracking-wider text-white/40">Payment</span>
+              </div>
+              <div class="ml-7 flex flex-wrap gap-2">
+                {venue.payment.map((p) => (
+                  <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70">{p}</span>
                 ))}
               </div>
-            )}
-          </>)}
+            </div>
+          )}
+        </div>
 
-          {/* Contact CTA */}
-          <div class="vd-contact-cta">
-            <ContactCTA client:load />
+        <div class="mt-3 px-1">
+          <div class="rounded-xl border border-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_5%,transparent)] px-4 py-3">
+            <p class="text-sm font-medium text-[color-mix(in_srgb,var(--color-primary)_80%,transparent)]">
+              First time? Book with us — free shuttle + best price
+            </p>
           </div>
-
         </div>
-      </section>
-    )}
 
-    {/* Gallery */}
-    {imageFolder && galleryItems.length > 0 && (
-      <section class="vd-gallery-section">
-        <div class="vd-gallery-wrap">
-          <h2 class="vd-gallery-title">
-            <SlotMachineText text="Gallery" stripLength={6} client:visible />
-          </h2>
-          <VenueGallery items={galleryItems} client:load />
-        </div>
-      </section>
-    )}
-
-    {/* Detailed Flow */}
-    {flowSteps.length > 0 && (
-      <section class="vd-flow-section">
-        <div class="vd-flow-wrap">
-          <h2 class="vd-flow-title">
-            <SlotMachineText text="Detailed Flow" stripLength={10} client:visible />
-          </h2>
-          <VenueFlow steps={flowSteps} client:load />
-        </div>
-      </section>
-    )}
-
-    {/* Other Popular Spas */}
-    <section class="vd-other-section">
-      <div class="vd-other-wrap">
-        <h2 class="vd-other-title">
-          <SlotMachineText text="Other Popular Spas" stripLength={12} client:visible />
-        </h2>
-        <div class="vd-other-grid">
-          {FEATURED_VENUES
-            .filter((v) => v.slug !== venue.slug)
-            .slice(0, 3)
-            .map((v, i) => (
-              <a href={`/venues/${v.slug}`} class={`vd-other-card ${i === 0 ? 'vd-other-card--hero' : ''}`}>
-                <div class="vd-other-img-wrap">
-                  <img src={v.image} alt={v.name} class="vd-other-img" loading="lazy" />
-                </div>
-                <div class="vd-other-info">
-                  <h4 class="vd-other-name">{v.name}</h4>
-                  <p class="vd-other-desc">{v.description}</p>
-                  <span class="vd-other-link">
-                    Learn More
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
-                  </span>
-                </div>
-              </a>
-            ))}
+        <div class="mt-3 flex items-center justify-center gap-3 px-1">
+          <a
+            href={waHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 rounded-lg border border-white/10 bg-[#141414] px-3 py-2 transition-colors hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+          >
+            <img src="/whatsapp.svg" alt="WhatsApp" class="h-5 w-5 rounded-md" />
+            <span class="text-sm text-white/70">WhatsApp</span>
+          </a>
+          <a
+            href={tgHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 rounded-lg border border-white/10 bg-[#141414] px-3 py-2 transition-colors hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+          >
+            <img src="/telegram.svg" alt="Telegram" class="h-5 w-5 rounded-md" />
+            <span class="text-sm text-white/70">Telegram</span>
+          </a>
+          <a href="#contact" class="text-sm text-[var(--color-primary)] transition-colors hover:text-[var(--color-primary-light)]">
+            All contacts →
+          </a>
         </div>
       </div>
-    </section>
 
-    {/* Final CTA */}
-    <section class="vd-final-section">
-      <div class="vd-final-wrap">
-        <span class="vd-final-eyebrow">24/7 Support</span>
-        <h2 class="vd-final-title">Let&apos;s Talk</h2>
-        <p class="vd-final-message">More than a service. A memory you&rsquo;ll keep.</p>
-        <p class="vd-final-body">
-          Macau runs on hospitality. Every guest deserves a night that stays with them,
-          and we make sure yours is nothing short of <em>unforgettable</em>.
-        </p>
-        <div class="vd-final-btn">
-          <ContactCTA client:load />
+      {/* Features */}
+      {featurePills.length > 0 && (
+        <div class="mb-16">
+          <h2 class="mb-4 text-xl font-semibold text-[var(--color-primary)]">Features</h2>
+          <div class="flex flex-wrap gap-2">
+            {featurePills.map((f) => (
+              <span class="rounded-full border border-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] px-4 py-2 text-sm text-[var(--color-primary-light)]">
+                {f}
+              </span>
+            ))}
+          </div>
         </div>
-        <p class="vd-final-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+      )}
+
+      {/* Gallery */}
+      {imageFolder && galleryItems.length > 0 && (
+        <div class="mb-16">
+          <VenueGallery items={galleryItems} client:visible />
+        </div>
+      )}
+
+      {/* Detailed Flow */}
+      {flowSteps.length > 0 && (
+        <div class="mb-16">
+          <VenueFlow steps={flowSteps} client:visible />
+        </div>
+      )}
+
+      {/* Other Popular Spas */}
+      <div class="mb-16">
+        <h2 class="mb-6 text-xl font-semibold text-[var(--color-primary)]">Other Popular Spas</h2>
+        <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {relatedVenues.map((v) => (
+            <a
+              href={`/venues/${v.slug}`}
+              class="group block overflow-hidden rounded-2xl border border-white/5 bg-[#141414] shadow-lg transition-all duration-500 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)] hover:shadow-[0_0_24px_rgba(255,45,85,0.08)]"
+            >
+              <div class="relative aspect-[4/3] overflow-hidden">
+                <img
+                  src={v.image}
+                  alt={`${v.name} — Macau premium sauna venue`}
+                  loading="lazy"
+                  decoding="async"
+                  width="800"
+                  height="600"
+                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-80"></div>
+              </div>
+              <div class="p-5">
+                <h3 class="mb-2 text-lg font-semibold text-white transition-colors duration-300 group-hover:text-[var(--color-primary)]">
+                  {v.name}
+                </h3>
+                <p class="line-clamp-2 text-sm leading-relaxed text-white/50">{v.description}</p>
+                <div class="mt-4 flex items-center text-sm font-medium text-[var(--color-primary)] opacity-70 transition-opacity duration-300 sm:opacity-0 sm:group-hover:opacity-100">
+                  <span>Learn More</span>
+                  <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      {/* Book CTA */}
+      <div
+        id="contact"
+        class="scroll-mt-6 rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] bg-gradient-to-r from-[#141414] to-[#1a1a1a] p-8 text-center sm:p-12"
+      >
+        <h2 class="mb-4 text-2xl font-bold sm:text-3xl">
+          Book Your <span class="text-[var(--color-primary)]">VIP Experience</span>
+        </h2>
+        <p class="mx-auto mb-8 max-w-md text-white/50">Send us a message and we'll take care of the rest.</p>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {contactPlatforms.map((p) =>
+            p.href ? (
+              <a
+                href={p.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+              >
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]">
+                  <img src={p.icon} alt={p.name} class="h-7 w-7 rounded-md" />
+                </div>
+                <div>
+                  <div class="mb-1 text-xs text-white/40">{p.name}</div>
+                  <div class="font-medium text-white">{p.handle}</div>
+                </div>
+              </a>
+            ) : (
+              <button
+                type="button"
+                data-wechat-open
+                class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+              >
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]">
+                  <img src={p.icon} alt={p.name} class="h-7 w-7 rounded-md" />
+                </div>
+                <div>
+                  <div class="mb-1 text-xs text-white/40">{p.name}</div>
+                  <div class="font-medium text-white">{p.handle}</div>
+                </div>
+              </button>
+            )
+          )}
+        </div>
+
+        {websiteHref && (
+          <p class="mt-6 text-sm text-white/40">
+            Official website:{' '}
+            <a href={websiteHref} target="_blank" rel="noopener" class="text-[var(--color-primary)] transition-colors hover:text-[var(--color-primary-light)]">
+              {venue.website?.replace(/\/$/, '')}
+            </a>
+          </p>
+        )}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 text-sm text-white/40 transition-colors hover:text-[var(--color-primary)]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+          Back to Home
+        </a>
       </div>
     </section>
   </main>
+
+  <dialog id="wechat-modal" class="cu-dialog">
+    <form method="dialog" class="cu-dialog-card">
+      <h3>WeChat</h3>
+      <p>Add us on WeChat with this ID:</p>
+      <p class="cu-wechat-id">AN99348</p>
+      <button type="button" id="wechat-copy" class="cu-copy">Copy ID</button>
+      <button type="submit" class="cu-dialog-close" value="cancel">Close</button>
+    </form>
+  </dialog>
 </BaseLayout>
 
-<style is:global>
-  .vd-page {
-    background: #000000;
-    color: #FFF8F0;
-    font-family: 'Inter', sans-serif;
+<style>
+  .cu-dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 22rem;
+    width: calc(100% - 2rem);
   }
-
-  .vd-name-block {
-    padding: 6rem 2rem 4rem;
-    text-align: center;
+  .cu-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
   }
-
-  .vd-name-big {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-    margin: 0 0 0.5rem;
-  }
-
-  .vd-tags {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .vd-tag {
-    display: inline-block;
-    padding: 0.35rem 1rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    border-radius: 0.25rem;
-  }
-
-  .vd-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: #B0A890;
-    margin: 0.5rem 0 0.25rem;
-  }
-
-  .vd-location {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    color: #9E9E9E;
-    margin-top: 0.5rem;
-  }
-
-  .vd-location-icon {
-    flex-shrink: 0;
-    color: rgba(255,77,166,0.5);
-  }
-
-  /* ── Body Section (desc + cards + highlights + CTA) ── */
-  .vd-body-section {
-    background: #0A0A0A;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .vd-body-wrap {
-    max-width: 52rem;
-    margin: 0 auto;
-  }
-
-  .vd-desc-full {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #B0A890;
-    line-height: 1.8;
-    margin: 0 0 1.5rem;
-  }
-
-  .vd-desc-full:last-child {
-    margin-bottom: 0;
-  }
-
-  .vd-desc-footer {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: rgba(255,77,166,0.5);
-    margin: 0;
-  }
-
-  @media (max-width: 480px) {
-    .vd-name-block {
-      padding: 4rem 1.25rem 3rem;
-    }
-    .vd-desc-full {
-      font-size: 0.92rem;
-    }
-  }
-
-  /* ── Card Grid (2 cols) ── */
-  .vd-card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    margin: 2rem 0;
-  }
-
-  .vd-card {
-    background: #000000;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 0.75rem;
+  .cu-dialog-card {
+    background: #141414;
+    border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+    border-radius: 1rem;
     padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    position: relative;
-    overflow: hidden;
+    text-align: center;
   }
-
-  .vd-card-bg-icon {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    opacity: 0.06;
-    color: #FFF8F0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-  }
-
-  .vd-card:hover .vd-card-bg-icon {
-    opacity: 0.12;
-  }
-
-  /* Overnight unavailable (red) */
-  .vd-card-overnight-red {
-    border-color: rgba(220, 38, 38, 0.25);
-    background: rgba(220, 38, 38, 0.05);
-  }
-
-  .vd-card-overnight-red .vd-card-bg-icon {
-    color: rgba(220, 38, 38, 0.25);
-    opacity: 0.2;
-  }
-
-  .vd-card-overnight-red:hover .vd-card-bg-icon {
-    opacity: 0.3;
-  }
-
-  .vd-card-overnight-red .vd-card-value {
-    color: #FCA5A5;
-  }
-
-  /* Overnight available (green) */
-  .vd-card-overnight-green {
-    border-color: rgba(34, 197, 94, 0.25);
-    background: rgba(34, 197, 94, 0.05);
-  }
-
-  .vd-card-overnight-green .vd-card-bg-icon {
-    color: rgba(34, 197, 94, 0.25);
-    opacity: 0.2;
-  }
-
-  .vd-card-overnight-green:hover .vd-card-bg-icon {
-    opacity: 0.3;
-  }
-
-  .vd-card-overnight-green .vd-card-value {
-    color: #86EFAC;
-  }
-
-  .vd-card-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #807860;
-  }
-
-  .vd-card-value {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #FFF8F0;
-    line-height: 1.4;
-  }
-
-  .vd-card-price {
-    font-family: 'Inter', sans-serif;
-    font-size: 1.35rem;
+  .cu-dialog-card h3 {
+    color: var(--color-primary);
+    font-size: 1.125rem;
     font-weight: 700;
-    color: #FF4DA6;
-    font-feature-settings: "lnum";
+    margin-bottom: 0.75rem;
   }
-
-  .vd-card-overnight {
-    font-size: 0.9rem;
+  .cu-dialog-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
   }
-
-  .vd-card-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    color: #807860;
-    line-height: 1.5;
+  .cu-wechat-id {
+    font-size: 1.25rem !important;
+    font-weight: 700;
+    color: white !important;
+    letter-spacing: 0.05em;
+    margin: 1rem 0 !important;
   }
-
-  .vd-card-link {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: #FF4DA6;
-    text-decoration: none;
-    margin-top: 0.3rem;
-    transition: color 0.2s;
-  }
-
-  .vd-card-link:hover {
-    color: #FF85C2;
-  }
-
-  .vd-payment-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-  }
-
-  .vd-payment-badge {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #B0A890;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 0.3rem;
-    padding: 0.3rem 0.65rem;
-  }
-
-  /* ── Details (Highlights + Website) ── */
-  .vd-details-website {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: rgba(176, 168, 144, 0.5);
-    text-decoration: none;
-    transition: color 0.2s;
-    align-self: flex-start;
-  }
-
-  .vd-details-website:hover {
-    color: #FF4DA6;
-  }
-
-  .vd-footer-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    margin: 2rem 0 0;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    flex-wrap: wrap;
-  }
-
-  .vd-footer-site {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-  }
-
-  .vd-stars-inline {
-    display: inline-flex;
-    gap: 1px;
-    flex-shrink: 0;
-  }
-
-  .vd-hl-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.65rem;
-  }
-
-  .vd-hl-tile {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s;
-  }
-
-  .vd-hl-tile:hover {
-    border-color: rgba(255,77,166,0.2);
-    background: rgba(255,77,166,0.04);
-  }
-
-  .vd-hl-tile-accent {
-    border-color: rgba(255,77,166,0.15);
-    background: rgba(255,77,166,0.05);
-  }
-
-  .vd-hl-tile-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: #B0A890;
-    line-height: 1.3;
-  }
-
-  .vd-hl-tile-accent .vd-hl-tile-text {
-    color: #FF4DA6;
-  }
-
-  /* ── Contact CTA ── */
-  .vd-contact-cta {
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  /* ── Other Popular Spas ── */
-  .vd-other-section {
-    background: #000000;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .vd-other-wrap {
-    max-width: 64rem;
-    margin: 0 auto;
-  }
-
-  .vd-other-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    text-align: center;
-    letter-spacing: -0.02em;
-    margin: 0 0 3rem;
-  }
-
-  .vd-other-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.25rem;
-  }
-
-  .vd-other-card {
-    text-decoration: none;
-    background: #0A0A0A;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 0.75rem;
-    overflow: hidden;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .vd-other-card--hero {
-    grid-row: 1 / span 2;
-  }
-
-  .vd-other-card--hero .vd-other-img-wrap {
-    aspect-ratio: 4 / 5;
-  }
-
-  .vd-other-card--hero .vd-other-name {
-    font-size: 1.3rem;
-  }
-
-  .vd-other-card--hero .vd-other-desc {
-    -webkit-line-clamp: 4;
-  }
-
-  .vd-other-card:hover {
-    border-color: rgba(255,77,166,0.25);
-    box-shadow: 0 0 20px rgba(255,77,166,0.06);
-  }
-
-  .vd-other-img-wrap {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-  }
-
-  .vd-other-img {
+  .cu-copy {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-
-  .vd-other-card:hover .vd-other-img {
-    transform: scale(1.05);
-  }
-
-  .vd-other-info {
-    padding: 1rem 1.25rem 1.25rem;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .vd-other-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #FFF8F0;
-    margin: 0 0 0.4rem;
-    line-height: 1.2;
-  }
-
-  .vd-other-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 400;
-    color: #807860;
-    line-height: 1.55;
-    margin: 0 0 0.85rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    flex: 1;
-  }
-
-  .vd-other-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background: #07c160;
+    color: white;
     font-weight: 600;
-    color: #FF4DA6;
-    transition: gap 0.2s, color 0.2s;
-    margin-top: auto;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
   }
-
-  .vd-other-card:hover .vd-other-link {
-    gap: 0.55rem;
-    color: #FF85C2;
+  .cu-copy:hover {
+    background: #06a050;
   }
-
-  @media (max-width: 768px) {
-    .vd-other-grid {
-      grid-template-columns: 1fr;
-      max-width: 28rem;
-      margin-inline: auto;
-    }
-
-    .vd-other-card--hero {
-      grid-row: auto;
-    }
-
-    .vd-other-card--hero .vd-other-img-wrap {
-      aspect-ratio: 16 / 10;
-    }
-
-    .vd-other-card--hero .vd-other-name {
-      font-size: 1.1rem;
-    }
-
-    .vd-other-card--hero .vd-other-desc {
-      -webkit-line-clamp: 3;
-    }
+  .cu-dialog-close {
+    width: 100%;
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    font-size: 0.875rem;
   }
-
-  @media (max-width: 600px) {
-    .vd-other-section {
-      padding: 3.5rem 1.25rem 4.5rem;
-    }
-  }
-
-  /* ── Final CTA ── */
-  .vd-final-section {
-    background: #0A0A0A;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .vd-final-wrap {
-    max-width: 36rem;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .vd-final-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: #FF4DA6;
-    margin-bottom: 1.25rem;
-    display: block;
-  }
-
-  .vd-final-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.75rem, 7vw, 4.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 2rem;
-  }
-
-  .vd-final-message {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: #D0C0A0;
-    line-height: 1.4;
-    margin: 0 0 0.65rem;
-  }
-
-  .vd-final-body {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: #808090;
-    line-height: 1.65;
-    max-width: 28rem;
-    margin: 0 auto 2.5rem;
-  }
-
-  .vd-final-body em {
-    font-style: italic;
-    color: #FF4DA6;
-  }
-
-  .vd-final-btn {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-  }
-
-  .vd-final-note {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #606070;
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  @media (max-width: 639px) {
-    .vd-final-section {
-      padding: 3.5rem 1.25rem 4.5rem;
-    }
-
-    .vd-final-message {
-      font-size: 1.15rem;
-    }
-
-    .vd-final-body {
-      margin-bottom: 2rem;
-    }
-
-    .vd-final-btn {
-      margin-bottom: 1.75rem;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .vd-final-section {
-      padding: 3rem 1rem 4rem;
-    }
-
-    .vd-final-eyebrow {
-      margin-bottom: 1rem;
-      font-size: 0.6rem;
-    }
-
-    .vd-final-message {
-      font-size: 1.05rem;
-    }
-
-    .vd-final-body {
-      font-size: 0.8rem;
-      margin-bottom: 1.75rem;
-    }
-
-    .vd-final-btn {
-      margin-bottom: 1.5rem;
-    }
-
-    .vd-final-note {
-      font-size: 0.7rem;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .vd-card-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-    }
-
-    .vd-body-section {
-      padding: 3.5rem 1.25rem 4.5rem;
-    }
-
-    .vd-hl-row {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  /* ── Detailed Flow ── */
-  .vd-flow-section {
-    background: #0A0A0A;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .vd-flow-wrap {
-    max-width: 48rem;
-    margin: 0 auto;
-  }
-
-  .vd-flow-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    text-align: center;
-    letter-spacing: -0.02em;
-    margin: 0 0 3rem;
-  }
-
-  @media (max-width: 600px) {
-    .vd-flow-section {
-      padding: 3.5rem 1.25rem 4.5rem;
-    }
-
-    .vd-flow-title {
-      margin-bottom: 2rem;
-    }
-  }
-
-  /* ── Gallery ── */
-  .vd-gallery-section {
-    background: #000000;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .vd-gallery-wrap {
-    max-width: 64rem;
-    margin: 0 auto;
-  }
-
-  .vd-gallery-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    text-align: center;
-    letter-spacing: -0.02em;
-    margin: 0 0 3rem;
-  }
-
-  @media (max-width: 600px) {
-    .vd-gallery-section {
-      padding: 3.5rem 1.25rem 4.5rem;
-    }
-
-    .vd-gallery-title {
-      margin-bottom: 2rem;
-    }
+  .cu-dialog-close:hover {
+    color: var(--color-primary);
   }
 </style>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const t = e.target as HTMLElement | null;
+    if (!t?.closest) return;
+    if (t.closest('[data-wechat-open]')) {
+      e.preventDefault();
+      (document.getElementById('wechat-modal') as HTMLDialogElement | null)?.showModal();
+    }
+  });
+  document.getElementById('wechat-copy')?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText('AN99348');
+      const btn = document.getElementById('wechat-copy');
+      if (btn) {
+        const prev = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => {
+          if (btn) btn.textContent = prev;
+        }, 2000);
+      }
+    } catch {
+      /* ignore */
+    }
+  });
+</script>

@@ -9,8 +9,8 @@ interface PrimaryCTAProps {
 }
 
 /**
- * Gold-gradient CTA button — exact copy from HeroGallery .cta--primary
- * Colors are Aurelia rose-gold → pink: #E0187A → #FF4DA6 → #FF1493
+ * Neon-red CTA button — exact copy from HeroGallery .cta--primary
+ * Colors are neon red: #C41E3A → #FF2D55 → #FF6B85
  * Renders as <a> when href is provided, <button> when onClick is used.
  */
 export default function PrimaryCTA({ text, href, target, rel, onClick }: PrimaryCTAProps) {
@@ -34,12 +34,12 @@ export default function PrimaryCTA({ text, href, target, rel, onClick }: Primary
     border: "none",
     borderRadius: "0.5em",
     color: "#FFF8F0",
-    backgroundImage: "linear-gradient(325deg, #E0187A 0%, #FF4DA6 45%, #FF1493 90%)",
+    backgroundImage: "linear-gradient(325deg, #C41E3A 0%, #FF2D55 45%, #FF6B85 90%)",
     backgroundSize: "280% auto",
     backgroundPosition: "left top",
     transition: "0.8s",
-    fontFamily: "'Inter', sans-serif",
-    boxShadow: "0 0 20px rgba(255,77,166,0.5), 0 5px 5px -1px rgba(255,77,166,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
+    fontFamily: "'Noto Sans TC', system-ui, sans-serif",
+    boxShadow: "0 0 20px rgba(255,45,85,0.5), 0 5px 5px -1px rgba(255,45,85,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
   } as const;
 
   const hoverHandlers = {

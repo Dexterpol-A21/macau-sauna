@@ -104,7 +104,7 @@ export default function ContactModal({ open, onClose }: Props) {
             <div className="mb-8 text-center">
               <span
                 className="mb-2 block text-[0.625rem] font-bold uppercase tracking-[0.34em]"
-                style={{ color: "#FF4DA6", fontFamily: "'Inter', sans-serif" }}
+                style={{ color: "#FF2D55", fontFamily: "'Noto Sans TC', system-ui, sans-serif" }}
               >
                 24/7 Support
               </span>
@@ -112,14 +112,14 @@ export default function ContactModal({ open, onClose }: Props) {
                 className="text-2xl font-extrabold leading-[1.05] tracking-[-0.02em]"
                 style={{
                   color: "#FFF8F0",
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Noto Sans TC', system-ui, sans-serif",
                 }}
               >
                 Reach Out Now
               </h2>
               <p
                 className="mt-3 text-sm leading-relaxed"
-                style={{ color: "#B0A890", fontFamily: "'Inter', sans-serif" }}
+                style={{ color: "#B0A890", fontFamily: "'Noto Sans TC', system-ui, sans-serif" }}
               >
                 Choose your preferred platform. We reply within minutes.
               </p>
@@ -133,7 +133,7 @@ export default function ContactModal({ open, onClose }: Props) {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex items-center gap-4 rounded-xl border border-white/[0.05] bg-[#1A1A1A] px-5 py-4 transition-all hover:border-[rgba(255,77,166,0.35)] hover:bg-[rgba(255,77,166,0.08)] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
+                  className="group relative flex items-center gap-4 rounded-xl border border-white/[0.05] bg-[#1A1A1A] px-5 py-4 transition-all hover:border-[rgba(255,45,85,0.35)] hover:bg-[rgba(255,45,85,0.08)] hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(0,0,0,0.3)]"
                   style={{ textDecoration: "none" }}
                 >
                   <div
@@ -147,23 +147,23 @@ export default function ContactModal({ open, onClose }: Props) {
                       className="text-base font-bold leading-tight tracking-[-0.01em]"
                       style={{
                         color: "#FFF8F0",
-                        fontFamily: "'Playfair Display', serif",
+                        fontFamily: "'Noto Sans TC', system-ui, sans-serif",
                       }}
                     >
                       {p.name}
                     </h3>
                     <span
-                      className="text-[0.78rem] font-semibold tracking-[0.05em] text-[#FF4DA6] transition-colors duration-300 group-hover:text-[#FF4DA6]"
+                      className="text-[0.78rem] font-semibold tracking-[0.05em] text-[#FF2D55] transition-colors duration-300 group-hover:text-[#FF2D55]"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
+                        fontFamily: "'Noto Sans TC', system-ui, sans-serif",
                       }}
                     >
                       {p.handle}
                     </span>
                   </div>
                   <span
-                    className="flex-shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#FF4DA6]"
-                    style={{ color: "rgba(255,77,166,0.3)" }}
+                    className="flex-shrink-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[#FF2D55]"
+                    style={{ color: "rgba(255,45,85,0.3)" }}
                   >
                     <svg
                       width="18"

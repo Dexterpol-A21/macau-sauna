@@ -19,3 +19,6 @@ Thumbs.db
 
 # Astro
 .astro/
+
+# Local design references (downloaded competitor pages — do not deploy)
+reference/

@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SEO_KEYWORDS } from '../utils/constants';
+import { TITLE_SHUTTLE } from '../utils/seo-titles';
+
+const WA =
+  'https://wa.me/85365670348?text=' +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+const TG =
+  'https://t.me/Aomensauna?text=' +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+
+const CHANNELS = [
+  { name: 'WhatsApp', detail: 'Message us', href: WA, icon: '/whatsapp.svg', external: true },
+  { name: 'Telegram', detail: '@Aomensauna', href: TG, icon: '/telegram.svg', external: true },
+  { name: 'WeChat', detail: 'AN99348', href: '/contact#channels', icon: '/wechat.svg', external: false },
+  { name: 'LINE', detail: '16880348', href: 'https://line.me/ti/p/VZHFDSZnq9', icon: '/line.svg', external: true },
+];
+
+const PIN =
+  '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/>';
+const CAR =
+  '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>';
+const PLANE =
+  '<path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>';
+const BUILDING =
+  '<path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/>';
+
+const PICKUP_POINTS = [
+  { label: 'Border Gate / Qingmao / Hengqin checkpoints', icon: PIN },
+  { label: 'HZMB (Hong Kong–Zhuhai–Macau Bridge)', icon: PIN },
+  { label: 'Taipa & Outer Harbour ferry terminals', icon: PIN },
+  { label: 'Macau International Airport', icon: PLANE },
+  { label: 'Any major hotel or casino', icon: BUILDING },
+  { label: 'Cotai Strip resorts', icon: BUILDING },
+];
+
+const STEPS = [
+  "Message us your location and the venue you'd like to book.",
+  'We send a private car to pick you up at your chosen time.',
+  "When you're done, just message us and we'll drive you back to your hotel, complimentary.",
+];
+
+const INCLUDED = [
+  'Free pickup anywhere in Macau or Taipa',
+  'Complimentary ride back to your hotel',
+  'A comfortable 7-seater private car with a dedicated driver',
+  'Available 24 hours',
+];
+
+const LOOKS = [
+  { href: '/ranking', label: 'Macau sauna ranking & prices' },
+  { href: '/how-it-works', label: 'First time? Read the guide' },
+];
+---
+
+<BaseLayout
+  seo={{
+    title: TITLE_SHUTTLE,
+    description:
+      "Book a Macau sauna through us and we'll pick you up free in a private car — anywhere in Macau or Taipa: the border, ferry, airport or your hotel — plus a complimentary ride back. Just arrange your return in advance.",
+    keywords: `Macau sauna shuttle, free Macau spa pickup, private Macau transfer, Macau airport shuttle, Taipa pickup, ${SEO_KEYWORDS}`,
+  }}
+>
+  <!-- 0. Hero -->
+  <section class="chrome-pad px-4 pb-10">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-primary/90 sm:text-xs">
+        Free pickup · complimentary return
+      </p>
+      <h1 class="mb-6 text-3xl font-bold leading-tight sm:text-5xl">
+        Free Macau Sauna Shuttle Service
+      </h1>
+      <p class="mx-auto max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+        Book any sauna through Macau Sauna Booking and we'll pick you up free in a private chauffeured
+        car — anywhere in Macau or Taipa, straight to the venue. It's a 7-seater private car, so a group
+        of friends can ride together comfortably — not a shared van, same car and same dedicated driver
+        throughout. When you're done, just let us know and we'll drive you back to your hotel,
+        complimentary. Arranged with a single message.
+      </p>
+      <div class="mt-6">
+        <a
+          href="/"
+          class="group inline-flex items-center text-sm text-white/40 transition-colors hover:text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mr-2 transition-transform group-hover:-translate-x-1"
+            aria-hidden="true"
+          >
+            <path d="m12 19-7-7 7-7"></path>
+            <path d="M19 12H5"></path>
+          </svg>
+          Back to home
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. Coverage + pickup points -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto max-w-4xl">
+      <div
+        class="relative mb-8 overflow-hidden rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/[0.10] via-primary/[0.03] to-transparent p-6 text-center sm:p-10"
+      >
+        <div
+          class="pointer-events-none absolute inset-0 opacity-[0.07]"
+          style="background-image: radial-gradient(circle at 1px 1px, var(--color-primary) 1px, transparent 0); background-size: 22px 22px;"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mx-auto mb-3 h-9 w-9 text-primary"
+            aria-hidden="true"
+            set:html={PIN}
+          />
+          <h2 class="mb-3 text-xl font-bold sm:text-3xl">We pick you up anywhere in Macau or Taipa</h2>
+          <p class="mx-auto mb-6 max-w-xl text-sm text-white/65 sm:text-base">
+            Wherever you are — your hotel, a casino, the border or the airport, on the peninsula or in
+            Taipa — we come to you.
+          </p>
+          <div class="flex flex-wrap justify-center gap-3">
+            {
+              ['Macau Peninsula', 'Taipa'].map((place) => (
+                <span class="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-sm font-medium text-primary">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-4 w-4"
+                    aria-hidden="true"
+                    set:html={PIN}
+                  />
+                  {place}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      <h3 class="mb-5 text-center text-base font-semibold text-white/70">Popular pickup points</h3>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          PICKUP_POINTS.map((p) => (
+            <div class="flex items-center gap-3 rounded-xl border border-primary/10 bg-white/[0.02] px-4 py-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-5 w-5 shrink-0 text-primary"
+                aria-hidden="true"
+                set:html={p.icon}
+              />
+              <span class="text-sm text-white/75">{p.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. How it works + What's included -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto grid max-w-4xl gap-8 md:grid-cols-2">
+      <div>
+        <h2 class="mb-4 flex items-center gap-2 text-xl font-bold sm:text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 text-primary"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v6l4 2"></path>
+          </svg>
+          How it works
+        </h2>
+        <ol class="space-y-3">
+          {
+            STEPS.map((step, i) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-white/70">
+                <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-bold text-primary">
+                  {i + 1}
+                </span>
+                <span>{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+
+      <div>
+        <h2 class="mb-4 flex items-center gap-2 text-xl font-bold sm:text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 text-primary"
+            aria-hidden="true"
+          >
+            <path
+              d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"
+            ></path>
+            <path d="m9 12 2 2 4-4"></path>
+          </svg>
+          What's included
+        </h2>
+        <ul class="space-y-3">
+          {
+            INCLUDED.map((item) => (
+              <li class="flex gap-3 text-sm leading-relaxed text-white/70">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="h-5 w-5 shrink-0 text-primary"
+                  aria-hidden="true"
+                  set:html={CAR}
+                />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="mt-4 border-l-2 border-primary/30 pl-3 text-xs leading-relaxed text-white/55">
+          Return tip: let us know your expected finish time in advance — when you book or before you wrap
+          up — so we can reserve a car and make sure your complimentary ride back is ready.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Contact CTA -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto max-w-xl text-center">
+      <h2 class="mb-3 text-xl font-bold sm:text-2xl">Need a pickup arranged?</h2>
+      <p class="mb-6 text-sm text-white/65">
+        Tell us your location and time — we'll book your sauna and arrange your private pickup.
+      </p>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          CHANNELS.map((ch) => (
+            <a
+              href={ch.href}
+              class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-primary/30"
+              {...(ch.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
+                <img src={ch.icon} alt="" class="h-7 w-7 rounded-md" width="28" height="28" />
+              </div>
+              <div>
+                <div class="mb-1 text-xs text-white/40">{ch.name}</div>
+                <div class="font-medium text-white">{ch.detail}</div>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Related links -->
+  <section class="px-4 pb-16">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="mb-5 text-center text-lg font-bold text-white/70">Not sure which sauna yet?</h2>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {
+          LOOKS.map((item) => (
+            <a
+              href={item.href}
+              class="flex items-center justify-between rounded-xl border border-primary/10 bg-white/[0.02] px-4 py-3 text-sm text-white/75 transition-colors hover:border-primary/30 hover:text-primary"
+            >
+              <span>{item.label}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4 shrink-0"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

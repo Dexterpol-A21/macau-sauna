@@ -1,15 +1,31 @@
 @import "tailwindcss";
 
-@theme {
-  /* Typography */
-  --font-heading: 'Playfair Display', serif;
-  --font-body: 'Inter', sans-serif;
+:root {
+  /* Fixed chrome: navbar + promo banner — use for page top clearance */
+  --nav-h: 4rem; /* h-16 */
+  --promo-h: 2.75rem; /* h-11 */
+  --chrome-top: calc(var(--nav-h) + var(--promo-h));
+  --chrome-pad: calc(var(--chrome-top) + 1.75rem);
+}
 
-  /* Noir + Hot Pink + Gold Palette (Aurelia) */
-  --color-primary: #FF4DA6;
-  --color-primary-light: #FF85C2;
-  --color-primary-dark: #E0187A;
-  --color-primary-foreground: #0A0A0A;
+@media (min-width: 640px) {
+  :root {
+    --nav-h: 5rem; /* sm:h-20 */
+    --promo-h: 3rem; /* sm:h-12 */
+    --chrome-pad: calc(var(--chrome-top) + 2.25rem);
+  }
+}
+
+@theme {
+  /* Typography — match reference (Noto Sans TC) */
+  --font-heading: 'Noto Sans TC', system-ui, sans-serif;
+  --font-body: 'Noto Sans TC', system-ui, sans-serif;
+
+  /* Noir + Neon Red Nightlife */
+  --color-primary: #FF2D55;
+  --color-primary-light: #FF6B85;
+  --color-primary-dark: #C41E3A;
+  --color-primary-foreground: #FFF8F0;
   --color-secondary: #111111;
   --color-secondary-foreground: #FFF8F0;
   --color-bg: #0A0A0A;
@@ -18,16 +34,16 @@
   --color-border: #2A2A22;
   --color-text: #FFF8F0;
   --color-text-muted: #9E9E9E;
-  --color-accent: #FF1493;
+  --color-accent: #FF4D6A;
   --color-accent-foreground: #FFF8F0;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFF8F0;
   --color-background: #0A0A0A;
   --color-input: #2A2A22;
-  --color-ring: #FF4DA6;
+  --color-ring: #FF2D55;
 
   /* Shadows & Glows */
-  --shadow-gold: 0 0 30px rgba(255, 77, 166, 0.28);
+  --shadow-gold: 0 0 30px rgba(255, 45, 85, 0.35);
   --shadow-card: 0 4px 40px rgba(0, 0, 0, 0.4);
 }
 
@@ -106,22 +122,96 @@
   will-change: opacity, transform;
 }
 
-/* Lenis smooth scroll */
-html.lenis,
-html.lenis body {
-  height: auto;
+/* Promo top banner — gold contrast accent */
+.promo-banner {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: var(--promo-h);
+  box-sizing: border-box;
+  background: linear-gradient(90deg, #1a1505 0%, #3d2e0a 35%, #5c4510 50%, #3d2e0a 65%, #1a1505 100%);
+  animation: promo-gold-glow 2.5s ease-in-out infinite;
+  will-change: opacity, transform;
+  border-color: rgba(212, 175, 55, 0.65) !important;
 }
 
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
+/* Standard page top clearance under fixed navbar + promo */
+.chrome-pad {
+  padding-top: var(--chrome-pad);
 }
 
-.lenis.lenis-stopped {
-  overflow: clip;
+.promo-banner__label {
+  color: #e8d48b;
 }
 
-.lenis.lenis-smooth iframe {
-  pointer-events: none;
+.promo-banner__cta {
+  background: #d4af37;
+  color: #0a0a0a;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.55);
+}
+
+.promo-banner__cta:hover {
+  background: #e8d48b;
+  color: #0a0a0a;
+}
+
+.promo-banner__shimmer {
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(232, 212, 139, 0.45) 50%,
+    transparent 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: promo-gold-shimmer 3.5s linear infinite;
+}
+
+.promo-banner__month {
+  color: #f5e6a0;
+  animation: promo-gold-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes promo-gold-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(212, 175, 55, 0.7);
+  }
+}
+
+@keyframes promo-gold-shimmer {
+  0% {
+    background-position: -150% 0;
+  }
+  100% {
+    background-position: 250% 0;
+  }
+}
+
+@keyframes promo-gold-pulse {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(212, 175, 55, 0.55);
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(245, 230, 160, 0.95);
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-banner,
+  .promo-banner__shimmer,
+  .promo-banner__month {
+    animation: none;
+  }
 }
 
 /* Spotlight card */
@@ -167,18 +257,18 @@ html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #E0187A 0%, #FF4DA6 50%, #FF1493 100%);
+  background: linear-gradient(180deg, #C41E3A 0%, #FF2D55 50%, #FF6B85 100%);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #FF4DA6 0%, #FF85C2 50%, #FF1493 100%);
+  background: linear-gradient(180deg, #FF2D55 0%, #FF6B85 50%, #FF4D6A 100%);
 }
 
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #FF4DA6 #0A0A0A;
+  scrollbar-color: #FF2D55 #0A0A0A;
 }
 
 /* ════════ RANKING TABLE ════════ */
@@ -194,7 +284,7 @@ html.lenis body {
   min-width: 1020px;
   border-collapse: separate;
   border-spacing: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.78rem;
   color: #B0A890;
   background: #0A0A0A;
@@ -205,7 +295,7 @@ html.lenis body {
 }
 
 .rk-th {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -214,7 +304,7 @@ html.lenis body {
   text-align: center;
   padding: 0.85rem 0.65rem;
   white-space: nowrap;
-  border-bottom: 2px solid rgba(255,77,166, 0.25);
+  border-bottom: 2px solid rgba(255,45,85, 0.25);
   position: sticky;
   top: 0;
   z-index: 3;
@@ -231,11 +321,11 @@ html.lenis body {
 }
 
 .rk-th-sep-l {
-  border-left: 1px solid rgba(255,77,166, 0.15);
+  border-left: 1px solid rgba(255,45,85, 0.15);
 }
 
 .rk-th-sep-r {
-  border-right: 1px solid rgba(255,77,166, 0.15);
+  border-right: 1px solid rgba(255,45,85, 0.15);
 }
 
 .rk-tr {
@@ -269,11 +359,11 @@ html.lenis body {
 }
 
 .rk-td-sep-l {
-  border-left: 1px solid rgba(255,77,166, 0.08);
+  border-left: 1px solid rgba(255,45,85, 0.08);
 }
 
 .rk-td-sep-r {
-  border-right: 1px solid rgba(255,77,166, 0.08);
+  border-right: 1px solid rgba(255,45,85, 0.08);
 }
 
 .rk-td-venue {
@@ -281,7 +371,7 @@ html.lenis body {
 }
 
 .rk-venue-link {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.92rem;
   font-weight: 700;
   color: #FFF8F0;
@@ -290,7 +380,7 @@ html.lenis body {
 }
 
 .rk-venue-link:hover {
-  color: #FF4DA6;
+  color: #FF2D55;
 }
 
 .rk-td-hours {
@@ -299,9 +389,9 @@ html.lenis body {
 }
 
 .rk-td-price {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-weight: 600;
-  color: #FF4DA6;
+  color: #FF2D55;
   font-feature-settings: "lnum";
 }
 
@@ -330,7 +420,7 @@ html.lenis body {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #0A0A0A;
-  background: linear-gradient(135deg, #E0187A, #FF4DA6, #FF1493);
+  background: linear-gradient(135deg, #C41E3A, #FF2D55, #FF6B85);
   border-radius: 0.2rem;
   padding: 0.2rem 0.5rem;
 }
@@ -343,33 +433,33 @@ html.lenis body {
   .rk-td-sticky {
     padding-left: 1rem !important;
   }
-    .rk-td-venue {
-      min-width: 9rem;
-    }
+  .rk-td-venue {
+    min-width: 9rem;
   }
+}
 
-  /* ══════ Mobile Performance ══════ */
-  @media (max-width: 767px) {
-    /* Reduce CLS: isolate sections below hero from layout shifts */
-    .as-section,
-    .hiw-expect,
-    .hiw-steps,
-    .hiw-recs,
-    .hiw-tips,
-    .hiw-final,
-    .ab-what,
-    .ab-stats,
-    .ab-why,
-    .cu-section,
-    .rk-section,
-    .rk-picks-section,
-    .rk-includes-section,
-    .t-section {
-      contain: layout paint style;
-    }
-    /* Render below-fold sections lazily */
-    main > *:not(:first-child) {
-      content-visibility: auto;
-      contain-intrinsic-size: auto 500px;
-    }
+/* ══════ Mobile Performance ══════ */
+@media (max-width: 767px) {
+  /* Reduce CLS: isolate sections below hero from layout shifts */
+  .as-section,
+  .hiw-expect,
+  .hiw-steps,
+  .hiw-recs,
+  .hiw-tips,
+  .hiw-final,
+  .ab-what,
+  .ab-stats,
+  .ab-why,
+  .cu-section,
+  .rk-section,
+  .rk-picks-section,
+  .rk-includes-section,
+  .t-section {
+    contain: layout paint style;
   }
+  /* Render below-fold sections lazily (skip about — page owns its paint) */
+  main > *:not(:first-child):not(.ab-page) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+}

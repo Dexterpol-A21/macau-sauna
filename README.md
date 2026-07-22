@@ -1,4 +1,4 @@
-# Aurelia Concierge — portfolio demo
+# Macau Sauna Booking — portfolio demo
 
 Dark luxury landing for a fictional VIP spa concierge. Rose-gold + pink palette, Astro + React islands.
 

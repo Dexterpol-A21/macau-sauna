@@ -1,8 +1,8 @@
 /**
- * SEO Page Titles — Aurelia Concierge
+ * SEO Page Titles — Macau Sauna Booking
  *
  * PATTERN:  "Specific — Context | Brand"
- * Brand:    Aurelia Concierge
+ * Brand:    Macau Sauna Booking
  *
  * Dynamic helpers use template-literal functions so venue / blog names
  * stay consistent without duplicating the suffix everywhere.
@@ -10,7 +10,7 @@
 
 /* ── Brand Suffix ────────────────────────────────────────────────── */
 
-const BRAND = "Aurelia Concierge";
+const BRAND = "Macau Sauna Booking";
 
 const _brand = (text: string) => `${text} | ${BRAND}`;
 
@@ -40,6 +40,11 @@ export const TITLE_ABOUT = _brand("About Us — Macau's Trusted Sauna Concierge"
 /** /ranking */
 export const TITLE_RANKING = _brand("Best Macau Saunas — Top 12 Ranked & Compared");
 
+/** /shuttle */
+export const TITLE_SHUTTLE = _brand(
+  "Free Macau Sauna Shuttle — Private Pickup Across Macau & Taipa"
+);
+
 /** /privacy */
 export const TITLE_PRIVACY = _brand("Privacy Policy & Cookies");
 
@@ -51,11 +56,11 @@ export const TITLE_404 = _brand("404 — Page Not Found");
 
 /* ── Dynamic Pages (template helpers) ────────────────────────────── */
 
-/** /venues/[slug] — e.g. "Manhao Spa — Sauna & Spa in Macau | Aurelia Concierge" */
+/** /venues/[slug] — e.g. "Manhao Spa — Sauna & Spa in Macau | Macau Sauna Booking" */
 export const titleVenueDetail = (venueName: string) =>
   _brand(`${venueName} — Sauna & Spa in Macau`);
 
-/** /blog/[slug] — e.g. "Macau Sauna Prices 2026 | Aurelia Concierge Blog" */
+/** /blog/[slug] — e.g. "Macau Sauna Prices 2026 | Macau Sauna Booking Blog" */
 export const titleBlogDetail = (blogTitle: string) =>
   _brand(blogTitle);
 
@@ -76,6 +81,7 @@ export const PAGE_TITLES: Record<string, string | ((...args: string[]) => string
   "/faq": TITLE_FAQ,
   "/about": TITLE_ABOUT,
   "/ranking": TITLE_RANKING,
+  "/shuttle": TITLE_SHUTTLE,
   "/privacy": TITLE_PRIVACY,
   "/terms": TITLE_TERMS,
   "/404": TITLE_404,

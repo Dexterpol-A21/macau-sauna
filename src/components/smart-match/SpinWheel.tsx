@@ -14,7 +14,7 @@ import SlotFrameButton from "../ui/SlotFrameButton";
 import ContactModal from "../home/ContactModal";
 import useWheelSound from "./useWheelSound";
 
-const DEFAULT_ACCENT = "#FF4DA6";
+const DEFAULT_ACCENT = "#FF2D55";
 
 /* ── Filmstrip geometry ─────────────────────────────────────── */
 const CARD_W_DESKTOP = 260;
@@ -55,17 +55,17 @@ function CenterLine() {
   return (
     <div className="pointer-events-none absolute inset-y-0 left-1/2 z-20 -translate-x-1/2">
       <svg width="16" height="10" viewBox="0 0 16 10" className="absolute -top-1 left-1/2 -translate-x-1/2">
-        <polygon points="8,10 0,0 16,0" fill="#FF4DA6" />
+        <polygon points="8,10 0,0 16,0" fill="#FF2D55" />
       </svg>
       <div
         className="h-full w-[2px]"
         style={{
-          background: "linear-gradient(180deg, transparent, #FF4DA690 15%, #FF4DA690 85%, transparent)",
-          boxShadow: "0 0 14px rgba(255,77,166,0.55)",
+          background: "linear-gradient(180deg, transparent, #FF2D5590 15%, #FF2D5590 85%, transparent)",
+          boxShadow: "0 0 14px rgba(255,45,85,0.55)",
         }}
       />
       <svg width="16" height="10" viewBox="0 0 16 10" className="absolute -bottom-1 left-1/2 -translate-x-1/2 rotate-180">
-        <polygon points="8,10 0,0 16,0" fill="#FF4DA6" />
+        <polygon points="8,10 0,0 16,0" fill="#FF2D55" />
       </svg>
     </div>
   );
@@ -124,7 +124,7 @@ function ResultCard({ venue, onSpinAgain }: { venue: Venue; onSpinAgain: () => v
               key={t.key}
               className="inline-block rounded-[0.2rem] px-[0.65rem] py-[0.2rem] text-[0.55rem] font-bold uppercase tracking-[0.12em]"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Noto Sans TC', system-ui, sans-serif",
                 background: t.primary ? t.color : "transparent",
                 color: t.primary ? "#0A0A0A" : t.color,
                 border: t.primary ? "none" : `1px solid ${t.color}33`,
@@ -137,26 +137,26 @@ function ResultCard({ venue, onSpinAgain }: { venue: Venue; onSpinAgain: () => v
 
         <h3
           className="text-xl font-bold leading-tight md:text-2xl"
-          style={{ fontFamily: "'Playfair Display', serif", color: "#FFF8F0", letterSpacing: "-0.01em" }}
+          style={{ fontFamily: "'Noto Sans TC', system-ui, sans-serif", color: "#FFF8F0", letterSpacing: "-0.01em" }}
         >
           {venue.name}
         </h3>
         <p
           className="mt-0.5 text-sm font-semibold leading-relaxed"
-          style={{ fontFamily: "'Inter', sans-serif", color: accent }}
+          style={{ fontFamily: "'Noto Sans TC', system-ui, sans-serif", color: accent }}
         >
           {venue.subtitle}
         </p>
         <p
           className="mt-2 text-sm leading-relaxed"
-          style={{ fontFamily: "'Inter', sans-serif", color: "#A0A0A0", lineHeight: 1.5 }}
+          style={{ fontFamily: "'Noto Sans TC', system-ui, sans-serif", color: "#A0A0A0", lineHeight: 1.5 }}
         >
           {venue.description}
         </p>
 
         <div
           className="mt-3 flex flex-wrap gap-x-5 gap-y-2 text-xs"
-          style={{ fontFamily: "'Inter', sans-serif", color: "#9E9E9E" }}
+          style={{ fontFamily: "'Noto Sans TC', system-ui, sans-serif", color: "#9E9E9E" }}
         >
           <span>{venue.location}</span>
           <span>{venue.hours}</span>
@@ -170,7 +170,7 @@ function ResultCard({ venue, onSpinAgain }: { venue: Venue; onSpinAgain: () => v
               key={f}
               className="inline-block rounded-[0.2rem] border px-[0.65rem] py-[0.2rem] text-[0.55rem] font-bold uppercase tracking-[0.12em]"
               style={{
-                fontFamily: "'Inter', sans-serif",
+                fontFamily: "'Noto Sans TC', system-ui, sans-serif",
                 borderColor: `${accent}33`,
                 color: "#9E9E9E",
               }}
@@ -194,10 +194,10 @@ function ResultCard({ venue, onSpinAgain }: { venue: Venue; onSpinAgain: () => v
             onClick={onSpinAgain}
             className="inline-flex items-center justify-center rounded-[0.5em] border text-xs font-semibold uppercase tracking-[0.1em] no-underline whitespace-nowrap cursor-pointer transition-all hover:-translate-y-0.5"
             style={{
-              color: "#FF4DA6",
+              color: "#FF2D55",
               background: "transparent",
-              borderColor: "rgba(255,77,166,0.25)",
-              fontFamily: "'Inter', sans-serif",
+              borderColor: "rgba(255,45,85,0.25)",
+              fontFamily: "'Noto Sans TC', system-ui, sans-serif",
               minWidth: 120,
               padding: "0 1.6rem",
               height: 50,
@@ -329,7 +329,7 @@ export default function SpinWheel() {
   }, [playTick, playDing]);
 
   return (
-    <section className="relative flex flex-col items-center px-3 py-14 md:py-28" style={{ background: "#0A0A0A", borderTop: "2px solid rgba(255,77,166,0.12)" }}>
+    <section className="chrome-pad relative flex flex-col items-center px-3 pb-14 md:pb-28" style={{ background: "#0A0A0A", borderTop: "2px solid rgba(255,45,85,0.12)" }}>
       {showConfetti && (
         <Particles id="wheel-confetti" init={particlesInit}
           options={{ preset: "fireworks", fullScreen: { enable: false }, style: { position: "absolute", inset: 0, zIndex: 30, pointerEvents: "none" } }}
@@ -348,7 +348,7 @@ export default function SpinWheel() {
           ) : (
             <span
               className="font-heading text-3xl sm:text-4xl font-bold tracking-wide md:text-5xl lg:text-6xl"
-              style={{ fontFamily: "'Playfair Display', serif", color: "#FFF8F0", visibility: "hidden" }}
+              style={{ fontFamily: "'Noto Sans TC', system-ui, sans-serif", color: "#FFF8F0", visibility: "hidden" }}
             >
               FIND YOUR VENUE
             </span>
@@ -424,13 +424,13 @@ export default function SpinWheel() {
               border: "none",
               background: spinning
                 ? "#1F1F1F"
-                : "linear-gradient(325deg, #E0187A 0%, #FF4DA6 45%, #FF1493 90%)",
+                : "linear-gradient(325deg, #C41E3A 0%, #FF2D55 45%, #FF6B85 90%)",
               backgroundSize: "280% auto",
               backgroundPosition: "left top",
               color: spinning ? "#9E9E9E" : "#FFF8F0",
               boxShadow: spinning
                 ? "none"
-                : "0 0 20px rgba(255,77,166,0.5), 0 5px 5px -1px rgba(255,77,166,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
+                : "0 0 20px rgba(255,45,85,0.5), 0 5px 5px -1px rgba(255,45,85,0.25), inset 4px 4px 8px rgba(223,200,120,0.5), inset -4px -4px 8px rgba(138,110,46,0.35)",
             }}
             onMouseEnter={(e) => {
               if (!spinning) e.currentTarget.style.backgroundPosition = "right top";

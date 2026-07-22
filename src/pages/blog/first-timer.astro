@@ -1,139 +1,181 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Contact from '../../components/home/Contact.astro';
-import '../../styles/blog-post.css';
+import BlogArticle from '../../components/blog/BlogArticle.astro';
 import { SEO_KEYWORDS } from '../../utils/constants';
 import { titleBlogDetail } from '../../utils/seo-titles';
 
-const title = titleBlogDetail("Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking");
-const OTHER = [
-  { slug: 'shuttle', cat: 'Itinerary & Pickup', title: 'Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels', img: '/images/blog02.webp' },
-  { slug: 'prices', cat: 'Prices & Budget', title: 'Macau Sauna Prices 2026: Entry, Service Tiers & Overnight Costs Explained', img: '/images/blog03.jpg' },
+const title = 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking';
+const description =
+  "A first-timer's 2026 Macau sauna guide — the step-by-step flow from check-in to lounge, how to pick a venue, and how booking and the free shuttle work.";
+
+const toc = [
+  { id: 'what-a-first-visit-actually-looks-like', label: 'What a first visit actually looks like' },
+  { id: 'picking-a-venue-peninsula-or-taipa-new-or-classic', label: 'Picking a venue: Peninsula or Taipa, new or classic' },
+  { id: 'how-booking-and-the-shuttle-work', label: 'How booking and the shuttle work' },
+  { id: 'quick-answers-for-first-timers', label: 'Quick answers for first-timers' },
+  { id: 'pre-trip-checklist', label: 'Pre-trip checklist' },
+];
+
+const related = [
+  { slug: 'six-venues', cat: 'Comparisons', title: 'Macau Sauna Guide: The Six Major Venues Compared' },
+  { slug: 'shuttle', cat: 'Itinerary & Pickup', title: 'Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels' },
 ];
 ---
 
-<BaseLayout
+<BlogArticle
   seo={{
-    title,
-    description: "A first-timer's 2026 Macau sauna guide — the step-by-step flow from check-in to lounge, how to pick a venue, and how booking and the free shuttle work.",
+    title: titleBlogDetail(title),
+    description,
     keywords: `Macau sauna first-timer, Macau sauna guide 2026, Macau sauna beginner, Macau sauna booking, ${SEO_KEYWORDS}`,
     image: '/images/blog01.webp',
     imageWidth: '1200',
     imageHeight: '630',
   }}
+  category="Beginner Guides"
+  title={title}
+  description={description}
+  meta="Relax Macau Team · Jul 17, 2026 · 4 min read"
+  image="/images/blog01.webp"
+  imageAlt="Spacious VIP lounge inside a Macau sauna"
+  toc={toc}
+  related={related}
 >
-  <main class="bp-page">
-    <!-- Hero -->
-    <section class="bp-hero">
-      <div class="bp-hero-wrap">
-        <span class="bp-eyebrow">Beginner Guides</span>
-        <h1 class="bp-hero-title">Macau Sauna First-Timer Guide 2026: Flow, Venues &amp; Booking</h1>
-        <div class="bp-meta">
-          <span>Relax Macau Team</span>
-          <span class="bp-meta-sep">·</span>
-          <span>Jul 17, 2026</span>
-          <span class="bp-meta-sep">·</span>
-          <span>4 min read</span>
-        </div>
-      </div>
-    </section>
+  <p>
+    The night before a first visit, most people are still searching some version of &ldquo;what actually
+    happens once I&rsquo;m inside?&rdquo; Here&rsquo;s the honest answer: a Macau sauna is easier to navigate
+    than you expect, staff guide you through every step, and the only decisions worth making in advance are
+    which venue and how you&rsquo;ll get there. This Macau sauna guide walks a 2026 first-timer through all of
+    it.
+  </p>
 
-    <!-- Body -->
-    <section class="bp-body">
-      <div class="bp-body-wrap">
-        <a href="/blog" class="bp-back">&larr; All articles</a>
+  <h2 id="what-a-first-visit-actually-looks-like">What a first visit actually looks like</h2>
+  <p>Run through the flow once and the nerves go away:</p>
+  <ol>
+    <li><strong>Check-in:</strong> give the name on your booking at the door and hand your shoes to the attendant.</li>
+    <li>
+      <strong>Locker room:</strong> you get a numbered wristband; valuables go in a locker, and everything you
+      order inside is charged to the wristband and settled once when you leave.
+    </li>
+    <li>
+      <strong>Bath area:</strong> shower, then use the pools, steam room and sauna freely — towels and
+      toiletries are all provided.
+    </li>
+    <li>
+      <strong>Lounge:</strong> change into the house outfit and settle in; recliners, food and screens are yours
+      for as long as you like.
+    </li>
+    <li>
+      <strong>Service:</strong> when you want to try a service, pick a tier then — skipping it entirely is also
+      perfectly fine.
+    </li>
+  </ol>
+  <p>
+    Door to lounge chair usually takes under twenty minutes, and an attendant walks you to each stage — follow
+    the cues and you can&rsquo;t get lost. Nothing is paid up front either: the final bill takes cash, card,
+    WeChat Pay and Alipay.
+  </p>
 
-        <figure class="bp-figure">
-          <img src="/images/blog01.webp" alt="Spacious VIP lounge inside a Macau sauna" loading="lazy" style="width: 100%; aspect-ratio: 21/9; object-fit: cover; border-radius: 0.5rem;" />
-          <figcaption class="bp-figcaption">Spacious VIP lounge inside a Macau sauna</figcaption>
-        </figure>
+  <h2 id="picking-a-venue-peninsula-or-taipa-new-or-classic">
+    Picking a venue: Peninsula or Taipa, new or classic
+  </h2>
+  <p>Choosing comes down to two questions. Location first:</p>
+  <div class="blog-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Macau Peninsula venues</th>
+          <th>Taipa / Cotai venues</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Getting there</td>
+          <td>Densely clustered, close to every border gate</td>
+          <td>Near the airport, Taipa ferry terminal and the big resorts</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>Staying on the Peninsula, comparing several venues</td>
+          <td>Staying in the Cotai hotel belt, going direct</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Then style:</p>
+  <div class="blog-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Newer openings</th>
+          <th>Established classics</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>The draw</td>
+          <td>Fresh interiors, more themed suites, strong opening promos</td>
+          <td>Consistent flow, familiar technician roster</td>
+        </tr>
+        <tr>
+          <td>Best for</td>
+          <td>First-timers chasing novelty and value</td>
+          <td>Regulars who prize consistency</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    If you&rsquo;re torn, tell your contact your budget and preferences and let them steer you based on the day
+    — far quicker than guessing. For homework, browse our <a href="/ranking">Macau sauna ranking</a> to see how
+    each venue positions itself. And don&rsquo;t overweight the Peninsula–Taipa distance: bridges link the two
+    sides and the drive is usually ten to twenty minutes, so getting the style right matters more than the
+    district.
+  </p>
 
-        <nav class="bp-toc">
-          <span class="bp-toc-heading">In this article</span>
-          <ol>
-            <li><a href="#ft-what">What a first visit actually looks like</a></li>
-            <li><a href="#ft-pick">Picking a venue: Peninsula or Taipa, new or classic</a></li>
-            <li><a href="#ft-booking">How booking and the shuttle work</a></li>
-            <li><a href="#ft-faq">Quick answers for first-timers</a></li>
-            <li><a href="#ft-checklist">Pre-trip checklist</a></li>
-          </ol>
-        </nav>
+  <h2 id="how-booking-and-the-shuttle-work">How booking and the shuttle work</h2>
+  <p>
+    Booking through us takes three steps: <a href="/contact">contact us</a> with the date and headcount, share
+    your arrival time and where you&rsquo;re staying, then get picked up as arranged. Guests who book with us get
+    the entry fee waived and a set of free VIP extras by default, plus the
+    <a href="/shuttle">free private shuttle</a> — our own 7-seater with a dedicated driver, covering the whole
+    Peninsula and Taipa. Airport, ferry terminals, border gates and hotels are all pick-up points, and the return
+    leg can be arranged in advance too. If dates or headcount change, a message through the same channel is all it
+    takes.
+  </p>
 
-        <p class="bp-lead">The night before a first visit, most people are still searching some version of &ldquo;what actually happens once I&rsquo;m inside?&rdquo; Here&rsquo;s the honest answer: a Macau sauna is easier to navigate than you expect, staff guide you through every step, and the only decisions worth making in advance are which venue and how you&rsquo;ll get there. This Macau sauna guide walks a 2026 first-timer through all of it.</p>
+  <h2 id="quick-answers-for-first-timers">Quick answers for first-timers</h2>
+  <ul>
+    <li>
+      <strong>What should I bring?</strong> ID and your phone. Towels, the house outfit and toiletries are all
+      supplied.
+    </li>
+    <li>
+      <strong>What if I don&rsquo;t speak Chinese?</strong> Venues run on Cantonese and Mandarin; sort your
+      requests through us in advance and all you say at the door is your name.
+    </li>
+    <li>
+      <strong>What&rsquo;s a sensible budget?</strong> It depends on the tier — popular picks tend to land around
+      MOP 2,000–4,000, with the day&rsquo;s quote as final. The full breakdown is in our
+      <a href="/blog/prices">price guide</a>.
+    </li>
+    <li>
+      <strong>How long can I stay — overnight?</strong> It&rsquo;s one flat entry for a stay of twelve-plus hours,
+      and most venues let you sleep over in the lounge, usually within the entry fee — leaving the next morning is
+      completely normal.
+    </li>
+  </ul>
 
-        <h2 id="ft-what">What a first visit actually looks like</h2>
-        <p>Run through the flow once and the nerves go away:</p>
-
-        <div class="bp-flow-cards">
-          <div class="bp-flow-card"><strong>Check-in</strong><span>Give the name on your booking at the door and hand your shoes to the attendant.</span></div>
-          <div class="bp-flow-card"><strong>Locker room</strong><span>You get a numbered wristband; valuables go in a locker, and everything you order inside is charged to the wristband and settled once when you leave.</span></div>
-          <div class="bp-flow-card"><strong>Bath area</strong><span>Shower, then use the pools, steam room and sauna freely &mdash; towels and toiletries are all provided.</span></div>
-          <div class="bp-flow-card"><strong>Lounge</strong><span>Change into the house outfit and settle in; recliners, food and screens are yours for as long as you like.</span></div>
-          <div class="bp-flow-card"><strong>Service</strong><span>When you want to try a service, pick a tier then &mdash; skipping it entirely is also perfectly fine.</span></div>
-        </div>
-
-        <p>Door to lounge chair usually takes under twenty minutes, and an attendant walks you to each stage &mdash; follow the cues and you can&rsquo;t get lost. Nothing is paid up front either: the final bill takes cash, card, WeChat Pay and Alipay.</p>
-
-        <h2 id="ft-pick">Picking a venue: Peninsula or Taipa, new or classic</h2>
-        <p>Choosing comes down to two questions. Location first:</p>
-
-        <div class="bp-table-wrap"><table class="bp-table">
-          <thead><tr><th>Factor</th><th>Macau Peninsula venues</th><th>Taipa / Cotai venues</th></tr></thead>
-          <tbody>
-            <tr><td>Getting there</td><td>Densely clustered, close to every border gate</td><td>Near the airport, Taipa ferry terminal and the big resorts</td></tr>
-            <tr><td>Best for</td><td>Staying on the Peninsula, comparing several venues</td><td>Staying in the Cotai hotel belt, going direct</td></tr>
-          </tbody>
-        </table></div>
-
-        <p>Then style:</p>
-
-        <div class="bp-table-wrap"><table class="bp-table">
-          <thead><tr><th>Factor</th><th>Newer openings</th><th>Established classics</th></tr></thead>
-          <tbody>
-            <tr><td>The draw</td><td>Fresh interiors, more themed suites, strong opening promos</td><td>Consistent flow, familiar technician roster</td></tr>
-            <tr><td>Best for</td><td>First-timers chasing novelty and value</td><td>Regulars who prize consistency</td></tr>
-          </tbody>
-        </table></div>
-
-        <p>If you&rsquo;re torn, tell your contact your budget and preferences and let them steer you based on the day &mdash; far quicker than guessing. For homework, browse our <a href="/ranking">Macau sauna ranking</a> to see how each venue positions itself. And don&rsquo;t overweight the Peninsula&ndash;Taipa distance: bridges link the two sides and the drive is usually ten to twenty minutes, so getting the style right matters more than the district.</p>
-
-        <h2 id="ft-booking">How booking and the shuttle work</h2>
-        <p>Booking through us takes three steps: contact us with the date and headcount, share your arrival time and where you&rsquo;re staying, then get picked up as arranged. Guests who book with us get the entry fee waived and a set of free VIP extras by default, plus the free private shuttle &mdash; our own 7-seater with a dedicated driver, covering the whole Peninsula and Taipa. Airport, ferry terminals, border gates and hotels are all pick-up points, and the return leg can be arranged in advance too. If dates or headcount change, a message through the same channel is all it takes.</p>
-
-        <h2 id="ft-faq">Quick answers for first-timers</h2>
-        <dl class="bp-faq">
-          <div><dt>What should I bring?</dt><dd>ID and your phone. Towels, the house outfit and toiletries are all supplied.</dd></div>
-          <div><dt>What if I don&rsquo;t speak Chinese?</dt><dd>Venues run on Cantonese and Mandarin; sort your requests through us in advance and all you say at the door is your name.</dd></div>
-          <div><dt>What&rsquo;s a sensible budget?</dt><dd>It depends on the tier &mdash; popular picks tend to land around MOP 2,000&ndash;4,000, with the day&rsquo;s quote as final. The full breakdown is in our <a href="/blog/prices">price guide</a>.</dd></div>
-          <div><dt>How long can I stay &mdash; overnight?</dt><dd>It&rsquo;s one flat entry for a stay of twelve-plus hours, and most venues let you sleep over in the lounge, usually within the entry fee &mdash; leaving the next morning is completely normal.</dd></div>
-        </dl>
-
-        <h2 id="ft-checklist">Pre-trip checklist</h2>
-        <ul class="bp-checklist">
-          <li>Confirm your arrival time and hotel, and send them to your contact</li>
-          <li>Bring your passport or travel permit</li>
-          <li>Keep your phone online so the driver can reach you</li>
-          <li>Decide what this trip is about: pure relaxation, trying a service, or a specific tier</li>
-          <li>Skim the first-timer&rsquo;s guide once more before heading out</li>
-        </ul>
-
-        <p>That&rsquo;s all the preparation it takes. Send us your date and rough direction, and the rest of the itinerary is handled.</p>
-
-        <div class="bp-keepreading">
-          <span class="bp-keepreading-heading">Keep reading</span>
-          <div class="bp-keepreading-grid">
-            {OTHER.map((o) => (
-              <a href={`/blog/${o.slug}`} class="bp-kr-card">
-                <img src={o.img} alt={o.title} loading="lazy" class="bp-kr-img" />
-                <span class="bp-kr-cat">{o.cat}</span>
-                <span class="bp-kr-title">{o.title}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <Contact />
-  </main>
-</BaseLayout>
+  <h2 id="pre-trip-checklist">Pre-trip checklist</h2>
+  <ul>
+    <li>Confirm your arrival time and hotel, and send them to your contact</li>
+    <li>Bring your passport or travel permit</li>
+    <li>Keep your phone online so the driver can reach you</li>
+    <li>Decide what this trip is about: pure relaxation, trying a service, or a specific tier</li>
+    <li>Skim the first-timer&rsquo;s guide once more before heading out</li>
+  </ul>
+  <p>
+    That&rsquo;s all the preparation it takes. Send us your date and rough direction, and the rest of the itinerary
+    is handled.
+  </p>
+</BlogArticle>

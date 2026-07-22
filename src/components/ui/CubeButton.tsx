@@ -34,7 +34,7 @@ export default function CubeButton({ label, href, className }: CubeButtonProps) 
         }
 
         .cube {
-          color: #FF4DA6;
+          color: #FF2D55;
           cursor: pointer;
           font-family: 'Space Grotesk', sans-serif;
           transition: transform 0.55s cubic-bezier(.17,.67,.14,.93);
@@ -65,15 +65,15 @@ export default function CubeButton({ label, href, className }: CubeButtonProps) 
         }
 
         .top {
-          background: linear-gradient(180deg, #F0D060 0%, #FF4DA6 100%);
+          background: linear-gradient(180deg, #F0D060 0%, #FF2D55 100%);
           color: #FFF8F0;
           transform: rotateX(90deg) translate3d(0, 0, 1.6em);
         }
 
         .front {
           background: #111111;
-          color: #FF4DA6;
-          border: 1px solid rgba(255,77,166, 0.4);
+          color: #FF2D55;
+          border: 1px solid rgba(255,45,85, 0.4);
           transform: translate3d(0, 0, 1.6em);
         }
       `}</style>

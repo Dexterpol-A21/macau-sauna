@@ -1,7 +1,7 @@
 import type { NavLink } from '../types';
 export { FEATURED_VENUES } from './parseVenues';
 
-export const SITE_TITLE = 'Aurelia Concierge';
+export const SITE_TITLE = 'Macau Sauna Booking';
 export const SITE_DESCRIPTION =
   'Book Macau\'s best spas & saunas with VIP concierge. Free shuttle, skip-the-line entry, insider pricing, and 24/7 English support — Macau sauna booking made simple.';
 
@@ -21,17 +21,17 @@ export const FAQ_KEYWORDS =
   'Macau sauna FAQ, Macau spa questions, Macau sauna first time, Macau sauna prices, Macau sauna booking questions, Macau spa how to, Macau sauna guide, Macau nightlife FAQ, Macau sauna tips';
 
 export const ABOUT_DESCRIPTION =
-  'Meet the Aurelia Concierge team. Taiwanese, Hong Konger, and Macau locals curating 12 licensed saunas. Free shuttle, VIP extras, 24/7 chat support — 1,000+ guests served.';
+  'Meet the Macau Sauna Booking team. Taiwanese, Hong Konger, and Macau locals curating 12 licensed saunas. Free shuttle, VIP extras, 24/7 chat support — 1,000+ guests served.';
 
 export const ABOUT_KEYWORDS =
-  'Macau sauna concierge, about Aurelia Concierge, Macau spa booking team, Macau VIP concierge, Macau sauna service, Macau nightlife concierge, Macau sauna guide team, who we are Macau sauna';
+  'Macau sauna concierge, about Macau Sauna Booking, Macau spa booking team, Macau VIP concierge, Macau sauna service, Macau nightlife concierge, Macau sauna guide team, who we are Macau sauna';
 
 export const CONTACT = {
   whatsapp: '+000XXXXXXXX',
-  whatsappMessage: 'Hi! I\'d like to book a VIP experience.',
-  telegram: 'aurelia',
-  wechat: 'AURELIA',
-  line: '@aurelia',
+  whatsappMessage: 'Hi! I\'d like to book a VIP experience in Macau.',
+  telegram: 'macausauna',
+  wechat: 'AN99348',
+  line: '@macausauna',
 };
 
 export const NAV_LINKS: NavLink[] = [

@@ -33,7 +33,7 @@ export default function HowItWorksCTA() {
           align-items: center;
           justify-content: center;
           padding: 0.85rem 2rem;
-          font-family: 'Inter', sans-serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
           font-size: 0.88rem;
           font-weight: 600;
           letter-spacing: 0.10em;
@@ -51,15 +51,15 @@ export default function HowItWorksCTA() {
           background-size: 280% auto;
           background-image: linear-gradient(
             325deg,
-            #E0187A 0%,
-            #FF85C2 55%,
-            #E0187A 90%
+            #C41E3A 0%,
+            #FF2D55 55%,
+            #FF6B85 90%
           );
           box-shadow:
-            0px 0px 20px #FF4DA680,
-            0px 5px 5px -1px #FF4DA640,
-            inset 4px 4px 8px #FF85C280,
-            inset -4px -4px 8px #E0187A59;
+            0px 0px 20px #FF2D5580,
+            0px 5px 5px -1px #FF2D5540,
+            inset 4px 4px 8px #FF6B8580,
+            inset -4px -4px 8px #C41E3A59;
           transition: transform 0.25s ease, background-position 0.8s;
         }
 
@@ -76,7 +76,7 @@ export default function HowItWorksCTA() {
           outline: none;
           box-shadow:
             0 0 0 3px #000000,
-            0 0 0 6px #E0187A;
+            0 0 0 6px #C41E3A;
         }
 
         @media (max-width: 639px) {

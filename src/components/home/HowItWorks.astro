@@ -1,168 +1,228 @@
 ---
-import SlotMachineText from '../ui/SlotMachineText';
-import HowItWorksCTA from './HowItWorksCTA';
-
 const STEPS = [
-  { number: '01', title: 'Let us recommend', description: "We'll book for you through our internal network. You don't need to know which sauna is right. Tell us what interests you, or let our team match you. We have years of experience and know each sauna's strengths." },
-  { number: '02', title: 'Instant private shuttle', description: "Hotel lobby, airport, Outer Harbour Pier, Taipa Pier, even a street corner. Tell us where and we collect you in minutes. Drop-off anywhere in Macau when you're done. Coming with friends? Our 7-seater handles it easily, everyone gets the same perks, no extra cost." },
-  { number: '03', title: 'VIP Entry + special pricing', description: "Internal-network booking means you skip the front desk and walk straight in. Each sauna has special pricing for our guests. Tell us where you'd like to go and we'll secure the discount for you." },
-  { number: '04', title: 'Pick 1 VIP Extra', description: 'Our way of saying thanks for booking through us. We let the venue know you\'re coming, then you pick your VIP Extras (head massage, reflexology, manicure, and more) on arrival.' },
-  { number: '05', title: 'Complimentary return ride', description: "When you're done, after your meal, right after your service, anytime, just text us. We'll send the same shuttle back to take you to your hotel, the airport, the ferry terminal, or anywhere in Macau. Same zero cost as the pickup." },
+  {
+    title: 'Let us recommend 💬',
+    body: "We'll book for you through our internal network. You don't need to know which sauna is right. Tell us what interests you — or let our team match you. We have years of experience and know each sauna's strengths.",
+  },
+  {
+    title: 'Instant private shuttle 🚗',
+    body: "Hotel lobby, airport, Outer Harbour Pier, Taipa Pier, even a street corner — tell us where, we collect you in minutes. Drop-off anywhere in Macau when you're done.",
+    note: true,
+  },
+  {
+    title: 'VIP Entry + special pricing ⚡',
+    body: "Internal-network booking means you skip the front desk and walk straight in. Each sauna has special pricing for our guests — tell us where you'd like to go and we'll secure the discount for you.",
+  },
+  {
+    title: 'Pick 1 VIP Extra 🎁',
+    body: "Our way of saying thanks for booking through us — we let the venue know you're coming, then you pick your VIP Extras (head massage, reflexology, manicure, and more) on arrival.",
+  },
+  {
+    title: 'Complimentary return ride 🚗',
+    body: "When you're done — after your meal, right after your service, anytime — just text us. We'll send the same shuttle back to take you to your hotel, the airport, the ferry terminal, or anywhere in Macau. Same zero cost as the pickup.",
+  },
+];
+
+const VIP_EXTRAS = [
+  { emoji: '🧎‍♀️', name: 'Back Rubbing', note: 'Body-glide rub down the back, neck and shoulders.', value: '298 MOP' },
+  { emoji: '🦵', name: 'Relaxable Thigh Massage', note: 'Deep work on quads & hamstrings — perfect after the sauna.', value: '288 MOP' },
+  { emoji: '💆', name: 'Head Massage', note: 'Scalp kneading that clears mental fog and headaches.', value: '230 MOP' },
+  { emoji: '🦶', name: 'Reflexology', note: 'Pressure-point work that revives tired feet.', value: '230 MOP' },
+  { emoji: '🤚', name: 'Manicure', note: 'Trim, shape, cuticle care, polish.', value: '220 MOP' },
+  { emoji: '🧴', name: 'Pedicure', note: 'Foot soak, nail and cuticle care, light foot rub.', value: '220 MOP' },
+  { emoji: '🤲', name: 'Hand Massage', note: 'Releases wrist and forearm tension.', value: '200 MOP' },
+  { emoji: '👂', name: 'Ear Cleaning', note: 'Traditional ear-cleaning ritual. Surprisingly relaxing.', value: '200 MOP' },
 ];
 ---
 
-<section id="how-it-works" class="hiw-section">
-  <div class="hiw-wrap">
-    <div class="hiw-head">
-      <h2 class="hiw-title">
-        <SlotMachineText text="How It Works" stripLength={12} client:visible />
-      </h2>
-      <span class="hiw-label">Complimentary Concierge Service</span>
-      <p class="hiw-lead">We take care of everything for you: recommendation, transport, VIP entry, VIP Extras, and your ride home.</p>
+<section id="vip-treats" data-testid="vip-treats-section" class="vip-section scroll-mt-6 px-4 py-12 sm:py-16">
+  <div class="mx-auto max-w-3xl">
+    <div class="mb-3 text-center">
+      <div class="mb-4 inline-block rounded-full bg-green-500/15 px-3 py-1 text-xs font-bold uppercase tracking-widest text-green-400">
+        Complimentary concierge service
+      </div>
+      <h2 class="mb-3 text-3xl font-bold text-white sm:text-4xl">How It Works</h2>
+      <div class="vip-rule mx-auto mb-6 h-0.5 w-20" aria-hidden="true"></div>
+      <p class="mx-auto max-w-none text-white/60 sm:whitespace-nowrap">
+        We take care of everything for you — recommendation, transport, VIP entry, VIP Extras, and your ride home.
+      </p>
     </div>
-    <div class="hiw-steps">
-      {STEPS.map((step) => (
-        <div class="hiw-step">
-          <span class="hiw-step-num">{step.number}</span>
-          <div>
-            <h3 class="hiw-step-title">{step.title}</h3>
-            <p class="hiw-step-desc">{step.description}</p>
-          </div>
-        </div>
-      ))}
+
+    <div
+      role="tablist"
+      data-testid="vip-tablist"
+      class="vip-tablist sticky top-16 z-40 -mx-4 mb-6 flex border-b border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0a0a0a]/95 px-4 backdrop-blur-sm sm:top-20 sm:mx-0 sm:px-0"
+    >
+      <button
+        role="tab"
+        type="button"
+        data-tab-target="how"
+        data-testid="tab-how"
+        aria-selected="true"
+        aria-controls="panel-how"
+        class="vip-tab vip-tab--active flex-1 border-b-2 px-4 py-3 text-sm font-semibold tracking-wide transition-colors sm:text-base"
+      >
+        How It Works
+      </button>
+      <button
+        role="tab"
+        type="button"
+        data-tab-target="gifts"
+        data-testid="tab-gifts"
+        aria-selected="false"
+        aria-controls="panel-gifts"
+        class="vip-tab flex-1 border-b-2 border-transparent px-4 py-3 text-sm font-semibold tracking-wide text-white/55 transition-colors hover:text-white/85 sm:text-base"
+      >
+        VIP Extras
+      </button>
     </div>
-    <HowItWorksCTA client:visible />
+
+    <!-- VIP Extras panel (hidden by default) -->
+    <div
+      id="panel-gifts"
+      role="tabpanel"
+      data-tab-panel="gifts"
+      data-testid="panel-gifts"
+      aria-labelledby="tab-gifts"
+      class="vip-panel hidden overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f]"
+    >
+      <div class="border-b border-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_5%,transparent)] px-4 py-3 sm:px-6 sm:py-4">
+        <span class="text-sm font-semibold tracking-wider text-[var(--color-primary)]">
+          Pick 1 — served by pretty girls!
+        </span>
+      </div>
+      <table class="w-full text-sm sm:text-base">
+        <thead>
+          <tr class="border-b border-white/10">
+            <th
+              scope="col"
+              class="pb-2 pl-4 pr-2 pt-3 text-left text-xs font-normal uppercase tracking-wider text-white/40 sm:pl-6"
+            >
+              Service Item
+            </th>
+            <th
+              scope="col"
+              class="whitespace-nowrap px-2 pb-2 pt-3 text-right text-xs font-normal uppercase tracking-wider text-white/40"
+            >
+              Value
+            </th>
+            <th
+              scope="col"
+              class="whitespace-nowrap pb-2 pl-2 pr-4 pt-3 text-right text-xs font-normal uppercase tracking-wider text-[var(--color-primary)] sm:pr-6"
+            >
+              Our VIP
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {VIP_EXTRAS.map((row) => (
+            <tr class="border-b border-white/5">
+              <td class="py-3 pl-4 pr-2 align-top sm:py-4 sm:pl-6">
+                <div class="flex items-start gap-3 sm:gap-4">
+                  <span class="mt-0.5 shrink-0 select-none text-2xl leading-none sm:text-3xl" aria-hidden="true">
+                    {row.emoji}
+                  </span>
+                  <div class="min-w-0">
+                    <div class="font-semibold text-white">{row.name}</div>
+                    <div class="mt-0.5 text-xs leading-relaxed text-white/55 sm:text-sm">{row.note}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-2 py-3 text-right align-top text-white/45 line-through sm:py-4">
+                {row.value}
+              </td>
+              <td class="whitespace-nowrap py-3 pl-2 pr-5 text-right align-top font-semibold text-[var(--color-primary)] sm:py-4 sm:pr-7">
+                Free
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- How It Works steps -->
+    <div
+      id="panel-how"
+      role="tabpanel"
+      data-tab-panel="how"
+      data-testid="panel-how"
+      aria-labelledby="tab-how"
+      class="vip-panel rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f] px-4 py-5 sm:px-6 sm:py-6"
+    >
+      <ol class="space-y-5">
+        {STEPS.map((step, i) => (
+          <li class="flex gap-3" data-testid={`step-${i + 1}`}>
+            <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] text-sm font-bold text-[var(--color-primary)]">
+              {i + 1}
+            </span>
+            <div class="flex-1 text-sm leading-relaxed text-white/80 sm:text-base">
+              <strong class="mb-1 block text-base font-semibold text-[var(--color-primary)] sm:text-lg">
+                {step.title}
+              </strong>
+              {step.body}
+              {step.note && (
+                <div class="mt-2 rounded-r border-l-2 border-[var(--color-primary)] bg-[color-mix(in_srgb,var(--color-primary)_5%,transparent)] px-3 py-2 text-xs text-white/75 sm:text-sm">
+                  <strong class="text-[var(--color-primary)]">Coming with friends?</strong>
+                  {' '}Our 7-seater handles it easily — everyone gets the same perks, no extra cost.
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
 </section>
 
-<style is:global>
-  .hiw-section {
-    background: #000000;
-    padding: 7rem 2rem 8rem;
-    border-top: 2px solid rgba(255,77,166,0.12);
+<style>
+  .vip-section {
+    background: #0a0a0a;
   }
 
-  .hiw-wrap {
-    max-width: 64rem;
-    margin-inline: auto;
+  .vip-rule {
+    background: var(--color-primary);
   }
 
-  .hiw-head {
-    text-align: center;
-    margin-bottom: 4.5rem;
-  }
-
-  .hiw-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0;
-  }
-
-  .hiw-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: #FF4DA6;
-    display: block;
-    margin-top: 0.75rem;
-  }
-
-  .hiw-lead {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    color: #B0A890;
-    max-width: 34rem;
-    margin: 1.25rem auto 0;
-    line-height: 1.6;
-  }
-
-  .hiw-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    max-width: 56rem;
-    margin-inline: auto;
-  }
-
-  .hiw-step {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-
-  .hiw-step-num {
-    flex-shrink: 0;
-    width: 5rem;
-    font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: rgba(255,77,166,0.16);
-    line-height: 0.8;
-    text-align: right;
-    letter-spacing: -0.03em;
-    user-select: none;
-  }
-
-  .hiw-step-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #FFF8F0;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    margin: 0 0 0.4rem;
-  }
-
-  .hiw-step-desc {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: #B0A890;
-    line-height: 1.65;
-    max-width: 44rem;
-  }
-
-  @media (min-width: 768px) {
-    .hiw-steps {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem 4rem;
-      max-width: 64rem;
-    }
-    .hiw-step:last-child {
-      grid-column: 1 / -1;
-      max-width: 48rem;
-      margin-inline: auto;
-    }
-    .hiw-step { gap: 1.5rem; }
-    .hiw-step-num { width: 4rem; font-size: 3rem; }
-  }
-
-  @media (max-width: 640px) {
-    .hiw-section { padding: 5rem 1.25rem 6rem; }
-    .hiw-head { margin-bottom: 3rem; }
-    .hiw-steps { gap: 2.5rem; }
-    .hiw-step { gap: 1.25rem; }
-    .hiw-step-num { width: 3rem; font-size: 2.5rem; }
-    .hiw-step-title { font-size: 1.15rem; }
-    .hiw-step-desc { font-size: 0.82rem; }
-  }
-
-  @media (max-width: 420px) {
-    .hiw-section { padding: 4rem 0.75rem 5rem; }
-    .hiw-head { margin-bottom: 2.5rem; }
-    .hiw-lead { font-size: 0.85rem; padding-inline: 0.5rem; }
-    .hiw-steps { gap: 2rem; }
-    .hiw-step { gap: 1rem; }
-    .hiw-step-num { width: 2.25rem; font-size: 2rem; }
-    .hiw-step-title { font-size: 1.05rem; }
-    .hiw-step-desc { font-size: 0.78rem; }
+  .vip-tab--active {
+    border-color: var(--color-primary) !important;
+    color: var(--color-primary) !important;
   }
 </style>
+
+<script>
+  (function () {
+    const tabs = document.querySelectorAll<HTMLElement>('[data-tab-target]');
+    const panels = document.querySelectorAll<HTMLElement>('[data-tab-panel]');
+    if (!tabs.length || !panels.length) return;
+
+    function activate(target: string) {
+      tabs.forEach((t) => {
+        const isActive = t.getAttribute('data-tab-target') === target;
+        t.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        t.classList.toggle('vip-tab--active', isActive);
+        t.classList.toggle('border-transparent', !isActive);
+        t.classList.toggle('text-white/55', !isActive);
+      });
+      panels.forEach((p) => {
+        const isActive = p.getAttribute('data-tab-panel') === target;
+        p.classList.toggle('hidden', !isActive);
+      });
+
+      const tablist = document.querySelector('[data-testid="vip-tablist"]');
+      const newPanel = document.querySelector(`[data-tab-panel="${target}"]`);
+      if (!tablist || !newPanel) return;
+      const tablistRect = tablist.getBoundingClientRect();
+      if (tablistRect.top <= 88) {
+        const y = window.scrollY + newPanel.getBoundingClientRect().top - tablistRect.height - 8;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-tab-target');
+        if (target) activate(target);
+      });
+    });
+  })();
+</script>

@@ -49,7 +49,7 @@ const VENUES = [
     subtitle: "Newest",
     location: "Taipa, Grandview Hotel",
     price: "MOP 2,299 – 6,999",
-    cardAccent: "#FF1493", // New — pink neon
+    cardAccent: "#FF4D6A", // New — pink neon
   },
   {
     slug: "number-nine-spa",
@@ -57,7 +57,7 @@ const VENUES = [
     subtitle: "JP & KR Staff",
     location: "Royal Dragon Hotel",
     price: "MOP 2,299 – 6,999",
-    cardAccent: "#FF1493", // New — pink neon
+    cardAccent: "#FF4D6A", // New — pink neon
   },
   {
     slug: "shang-pin-spa",
@@ -73,7 +73,7 @@ const VENUES = [
     subtitle: "Newest & Premium",
     location: "Macau Peninsula",
     price: "MOP 2,488 – 6,988",
-    cardAccent: "#FF1493", // New — pink neon
+    cardAccent: "#FF4D6A", // New — pink neon
   },
   {
     slug: "majesty-spa",
@@ -160,7 +160,7 @@ function FlipCard({
           <h3
             className="font-black leading-[0.95] tracking-[-0.02em] text-2xl md:text-3xl"
             style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: "'Noto Sans TC', system-ui, sans-serif",
               color: "#FFF8F0",
             }}
           >
@@ -261,7 +261,7 @@ function BentoFeaturedLabel({
         </svg>
         <span
           className="text-[0.65rem] font-bold uppercase tracking-[0.28em]"
-          style={{ color: accent, fontFamily: "'Inter', sans-serif", visibility: mounted ? "visible" : "hidden" }}
+          style={{ color: accent, fontFamily: "'Noto Sans TC', system-ui, sans-serif", visibility: mounted ? "visible" : "hidden" }}
         >
           Featured Saunas
         </span>
@@ -271,7 +271,7 @@ function BentoFeaturedLabel({
         style={{
           color: "#FFF8F0",
           fontSize: "clamp(3rem, 8vw, 7rem)",
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: "'Noto Sans TC', system-ui, sans-serif",
           textShadow: "0 0 60px rgba(0,0,0,0.5)",
         }}
       >
@@ -295,7 +295,7 @@ function BentoFeaturedLabel({
         style={{
           color: "rgba(176, 168, 144, 0.75)",
           fontSize: "0.85rem",
-          fontFamily: "'Inter', sans-serif",
+          fontFamily: "'Noto Sans TC', system-ui, sans-serif",
           fontWeight: 500,
           letterSpacing: "0.03em",
           maxWidth: "16rem",
@@ -572,7 +572,7 @@ export default function HeroGallery({
         325deg,
         ${dark} 0%,
         ${accent} 40%,
-        #FF1493 90%
+        #FF6B85 90%
       );
       border: none;
       border-radius: 0.5em;

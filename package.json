@@ -1,5 +1,5 @@
 {
-  "name": "aurelia-concierge",
+  "name": "macau-sauna",
   "type": "module",
   "version": "1.0.0",
   "scripts": {
@@ -24,7 +24,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
-    "lenis": "^1.2.3",
     "lucide-react": "^1.25.0",
     "motion": "^12.42.2",
     "react": "^19.1.0",

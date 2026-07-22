@@ -5,8 +5,8 @@ export interface FilterDef {
 }
 
 export const FILTERS: FilterDef[] = [
-  { key: 'all',          label: 'All',          color: '#FF4DA6' },  // gold
-  { key: 'newest',       label: 'New',          color: '#FF1493' },  // pink neon
+  { key: 'all',          label: 'All',          color: '#FF2D55' },  // gold
+  { key: 'newest',       label: 'New',          color: '#FF4D6A' },  // pink neon
   { key: 'theme-rooms',  label: 'Theme',        color: '#C026FF' },  // violet
   { key: 'best-value',   label: 'Value',        color: '#4ADE80' },  // green
   { key: 'ktv',          label: 'KTV',          color: '#F43F5E' },  // rose

@@ -1,5 +1,5 @@
 /**
- * SEO Checklist — Aurelia Concierge
+ * SEO Checklist — Macau Sauna Booking
  *
  * Companion to seo-titles.ts.
  * Every page MUST pass this checklist before it's considered done.
@@ -129,7 +129,6 @@ export const CONTENT_RULES = [
 
 export const PERF_RULES = [
   "[AUTO] Astro SSG — zero JS shipped for static pages.",     // Astro default
-  "[AUTO] Lenis smooth scroll — only on pages that need it.",   // BaseLayout
   "[AUTO] Google Fonts with display:swap + preconnect.",        // SEO.astro
   "[MANUAL] Images use <Image /> or loading='lazy' for below-fold.",
   "[MANUAL] No layout shift: every image / iframe has explicit width & height.",

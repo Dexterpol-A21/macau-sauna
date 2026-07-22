@@ -1,0 +1,73 @@
+---
+const POSTS = [
+  {
+    slug: 'six-venues',
+    title: 'Macau Sauna Guide: The Six Major Venues Compared',
+    cat: 'Comparisons',
+    img: '/images/blog04.webp',
+    alt: 'Marble baths and steam inside a Macau sauna club',
+    meta: 'Jul 2026 · 5 min read',
+  },
+  {
+    slug: 'first-timer',
+    title: 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking',
+    cat: 'Beginner Guides',
+    img: '/images/blog01.webp',
+    alt: 'Spacious VIP lounge inside a Macau sauna',
+    meta: 'Jul 2026 · 4 min read',
+  },
+  {
+    slug: 'shuttle',
+    title: 'Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels',
+    cat: 'Itinerary & Pickup',
+    img: '/images/blog02.webp',
+    alt: 'Golden-lit arrival hallway inside a Macau sauna',
+    meta: 'Jul 2026 · 3 min read',
+  },
+];
+---
+
+<section class="px-4 py-12 sm:py-16">
+  <div class="mx-auto max-w-5xl">
+    <div class="mb-6 flex flex-wrap items-end justify-between gap-3 sm:mb-8">
+      <div>
+        <h2 class="text-2xl font-bold tracking-wide text-white sm:text-3xl">Latest from the Blog</h2>
+        <p class="mt-1.5 text-sm text-white/45">First-visit walkthroughs, budgets and trip planning.</p>
+      </div>
+      <a
+        href="/blog"
+        class="whitespace-nowrap text-sm font-semibold text-primary transition-colors hover:text-primary-light"
+      >
+        View all →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        POSTS.map((post) => (
+          <a
+            href={`/blog/${post.slug}`}
+            class="group block overflow-hidden rounded-xl border border-white/10 bg-[#141414] shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+          >
+            <div class="aspect-[16/10] overflow-hidden bg-[#1a1a1a]">
+              <img
+                src={post.img}
+                alt={post.alt}
+                loading="lazy"
+                decoding="async"
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </div>
+            <div class="p-4">
+              <span class="text-[11px] font-bold uppercase tracking-[0.12em] text-primary">{post.cat}</span>
+              <h3 class="mt-1 line-clamp-2 text-[0.95rem] font-bold leading-snug text-white transition-colors group-hover:text-primary">
+                {post.title}
+              </h3>
+              <p class="mt-2 text-[11px] text-white/40">{post.meta}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

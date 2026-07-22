@@ -1,0 +1,220 @@
+---
+---
+
+<section class="split-band" data-testid="split-story">
+  <div class="half l">
+    <img
+      src="/images/home/macau-tower-night.jpg"
+      alt="Macau Tower at night — the city before the venue"
+      width="960"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="s-tag">THE CITY</span>
+  </div>
+  <div class="seam" aria-hidden="true"></div>
+  <div class="half r">
+    <img
+      src="/images/home/venue-bath-pool.webp"
+      alt="Gold marble bath pool — the venue side of a Macau night"
+      width="960"
+      height="1080"
+      loading="lazy"
+      decoding="async"
+    />
+    <span class="s-tag">THE VENUE</span>
+  </div>
+  <div class="center">
+    <svg class="arc" viewBox="0 0 560 90" aria-hidden="true">
+      <path d="M10 80 Q 280 -30 550 80"></path>
+      <text x="266" y="18">✈️</text>
+    </svg>
+    <h2>One message, and the whole night is arranged</h2>
+  </div>
+</section>
+
+<style>
+  .split-band {
+    display: flex;
+    position: relative;
+    min-height: 66vh;
+    background: #0d0b08;
+    overflow: hidden;
+  }
+
+  .half {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .half img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+  }
+
+  .split-band.in-view .half.l img {
+    animation: kbL 16s ease-in-out infinite alternate;
+  }
+
+  .split-band.in-view .half.r img {
+    animation: kbR 16s ease-in-out infinite alternate;
+  }
+
+  @keyframes kbL {
+    0% {
+      transform: scale(1.02);
+    }
+    to {
+      transform: scale(1.1) translate(-2%);
+    }
+  }
+
+  @keyframes kbR {
+    0% {
+      transform: scale(1.1) translate(2%);
+    }
+    to {
+      transform: scale(1.02);
+    }
+  }
+
+  .seam {
+    width: 2px;
+    z-index: 2;
+    background: linear-gradient(180deg, transparent, #e3c074, transparent);
+    box-shadow: 0 0 24px 2px #e3c07480;
+  }
+
+  .s-tag {
+    position: absolute;
+    top: 22px;
+    z-index: 3;
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    font-weight: 700;
+    color: #f7f1e6a6;
+  }
+
+  .half.l .s-tag {
+    right: 22px;
+  }
+
+  .half.r .s-tag {
+    left: 22px;
+  }
+
+  .center {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 5vw;
+  }
+
+  .arc {
+    width: min(520px, 68vw);
+    margin-bottom: 8px;
+    overflow: visible;
+  }
+
+  .arc path {
+    fill: none;
+    stroke: #e3c074;
+    stroke-width: 2;
+    stroke-dasharray: 6 8;
+    stroke-dashoffset: 600;
+  }
+
+  .split-band.in-view .arc path {
+    animation: draw 2.4s ease forwards 0.3s;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .arc text {
+    font-size: 20px;
+    opacity: 0;
+  }
+
+  .split-band.in-view .arc text {
+    animation: fadeIn 0.6s ease forwards 1.6s;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+
+  .center h2 {
+    color: #fff;
+    font-size: clamp(24px, 3.4vw, 40px);
+    font-weight: 900;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.8);
+    max-width: 18ch;
+    line-height: 1.2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .split-band.in-view .half img,
+    .split-band.in-view .arc path,
+    .split-band.in-view .arc text {
+      animation: none;
+    }
+
+    .arc path {
+      stroke-dashoffset: 0;
+    }
+
+    .arc text {
+      opacity: 1;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .split-band {
+      min-height: 74vh;
+    }
+
+    .center h2 {
+      max-width: 16ch;
+      font-size: clamp(22px, 6.5vw, 28px);
+    }
+  }
+</style>
+
+<script>
+  const el = document.querySelector('[data-testid="split-story"]');
+  if (el) {
+    if (typeof IntersectionObserver === 'undefined') {
+      el.classList.add('in-view');
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              el.classList.add('in-view');
+              io.disconnect();
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+      io.observe(el);
+    }
+  }
+</script>

@@ -52,7 +52,7 @@ export default function SlotLever({ spinning, onPull }: SlotLeverProps) {
           bottom: 0,
           transform: "translateX(-50%)",
           background: "rgba(18,18,24,0.85)",
-          border: "1px solid rgba(255,77,166,0.12)",
+          border: "1px solid rgba(255,45,85,0.12)",
           boxShadow: "inset 0 2px 10px rgba(0,0,0,0.5)",
         }}
       />
@@ -64,7 +64,7 @@ export default function SlotLever({ spinning, onPull }: SlotLeverProps) {
           top: 0,
           transform: "translateX(-50%)",
           height: useTransform(y, [KNOB_REST, KNOB_MAX], [KNOB_REST, KNOB_MAX]),
-          background: "linear-gradient(180deg, #E0187A, #FF4DA6, #FF1493)",
+          background: "linear-gradient(180deg, #C41E3A, #FF2D55, #FF6B85)",
           opacity: rodOpacity,
         }}
       />
@@ -78,7 +78,7 @@ export default function SlotLever({ spinning, onPull }: SlotLeverProps) {
           transform: "translateX(-50%)",
           y,
           marginTop: -17,
-          background: "#FF4DA6",
+          background: "#FF2D55",
           opacity: useTransform(y, [KNOB_REST, KNOB_MAX], [0.08, 0.4]),
         }}
       />
@@ -124,11 +124,11 @@ export default function SlotLever({ spinning, onPull }: SlotLeverProps) {
             height: 40,
             marginTop: -20,
             background:
-              "radial-gradient(circle at 35% 30%, #FFB3D9 0%, #FF85C2 20%, #FF4DA6 50%, #E0187A 90%, #B01060 100%)",
+              "radial-gradient(circle at 35% 30%, #A8F5DC 0%, #FF6B85 20%, #FF2D55 50%, #C41E3A 90%, #0A5C55 100%)",
             boxShadow: useTransform(
               knobGlow,
               (v) =>
-                `0 0 ${20 * v}px rgba(255,77,166,${0.55 * v}), inset 0 1px 0 rgba(255,255,255,0.3)`,
+                `0 0 ${20 * v}px rgba(255,45,85,${0.55 * v}), inset 0 1px 0 rgba(255,255,255,0.3)`,
             ),
           }}
         />

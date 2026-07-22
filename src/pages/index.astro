@@ -1,19 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroGallery from '../components/home/HeroGallery.astro';
+import HomeHero from '../components/home/HomeHero';
 import AllSaunas from '../components/home/AllSaunas.astro';
-import SpinWheel from '../components/smart-match/SpinWheel';
-import WhyChooseUsBento from '../components/home/WhyChooseUsBento.astro';
-import Testimonials from '../components/home/Testimonials';
 import HowItWorks from '../components/home/HowItWorks.astro';
-import SlotExtras from '../components/home/SlotExtras.astro';
+import WhyChooseUs from '../components/home/WhyChooseUs.astro';
+import HomeBlog from '../components/home/HomeBlog.astro';
+import SplitStory from '../components/home/SplitStory.astro';
 import Contact from '../components/home/Contact.astro';
 import { SITE_DESCRIPTION, SEO_KEYWORDS } from '../utils/constants';
 import { TITLE_HOME } from '../utils/seo-titles';
 ---
 
-<!-- Preload LCP image for mobile (400w variant) -->
-<link rel="preload" as="image" href="/images/venues/sauna1/manhaospa-400.webp" fetchpriority="high" media="(max-width: 767px)" type="image/webp" />
+<link rel="preload" as="image" href="/images/hero/skyline-1.jpg" fetchpriority="high" />
 
 <BaseLayout
   seo={{
@@ -22,19 +20,18 @@ import { TITLE_HOME } from '../utils/seo-titles';
     keywords: SEO_KEYWORDS,
   }}
 >
-  <HeroGallery />
+  <div id="top"></div>
+  <HomeHero client:load />
 
   <AllSaunas />
 
+  <SplitStory />
+
   <HowItWorks />
 
-  <SpinWheel client:visible />
+  <WhyChooseUs />
 
-  <WhyChooseUsBento />
-
-  <SlotExtras />
-
-  <Testimonials client:visible />
+  <HomeBlog />
 
   <Contact />
 </BaseLayout>

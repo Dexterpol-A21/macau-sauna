@@ -13,7 +13,7 @@ description: Macau's newest luxury sauna in Taipa with the largest model showcas
 fullDescription: Manhao Spa is Macau's newest luxury sauna — a Taipa debut that opened 1 May 2026 inside the Grandview Hotel (氹仔君怡酒店), and from the moment you step in, an imperial-luxe tone takes over. A gold crowned 'MH' monogram glows against calacatta marble, and that aesthetic carries through gold-trimmed lockers, marble dining lounges and mural-wrapped corridors that feel more boutique-hotel than typical sauna.||The marquee draw is Macau's largest model showcase — a multi-tiered, glass-railed catwalk hall washed in deep blue neon that turns selection into a centerpiece moment rather than a side step. Settle afterward into an integrated suite that pairs a hotel-grade bedroom with the venue's signature red waterbed under a single dramatic spotlight, where a multinational therapist team spanning eight nationalities across Asia and Europe tailors a calm, private massage. As a brand-new Taipa sauna, Manhao Spa currently runs transitional hours of 14:00–04:00 — 24-hour service and overnight stays are returning soon.|||Also known as: Manhao Spa Macau, 曼濠水療.
 image: /images/venues/sauna1/manhaospa.webp
 category: newest, all
-features: Largest Stage Show, 8 Nationalities, Hotel-Grade Suites, Waterbed Rooms
+features: Newest Taipa opening — 1 May 2026, Macau's largest model showcase / catwalk hall, Signature red waterbed in spotlit suites, Integrated bedroom + waterbed luxury suites, Calacatta-marble lounges and changing rooms, Transitional hours 14:00–04:00 — 24h returning soon
 priceRange: MOP 2,299 – 6,999
 hours: 14:00 – 04:00
 location: Taipa, Grandview Hotel
@@ -21,7 +21,7 @@ rating: 5
 badge: new
 referencePrice: MOP 888 - 5,388
 staffNationalities: Chinese, Vietnamese, Thai, Taiwanese, Japanese, Korean, Russian, Ukrainian
-staffHours: Staff: 2:00 PM – 4:00 AM
+staffHours: Staff: 2:00 PM - 4:00 AM
 website: manhaosauna.com/en/
 overnight: Not available — No overnight during transitional period; 24h + overnight returning soon
 highlights: Newest Taipa 2026, Biggest model showcase, Signature red waterbed, Imperial marble luxe

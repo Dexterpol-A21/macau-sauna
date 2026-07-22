@@ -90,7 +90,7 @@ import { TITLE_TERMS } from '../utils/seo-titles';
 <style is:global>
   .lp-section {
     background: #0A0A0A;
-    padding: 5rem 1.5rem 6rem;
+    padding: var(--chrome-pad) 1.5rem 6rem;
   }
 
   .lp-header {
@@ -102,17 +102,17 @@ import { TITLE_TERMS } from '../utils/seo-titles';
   }
 
   .lp-eyebrow {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
     font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #FF4DA6;
+    color: #FF2D55;
     margin-bottom: 0.75rem;
   }
 
   .lp-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
     color: #FFF8F0;
@@ -124,7 +124,7 @@ import { TITLE_TERMS } from '../utils/seo-titles';
   .lp-body {
     max-width: 42rem;
     margin: 0 auto;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
     font-size: 0.92rem;
     font-weight: 400;
     color: #B0A890;
@@ -132,7 +132,7 @@ import { TITLE_TERMS } from '../utils/seo-titles';
   }
 
   .lp-body h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Noto Sans TC', system-ui, sans-serif;
     font-size: 1.2rem;
     font-weight: 700;
     color: #FFF8F0;
@@ -157,7 +157,7 @@ import { TITLE_TERMS } from '../utils/seo-titles';
   }
 
   .lp-body strong {
-    color: #FF4DA6;
+    color: #FF2D55;
     font-weight: 600;
   }
 
@@ -171,7 +171,7 @@ import { TITLE_TERMS } from '../utils/seo-titles';
 
   @media (max-width: 480px) {
     .lp-section {
-      padding: 3.5rem 1rem 4.5rem;
+      padding: var(--chrome-pad) 1rem 4.5rem;
     }
     .lp-body {
       font-size: 0.85rem;

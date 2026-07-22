@@ -1,0 +1,158 @@
+---
+import BlogArticle from '../../components/blog/BlogArticle.astro';
+import { SEO_KEYWORDS } from '../../utils/constants';
+import { titleBlogDetail } from '../../utils/seo-titles';
+
+const title = 'Macau Sauna Guide: The Six Major Venues Compared';
+const description =
+  "Compare Macau's six major saunas — Empire, Manhao, Shang Pin, Number Nine, Majesty and The Excellent: each venue's signature, hours and best-fit guest.";
+
+const toc = [
+  { id: 'overview', label: 'Overview table' },
+  { id: 'empire', label: 'Empire Sauna' },
+  { id: 'manhao', label: 'Manhao Spa' },
+  { id: 'shang-pin', label: 'Shang Pin Spa' },
+  { id: 'number-nine', label: 'Number Nine Spa' },
+  { id: 'majesty', label: 'Majesty Spa' },
+  { id: 'excellent', label: 'The Excellent Sauna' },
+  { id: 'how-to-choose', label: 'How to choose, and how to book' },
+];
+
+const related = [
+  { slug: 'first-timer', cat: 'Beginner Guides', title: 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking' },
+  { slug: 'prices', cat: 'Prices & Budget', title: 'Macau Sauna Prices 2026: Entry, Service Tiers & Overnight Costs Explained' },
+];
+
+const TABLE = [
+  ['Venue', 'Location', 'Signature', 'Best for'],
+  ['Empire Sauna', 'Macau Peninsula', 'Themed suites + water beds, no service charge', 'Guests who judge a venue by its rooms'],
+  ['Manhao Spa', 'Grandview Hotel, Taipa', "Macau's biggest catwalk selection hall", 'Cotai-based guests who want the show'],
+  ['Shang Pin Spa', 'Grand Lisboa Palace, Cotai', '24-hour opening, Japanese bubble bath', 'Overnighters and Cotai hotel guests'],
+  ['Number Nine Spa', 'Royal Dragon Hotel, Peninsula', 'Fashion-show stage + scenario-themed rooms', 'Fans of stage atmosphere and JP/KR-style tiers'],
+  ['Majesty Spa', 'Macau Peninsula', '10+ themed rooms + KTV party rooms', 'Group parties and themed-room enthusiasts'],
+  ['The Excellent Sauna', 'Grand Emperor Hotel, Peninsula', 'Noon opening, scenario rooms as add-ons', 'Daytime visits, a curated shortlist'],
+];
+---
+
+<BlogArticle
+  seo={{
+    title: titleBlogDetail(title),
+    description,
+    keywords: `Macau sauna comparison, six major Macau saunas, Empire Sauna, Manhao Spa, Shang Pin Spa, Number Nine Spa, Majesty Spa, The Excellent Sauna, ${SEO_KEYWORDS}`,
+    image: '/images/blog04.webp',
+    imageWidth: '1200',
+    imageHeight: '630',
+  }}
+  category="Comparisons"
+  title={title}
+  description={description}
+  meta="Relax Macau Team · Jul 2026 · 5 min read"
+  image="/images/blog04.webp"
+  imageAlt="Marble baths and steam inside a Macau sauna club"
+  toc={toc}
+  related={related}
+>
+  <p>
+    Macau&rsquo;s sauna scene went through a shake-up heading into 2026, and the venues genuinely worth knowing now
+    come down to six: Empire, Manhao, Shang Pin, Number Nine, Majesty and The Excellent. &ldquo;Which one is
+    best?&rdquo; is the question we hear most, and the honest answer is that there isn&rsquo;t one — the six have
+    very different personalities. Some guests are all about the rooms, some come purely for the catwalk shows, and
+    some only care whether they can stay until morning. This guide profiles each venue one by one: what its
+    signature is, and who it suits. Start with the overview table, then dig into the details.
+  </p>
+  <p>
+    Pricing is structured similarly across all six: entry starts around MOP 1,000, mainstream service tiers run
+    roughly 2,500–4,500, and the top Japanese/Korean tiers mostly start from 5,000 — always confirmed against the
+    day&rsquo;s quote. If you&rsquo;d rather skip the homework, just tell us your budget and we&rsquo;ll match you.
+  </p>
+
+  <h2 id="overview">Overview table</h2>
+  <div class="blog-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          {TABLE[0].map((h) => <th>{h}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {
+          TABLE.slice(1).map((row) => (
+            <tr>
+              {row.map((cell) => (
+                <td>{cell}</td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="empire">Empire Sauna: the newest opening, built around its suites</h2>
+  <p>
+    Empire Sauna is currently Macau&rsquo;s newest venue, opened in mid-May 2026 with a modern-luxury-meets-oriental-zen
+    design. Its bet is squarely on the rooms themselves: hotel-grade themed suites, marble baths and a signature
+    water-bed room, backed by butler-style service — the experience lands closer to a night in a boutique hotel than
+    a classic sauna. It runs 24 hours, allows overnight stays, and charges no 10% service fee; booking through us
+    adds two free add-on services. If brand-new hardware is your priority, start here.
+  </p>
+
+  <h2 id="manhao">Manhao Spa: Macau&rsquo;s biggest catwalk hall</h2>
+  <p>
+    Staying in Taipa or Cotai, Manhao Spa is the natural first look — it sits in the Grandview Hotel, about five
+    minutes by car from the heart of Cotai. Its signature boils down to one word: the show. The catwalk selection hall
+    is the largest in Macau — several open tiers rising through a wash of cool blue light — and comes closer to a
+    staged performance than anywhere else in town, while the marble lobby and mural corridors carry the
+    &ldquo;regal&rdquo; theme throughout. Rooms are integrated suites that combine a bedroom with a water bed,
+    headlined by the signature red water bed under a spotlight. Note the hours — 14:00–06:00, with no overnight stays
+    at present; booking through us adds two free add-on services (one if you choose the Shanghai-style massage).
+  </p>
+
+  <h2 id="shang-pin">Shang Pin Spa: the answer for overnighters and Cotai guests</h2>
+  <p>
+    Shang Pin Spa operates inside the Grand Lisboa Palace in Cotai, with an ornate, high-end interior and modern
+    facilities. Its real strength is time: open 24 hours with overnight stays allowed, and lounge recliners you can
+    sleep on until morning — genuinely useful if the night runs long and you&rsquo;d rather not book another hotel
+    room. The house specialty is the Japanese bubble bath, and package promotions rotate periodically — ask on the day
+    for what&rsquo;s running. If you&rsquo;re staying at the Grand Lisboa Palace or anywhere in Cotai, it&rsquo;s the
+    lowest-friction choice of the six.
+  </p>
+
+  <h2 id="number-nine">Number Nine Spa: a fashion show moved indoors</h2>
+  <p>
+    Number Nine Spa sits in the Royal Dragon Hotel in the city centre and opened in April 2026 — the first of this new
+    wave to launch. There&rsquo;s a fashion-show stage with an LED screen inside, so choosing a technician plays out
+    like watching a runway; the rooms are scenario-themed, with deliberate lighting and set design. Its menu leads with
+    the Japanese/Korean tiers, it runs 24 hours with overnight stays, and booking through us adds two free add-on
+    services. If stage atmosphere and the JP/KR route are your thing, this is the closest match.
+  </p>
+
+  <h2 id="majesty">Majesty Spa: themed rooms plus KTV, the party venue</h2>
+  <p>
+    Majesty Spa has arguably the most lavish interior in Macau, and its hall uses an up-close &ldquo;scenery&rdquo;
+    selection format. It also owns a combination no other venue offers: more than ten elaborately built themed rooms —
+    Egyptian, Chinese wedding-bed, gym-and-boxing, wedding and cosplay themes among them — plus KTV party rooms, a
+    rarity in Macau. A group booking a room to sing first and then splitting off for their own plans is a play unique
+    to this house. No service charge, open 24 hours, overnight stays allowed.
+  </p>
+
+  <h2 id="excellent">The Excellent Sauna: noon opening, small and curated</h2>
+  <p>
+    The Excellent Sauna is in the Grand Emperor Hotel&rsquo;s main building, with hours of 12:00–04:00 — among the
+    earliest openings in Macau, handy for travellers with a free afternoon. It leads with newly built Japanese-theme
+    rooms, and scenario rooms — DJ booth, office, cinema — are available as paid add-ons, which keeps the format
+    flexible. It&rsquo;s a smaller house that deliberately runs a short, curated menu. No overnight stays — if you
+    need to stay until morning, switch to a 24-hour venue like Shang Pin or Empire.
+  </p>
+
+  <h2 id="how-to-choose">How to choose, and how to book</h2>
+  <p>
+    The short version: pick Empire for the rooms, Manhao for the catwalk, Shang Pin for overnights or a Cotai base,
+    Number Nine for stage atmosphere, Majesty for group parties, and The Excellent for daytime visits. All six run
+    multinational technician rosters, and meals are essentially included in entry. Booking through us adds three
+    standing perks: the entry fee waived, free private shuttle across all of Macau, and free add-on services.
+    Can&rsquo;t decide? <a href="/contact">Contact us</a> with your budget and preferences and we&rsquo;ll match you;
+    for more homework, compare the <a href="/ranking">Macau sauna ranking</a> and the
+    <a href="/blog/first-timer">first-timer guide</a>.
+  </p>
+</BlogArticle>

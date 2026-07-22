@@ -2,7 +2,8 @@
 import '../styles/global.css';
 import SEO from '../components/global/SEO.astro';
 import Footer from '../components/global/Footer.astro';
-import { PokerHandNavigation } from '../components/ui/PokerHandNavigation';
+import TopNavbar from '../components/global/TopNavbar';
+import PromoBanner from '../components/home/PromoBanner';
 import type { SeoProps } from '../types';
 
 interface Props {
@@ -20,47 +21,25 @@ const { seo } = Astro.props;
     <meta name="theme-color" content="#0A0A0A" />
     <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <!-- Set is-mobile/is-desktop BEFORE React hydrates to prevent CLS from layout flip -->
     <script is:inline>
       document.documentElement.classList.add(
         window.innerWidth < 768 ? 'is-mobile' : 'is-desktop'
       );
     </script>
     <SEO {...seo} />
-    <!-- Critical inline CSS: prevents white flash while external CSS loads -->
     <style>
-      html,body{background:#0A0A0A;color:#FFF8F0;margin:0;padding:0}
-      body{font-family:system-ui,-apple-system,sans-serif}
+      html,body{background:#0A0A0A;color:#f5f5f5;margin:0;padding:0}
+      body{font-family:"Noto Sans TC",system-ui,sans-serif}
       .min-h-screen{min-height:100vh}
       .flex{display:flex}.flex-col{flex-direction:column}.flex-1{flex:1}
     </style>
   </head>
   <body class="min-h-screen flex flex-col">
+    <TopNavbar client:load />
+    <PromoBanner client:load />
     <main class="flex-1">
       <slot />
     </main>
     <Footer />
-    <PokerHandNavigation client:idle />
   </body>
 </html>
-
-<script>
-  // Only enable smooth scroll on desktop (768px+). Mobile 4G can't afford
-  // the JS execution and forced-reflow cost Lenis introduces.
-  if (window.innerWidth >= 768) {
-    import('lenis').then(({ default: Lenis }) => {
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-        smoothWheel: true,
-      });
-
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-
-      requestAnimationFrame(raf);
-    });
-  }
-</script>

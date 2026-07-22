@@ -1,288 +1,327 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE_DESCRIPTION, SEO_KEYWORDS } from '../utils/constants';
+import { SEO_KEYWORDS } from '../utils/constants';
 import { TITLE_CONTACT } from '../utils/seo-titles';
-import SlotMachineText from '../components/ui/SlotMachineText';
+
+const WA =
+  'https://wa.me/85365670348?text=' +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+const TG =
+  'https://t.me/Aomensauna?text=' +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+
+const CHANNELS = [
+  { name: 'WhatsApp', detail: 'Message us', href: WA, icon: '/whatsapp.svg', external: true },
+  { name: 'Telegram', detail: '@Aomensauna', href: TG, icon: '/telegram.svg', external: true },
+  { name: 'WeChat', detail: 'AN99348', href: '/contact#channels', icon: '/wechat.svg', external: false },
+  { name: 'LINE', detail: '16880348', href: 'https://line.me/ti/p/VZHFDSZnq9', icon: '/line.svg', external: true },
+];
+
+const PERKS = [
+  {
+    title: 'Fast replies, 24/7',
+    body: 'Someone is on hand day and night — usually replying within minutes to get you booked.',
+    icon: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+  },
+  {
+    title: 'Free luxury shuttle',
+    body: 'Free pickup from your hotel, the border, or the airport — plus a complimentary ride back; just arrange your return in advance.',
+    icon: '<path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/>',
+  },
+  {
+    title: 'Completely free — no agency fee',
+    body: "Our booking and concierge service is free. You pay exactly the venue's own rates.",
+    icon: '<path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/>',
+  },
+];
+
+const SEND_ITEMS = [
+  "Preferred venue — or just describe what you're after and we'll recommend",
+  "The date and time you'd like to go",
+  'Number of guests',
+  'Your pickup location (hotel, border or airport)',
+  'Preferred language and budget range',
+];
+
+const FAQ = [
+  { q: 'How fast do you reply?', a: 'Usually within minutes — someone is available 24/7.', open: true },
+  { q: 'Is there any booking fee?', a: "No. Our concierge booking service is completely free; you pay the venue's own rates directly on site.", open: false },
+  { q: 'Is my enquiry discreet?', a: 'Yes. We keep your details private and use them only to arrange your booking and pickup.', open: false },
+  { q: 'Which app should I use?', a: 'Whichever you prefer — WhatsApp, WeChat, Line and Telegram all reach the same team instantly.', open: false },
+  { q: 'Can you help in English?', a: 'Yes — we serve you in English, Traditional & Simplified Chinese, and Cantonese.', open: false },
+];
+
+const LOOKS = [
+  { href: '/ranking', label: 'Macau sauna ranking & prices' },
+  { href: '/how-it-works', label: 'First time? Read the guide' },
+  { href: '/shuttle', label: 'Free luxury shuttle service' },
+];
 ---
 
 <BaseLayout
   seo={{
     title: TITLE_CONTACT,
-    description: 'Contact Aurelia Concierge — WhatsApp, Telegram, WeChat & LINE. Free shuttle, VIP entry, venue recommendations. We reply within minutes.',
+    description:
+      'Contact Macau Sauna Booking — WhatsApp, Telegram, WeChat & LINE. Free shuttle, VIP entry, venue recommendations. We reply within minutes.',
     keywords: `Macau sauna booking, contact Macau spa, Macau sauna WhatsApp, Telegram Macau spa, WeChat Macau sauna, LINE Macau spa, ${SEO_KEYWORDS}`,
   }}
 >
-  <main class="cu-page">
-    <section class="cu-hero">
-      <div class="cu-hero-wrap">
-        <span class="cu-hero-eyebrow">Get in Touch</span>
-        <h1 class="cu-hero-title">
-          <SlotMachineText text="We'll answer everything" stripLength={16} client:visible />
-        </h1>
-        <p class="cu-hero-sub">Pick your preferred channel — we reply within minutes, any hour of the day.</p>
+  <!-- 0. Hero -->
+  <section class="chrome-pad px-4 pb-10">
+    <div class="mx-auto max-w-3xl text-center">
+      <p class="mb-4 text-[0.7rem] font-semibold uppercase tracking-[0.3em] text-primary/90 sm:text-xs">
+        We're here whenever you need us
+      </p>
+      <h1 class="mb-6 text-3xl font-bold leading-tight sm:text-5xl">Contact Us</h1>
+      <p class="mx-auto max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg">
+        Want to book a Macau sauna, ask about pricing, or arrange your free pickup? Message us on any
+        app below. We reply in English, Traditional &amp; Simplified Chinese, and Cantonese.
+      </p>
+      <div class="mt-6">
+        <a
+          href="/"
+          class="group inline-flex items-center text-sm text-white/40 transition-colors hover:text-primary"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="mr-2 transition-transform group-hover:-translate-x-1"
+            aria-hidden="true"
+          >
+            <path d="m12 19-7-7 7-7"></path>
+            <path d="M19 12H5"></path>
+          </svg>
+          Back to home
+        </a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cu-channels">
-      <div class="cu-channels-wrap">
-        <div class="cu-channels-grid">
-          <a href="https://wa.me/message/YOURNUMBER" class="cu-card">
-            <img src="/whatsapp.svg" alt="" class="cu-card-icon" />
-            <div class="cu-card-body">
-              <span class="cu-card-label">WhatsApp</span>
-              <span class="cu-card-detail">Message us</span>
-              <span class="cu-card-hint">Fastest response — we're on WhatsApp 24/7</span>
-            </div>
-            <svg class="cu-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-          </a>
-          <a href="https://t.me/Aomensauna" class="cu-card">
-            <img src="/telegram.svg" alt="" class="cu-card-icon" />
-            <div class="cu-card-body">
-              <span class="cu-card-label">Telegram</span>
-              <span class="cu-card-detail">@Aomensauna</span>
-              <span class="cu-card-hint">Preferred for file sharing & photos</span>
-            </div>
-            <svg class="cu-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-          </a>
-          <a href="#" class="cu-card">
-            <img src="/wechat.svg" alt="" class="cu-card-icon" />
-            <div class="cu-card-body">
-              <span class="cu-card-label">WeChat</span>
-              <span class="cu-card-detail">AN99348</span>
-              <span class="cu-card-hint">Best for Chinese-speaking guests</span>
-            </div>
-            <svg class="cu-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-          </a>
-          <a href="https://line.me/ti/p/16880348" class="cu-card">
-            <img src="/line.svg" alt="" class="cu-card-icon" />
-            <div class="cu-card-body">
-              <span class="cu-card-label">LINE</span>
-              <span class="cu-card-detail">16880348</span>
-              <span class="cu-card-hint">Popular with Japanese & Taiwanese guests</span>
-            </div>
-            <svg class="cu-card-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
-          </a>
-        </div>
+  <!-- 1. Pick whichever app suits you -->
+  <section id="channels" class="scroll-mt-6 px-4 pb-12">
+    <div class="mx-auto max-w-xl">
+      <h2 class="mb-6 text-center text-xl font-bold sm:text-2xl">Pick whichever app suits you</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          CHANNELS.map((ch) => (
+            <a
+              href={ch.href}
+              class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-primary/30"
+              {...(ch.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 transition-colors group-hover:bg-primary/20">
+                <img src={ch.icon} alt="" class="h-7 w-7 rounded-md" width="28" height="28" />
+              </div>
+              <div>
+                <div class="mb-1 text-xs text-white/40">{ch.name}</div>
+                <div class="font-medium text-white">{ch.detail}</div>
+              </div>
+            </a>
+          ))
+        }
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="cu-faq">
-      <div class="cu-faq-wrap">
-        <h2 class="cu-section-title">Quick Answers</h2>
-        <div class="cu-faq-grid">
-          <div class="cu-faq-item">
-            <h3 class="cu-faq-q">Is this service free?</h3>
-            <p class="cu-faq-a">Yes — our concierge service, including venue recommendation, booking, and private car pickup, is completely free. You pay the venue directly at their listed price, which is often lower than walk-in rates thanks to our partner agreements.</p>
+  <!-- 2. Three perk cards -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto grid max-w-4xl gap-5 sm:grid-cols-3">
+      {
+        PERKS.map((perk) => (
+          <div class="h-full rounded-2xl border border-white/5 bg-[#141414] p-6 text-center transition-colors hover:border-primary/30">
+            <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-6 w-6 text-primary"
+                aria-hidden="true"
+                set:html={perk.icon}
+              />
+            </div>
+            <h3 class="mb-2 font-bold">{perk.title}</h3>
+            <p class="text-sm leading-relaxed text-white/60">{perk.body}</p>
           </div>
-          <div class="cu-faq-item">
-            <h3 class="cu-faq-q">How fast do you reply?</h3>
-            <p class="cu-faq-a">We aim to reply within 5 minutes, 24/7. Response time may be slightly longer during peak hours (7 PM–12 AM Macau time), but we always have someone on duty.</p>
-          </div>
-          <div class="cu-faq-item">
-            <h3 class="cu-faq-q">Do I need to book in advance?</h3>
-            <p class="cu-faq-a">Not strictly — we can arrange same-day bookings. However, advance notice gives us time to confirm therapist availability and arrange the best pickup time, so a few hours' heads-up is ideal.</p>
-          </div>
-          <div class="cu-faq-item">
-            <h3 class="cu-faq-q">What languages do you speak?</h3>
-            <p class="cu-faq-a">English, Mandarin, Cantonese, Japanese, and Korean. Tell us your preferred language when you message and we'll match you with the right concierge.</p>
-          </div>
-        </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 3. What to send us + Completely discreet -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
+      <div class="h-full rounded-2xl border border-primary/10 bg-white/[0.02] p-6 sm:p-8">
+        <h2 class="mb-3 flex items-center gap-2 text-xl font-bold sm:text-2xl">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-6 w-6 text-primary"
+            aria-hidden="true"
+          >
+            <path d="M13 5h8"></path>
+            <path d="M13 12h8"></path>
+            <path d="M13 19h8"></path>
+            <path d="m3 17 2 2 4-4"></path>
+            <path d="m3 7 2 2 4-4"></path>
+          </svg>
+          What to send us
+        </h2>
+        <p class="mb-4 text-sm text-white/60">
+          Include these in your first message and we'll have everything ready in one reply:
+        </p>
+        <ul class="space-y-2.5">
+          {
+            SEND_ITEMS.map((item) => (
+              <li class="flex gap-2.5 text-sm leading-relaxed text-white/75">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                  aria-hidden="true"
+                >
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
       </div>
-    </section>
-  </main>
+
+      <div class="flex h-full flex-col justify-center rounded-2xl border border-primary/10 bg-white/[0.02] p-6 sm:p-8">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mb-3 h-8 w-8 text-primary"
+          aria-hidden="true"
+        >
+          <path
+            d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+          ></path>
+          <path d="m9 12 2 2 4-4"></path>
+        </svg>
+        <h2 class="mb-3 text-xl font-bold sm:text-2xl">Completely discreet</h2>
+        <p class="text-sm leading-relaxed text-white/65">
+          We take your privacy seriously. The details you share are used only to arrange your booking
+          and shuttle — never disclosed or used for anything else. See our Privacy Policy.
+        </p>
+        <a href="/privacy" class="mt-3 inline-flex items-center text-sm text-primary hover:underline">
+          Privacy Policy →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Contacting us — quick answers -->
+  <section class="px-4 pb-12">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="mb-6 flex items-center gap-2 text-xl font-bold sm:text-2xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-6 w-6 text-primary"
+          aria-hidden="true"
+        >
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <path d="M12 17h.01"></path>
+        </svg>
+        Contacting us — quick answers
+      </h2>
+      <div class="space-y-3">
+        {
+          FAQ.map((item) => (
+            <details
+              class="group rounded-xl border border-primary/10 bg-white/[0.02] px-5 py-4 transition-colors hover:border-primary/20"
+              open={item.open || undefined}
+            >
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-white/85">
+                {item.q}
+                <span class="shrink-0 text-lg leading-none text-primary transition-transform group-open:rotate-45">
+                  +
+                </span>
+              </summary>
+              <p class="mt-3 text-sm leading-relaxed text-white/60">{item.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Worth a look before you book -->
+  <section class="px-4 pb-16">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="mb-5 text-center text-lg font-bold text-white/70">Worth a look before you book</h2>
+      <div class="grid gap-3 sm:grid-cols-3">
+        {
+          LOOKS.map((link) => (
+            <a
+              href={link.href}
+              class="flex items-center justify-between rounded-xl border border-primary/10 bg-white/[0.02] px-4 py-3 text-sm text-white/75 transition-colors hover:border-primary/30 hover:text-primary"
+            >
+              <span>{link.label}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4 shrink-0"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 </BaseLayout>
-
-<style is:global>
-  .cu-page {
-    background: #000000;
-    color: #FFF8F0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  /* Hero */
-  .cu-hero {
-    padding: 7rem 2rem 5rem;
-    text-align: center;
-  }
-
-  .cu-hero-wrap {
-    max-width: 36rem;
-    margin: 0 auto;
-  }
-
-  .cu-hero-eyebrow {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: #FF4DA6;
-    margin-bottom: 1.25rem;
-  }
-
-  .cu-hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 1rem;
-  }
-
-  .cu-hero-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    color: #807860;
-    margin: 0;
-  }
-
-  /* Channels */
-  .cu-channels {
-    background: #0A0A0A;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 4rem 2rem 5rem;
-  }
-
-  .cu-channels-wrap {
-    max-width: 48rem;
-    margin: 0 auto;
-  }
-
-  .cu-channels-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .cu-card {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    background: #000000;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 0.75rem;
-    text-decoration: none;
-    color: inherit;
-    transition: border-color 0.3s, background 0.3s;
-  }
-
-  .cu-card:hover {
-    border-color: rgba(255,77,166,0.3);
-    background: rgba(255,77,166,0.04);
-  }
-
-  .cu-card-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    flex-shrink: 0;
-    transition: transform 0.3s;
-  }
-
-  .cu-card:hover .cu-card-icon {
-    transform: scale(1.08);
-  }
-
-  .cu-card-body {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .cu-card-label {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #FFF8F0;
-    margin-bottom: 0.15rem;
-  }
-
-  .cu-card-detail {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #9E9E9E;
-    margin-bottom: 0.25rem;
-  }
-
-  .cu-card-hint {
-    display: block;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.72rem;
-    color: #606070;
-  }
-
-  .cu-card-arrow {
-    flex-shrink: 0;
-    color: rgba(255,77,166,0.4);
-    transition: color 0.3s, transform 0.3s;
-  }
-
-  .cu-card:hover .cu-card-arrow {
-    color: #FF4DA6;
-    transform: translate(2px, -2px);
-  }
-
-  /* FAQ */
-  .cu-faq {
-    background: #000000;
-    border-top: 2px solid rgba(255,77,166,0.12);
-    padding: 5rem 2rem 6rem;
-  }
-
-  .cu-faq-wrap {
-    max-width: 48rem;
-    margin: 0 auto;
-  }
-
-  .cu-section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    text-align: center;
-    letter-spacing: -0.02em;
-    margin: 0 0 3rem;
-  }
-
-  .cu-faq-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
-
-  .cu-faq-item {
-    background: #0A0A0A;
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-  }
-
-  .cu-faq-q {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #FFF8F0;
-    margin: 0 0 0.5rem;
-    line-height: 1.3;
-  }
-
-  .cu-faq-a {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.83rem;
-    font-weight: 400;
-    color: #807860;
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    .cu-hero { padding: 5rem 1.25rem 3.5rem; }
-    .cu-channels { padding: 3rem 1.25rem 4rem; }
-    .cu-faq { padding: 3.5rem 1.25rem 4.5rem; }
-    .cu-faq-grid { grid-template-columns: 1fr; }
-    .cu-card { padding: 1rem 1.25rem; }
-  }
-</style>

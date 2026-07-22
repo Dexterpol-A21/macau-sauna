@@ -90,7 +90,7 @@ export default function SlotFrameButton({ text, href, accent }: SlotFrameButtonP
           border-radius: 0.5em;
           transition: transform 0.25s ease;
           overflow: visible;
-          font-family: 'Inter', sans-serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
         }
         .cta--frame:hover {
           transform: translateY(-2px);

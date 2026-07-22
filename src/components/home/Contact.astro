@@ -1,137 +1,177 @@
 ---
-import SlotMachineText from '../ui/SlotMachineText';
-import ContactCTA from './ContactCTA';
-import SecondaryCTA from './SecondaryCTA';
+const WA =
+  "https://wa.me/85365670348?text=" +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+const TG =
+  'https://t.me/Aomensauna?text=' +
+  encodeURIComponent("I'm interested in Macau sauna. Could you help arrange this?");
+
+const PLATFORMS = [
+  { name: 'WhatsApp', handle: 'Message us', href: WA, color: '#25D366', kind: 'wa' },
+  { name: 'Telegram', handle: '@Aomensauna', href: TG, color: '#2AABEE', kind: 'tg' },
+  { name: 'WeChat', handle: 'AN99348', href: null, color: '#07C160', kind: 'wc' },
+  { name: 'LINE', handle: '16880348', href: 'https://line.me/ti/p/VZHFDSZnq9', color: '#06C755', kind: 'ln' },
+];
+
+const ICONS: Record<string, string> = {
+  wa: `<svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A7.85 7.85 0 0 0 12.05 4a7.94 7.94 0 0 0-6.88 11.89L4 20l4.2-1.1a7.93 7.93 0 0 0 3.79.96h.01a7.93 7.93 0 0 0 6.87-11.9 7.86 7.86 0 0 0-1.27-1.64ZM12.06 18.33h-.01a6.6 6.6 0 0 1-3.36-.92l-.24-.14-2.5.66.67-2.43-.16-.25a6.6 6.6 0 0 1-1.01-3.5 6.6 6.6 0 0 1 6.6-6.6c1.77 0 3.42.69 4.67 1.94a6.56 6.56 0 0 1 1.93 4.67 6.6 6.6 0 0 1-6.6 6.57Zm3.62-4.94c-.2-.1-.99-.49-1.14-.54-.15-.06-.26-.09-.37.09-.11.17-.43.54-.53.65-.1.12-.2.13-.37.04-.18-.09-.74-.27-1.4-.87-.52-.46-.87-1.03-.97-1.2-.1-.18-.01-.27.08-.36.08-.08.18-.2.26-.3.09-.1.12-.17.18-.28.06-.12.03-.21-.01-.3-.05-.09-.37-.89-.5-1.22-.13-.32-.27-.28-.37-.28h-.32c-.11 0-.3.04-.45.21-.15.17-.59.58-.59 1.4 0 .83.61 1.63.69 1.74.08.12 1.2 1.83 2.9 2.57 1.7.73 1.7.49 2 .47.3-.02.99-.4 1.13-.79.14-.39.14-.72.1-.79-.04-.06-.15-.1-.32-.18Z"/></svg>`,
+  tg: `<svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm4.64 6.8-1.55 7.3c-.12.52-.42.65-.86.4l-2.38-1.75-1.15 1.1c-.13.13-.24.24-.49.24l.17-2.42 4.4-3.97c.19-.17-.04-.27-.3-.1l-5.44 3.42-2.34-.73c-.51-.16-.52-.51.11-.75l9.15-3.53c.42-.17.79.1.58.79Z"/></svg>`,
+  wc: `<svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M8.69 3.5C4.9 3.5 1.75 6.12 1.75 9.4c0 1.9 1.05 3.58 2.69 4.7l-.68 2.05 2.38-1.2c.77.22 1.6.34 2.45.34.22 0 .44 0 .66-.02A5.9 5.9 0 0 1 8.9 13.3c0-3.25 2.95-5.88 6.7-5.88.2 0 .4 0 .6.02C15.45 4.9 12.3 3.5 8.69 3.5Zm-2.1 3.35a.86.86 0 1 1 0 1.72.86.86 0 0 1 0-1.72Zm4.05 0a.86.86 0 1 1 0 1.72.86.86 0 0 1 0-1.72ZM15.6 8.1c-3.2 0-5.8 2.2-5.8 4.95 0 2.74 2.6 4.95 5.8 4.95.67 0 1.31-.1 1.9-.28l1.85.94-.53-1.6c1.27-.9 2.08-2.26 2.08-3.99 0-2.76-2.6-4.97-5.3-4.97Zm-1.72 3.25a.72.72 0 1 1 0 1.44.72.72 0 0 1 0-1.44Zm3.45 0a.72.72 0 1 1 0 1.44.72.72 0 0 1 0-1.44Z"/></svg>`,
+  ln: `<svg viewBox="0 0 24 24" class="h-7 w-7" fill="currentColor" aria-hidden="true"><path d="M12 3C6.7 3 2.5 6.6 2.5 11c0 3.95 3.5 7.25 8.2 7.9.32.07.75.22.86.5.1.26.07.67.03.93l-.15.9c-.05.28-.22 1.1 1.02.6 1.24-.5 6.7-3.95 9.15-6.76C23.3 12.9 21.5 3 12 3Zm-4.2 10.2H6.35c-.28 0-.5-.22-.5-.5V8.85c0-.28.22-.5.5-.5h.45c.28 0 .5.22.5.5v3.35h1c.28 0 .5.22.5.5s-.22.5-.5.5Zm2.55 0h-.45c-.28 0-.5-.22-.5-.5V8.85c0-.28.22-.5.5-.5h.45c.28 0 .5.22.5.5v3.85c0 .28-.22.5-.5.5Zm4.6 0h-.45c-.2 0-.38-.12-.46-.3l-1.1-2.55v2.35c0 .28-.22.5-.5.5h-.45c-.28 0-.5-.22-.5-.5V8.85c0-.28.22-.5.5-.5h.45c.2 0 .38.12.46.3l1.1 2.55V8.85c0-.28.22-.5.5-.5h.45c.28 0 .5.22.5.5v3.85c0 .28-.22.5-.5.5Zm3.35 0h-1.9c-.28 0-.5-.22-.5-.5V8.85c0-.28.22-.5.5-.5h1.9c.28 0 .5.22.5.5s-.22.5-.5.5H16.8v.7h1.55c.28 0 .5.22.5.5s-.22.5-.5.5H16.8v.85h1.5c.28 0 .5.22.5.5s-.22.5-.5.5Z"/></svg>`,
+};
 ---
 
-<section class="cu-section">
-  <div class="cu-wrap">
-    <span class="cu-eyebrow">24/7 Support</span>
-
-    <h2 class="cu-title">
-      <SlotMachineText text="Let's Talk" stripLength={10} client:visible />
-    </h2>
-
-    <p class="cu-message">More than a service. A memory you&rsquo;ll keep.</p>
-
-    <p class="cu-body">
-      Macau runs on hospitality. Every guest deserves a night that stays with them,
-      and we make sure yours is nothing short of <em>unforgettable</em>.
-    </p>
-
-    <div class="cu-cta">
-      <ContactCTA client:visible />
-      <SecondaryCTA href="/ranking" label="See Ranking" client:visible />
+<section id="contact" class="scroll-mt-6 px-4 pb-16 pt-12 sm:pb-24 sm:pt-16">
+  <div class="mx-auto max-w-3xl">
+    <div class="mb-10 text-center sm:mb-12">
+      <h2 class="mb-3 text-2xl font-bold text-white sm:text-3xl">Just ask us</h2>
+      <div class="mx-auto mb-4 h-0.5 w-16 bg-[var(--color-primary)]" aria-hidden="true"></div>
+      <p class="mx-auto max-w-xl text-sm text-white/50 sm:text-base">
+        Free booking help, free hotel pick-up, 24-hour English support — reply within minutes.
+      </p>
     </div>
 
-    <p class="cu-note">We reply within minutes, any hour of the day. Your satisfaction is what drives us.</p>
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      {PLATFORMS.map((p) =>
+        p.href ? (
+          <a
+            href={p.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+              style={`color:${p.color}`}
+              set:html={ICONS[p.kind]}
+            />
+            <div>
+              <div class="mb-1 text-xs text-white/40">{p.name}</div>
+              <div class="font-medium text-white">{p.handle}</div>
+            </div>
+          </a>
+        ) : (
+          <button
+            type="button"
+            data-wechat-open
+            class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+          >
+            <div
+              class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
+              style={`color:${p.color}`}
+              set:html={ICONS[p.kind]}
+            />
+            <div>
+              <div class="mb-1 text-xs text-white/40">{p.name}</div>
+              <div class="font-medium text-white">{p.handle}</div>
+            </div>
+          </button>
+        )
+      )}
+    </div>
+
+    <p class="mt-10 text-center text-base italic text-white/80 sm:mt-12 sm:text-lg">
+      We don't just serve. We care about your happiness.
+    </p>
+    <p class="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-white/45">
+      One message, and the whole night is arranged — venue, shuttle, VIP entry, and extras.
+    </p>
+
+    <div class="mt-10 text-center">
+      <a href="#top" class="text-sm font-semibold text-white/45 transition-colors hover:text-[var(--color-primary)]">
+        ↑ Back to Top
+      </a>
+    </div>
   </div>
 </section>
 
-<style is:global>
-  .cu-section {
-    background: #0A0A0A;
-    padding: 8rem 2rem;
-    border-top: 2px solid rgba(255,77,166,0.12);
-  }
+<dialog id="wechat-modal" class="cu-dialog">
+  <form method="dialog" class="cu-dialog-card">
+    <h3>WeChat</h3>
+    <p>Add us on WeChat with this ID:</p>
+    <p class="cu-wechat-id">AN99348</p>
+    <button type="button" id="wechat-copy" class="cu-copy">Copy ID</button>
+    <button type="submit" class="cu-dialog-close" value="cancel">Close</button>
+  </form>
+</dialog>
 
-  .cu-wrap {
-    max-width: 36rem;
-    margin-inline: auto;
+<style>
+  .cu-dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: 24rem;
+    width: calc(100% - 2rem);
+  }
+  .cu-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .cu-dialog-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
     text-align: center;
+    color: #fff;
   }
-
-  .cu-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.625rem;
-    font-weight: 700;
-    letter-spacing: 0.34em;
-    text-transform: uppercase;
-    color: #FF4DA6;
-    margin-bottom: 1.25rem;
+  .cu-dialog-card h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
   }
-
-  .cu-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.75rem, 7vw, 4.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin: 0 0 2rem;
-  }
-
-  .cu-message {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: #D0C0A0;
-    line-height: 1.4;
-    margin: 0 0 0.65rem;
-  }
-
-  .cu-body {
-    font-family: 'Inter', sans-serif;
+  .cu-dialog-card p {
+    margin: 0 0 1rem;
+    color: rgba(255, 255, 255, 0.55);
     font-size: 0.9rem;
-    font-weight: 400;
-    color: #808090;
-    line-height: 1.65;
-    max-width: 28rem;
-    margin: 0 auto 2.5rem;
   }
-
-  .cu-body em {
-    font-style: italic;
-    color: #FF4DA6;
+  .cu-wechat-id {
+    font-family: ui-monospace, monospace !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em;
+    color: var(--color-primary) !important;
+    margin-bottom: 1.25rem !important;
   }
-
-  .cu-cta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0.85rem;
-    margin-bottom: 2rem;
+  .cu-copy {
+    display: inline-block;
+    border: none;
+    border-radius: 9999px;
+    background: var(--color-primary);
+    color: #000;
+    font-weight: 600;
+    font-size: 0.875rem;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
   }
-
-  @media (max-width: 639px) {
-    .cu-section {
-      padding: 5rem 1.25rem;
-    }
-    .cu-message {
-      font-size: 1.15rem;
-    }
-    .cu-body {
-      margin-bottom: 2rem;
-    }
-    .cu-cta {
-      flex-direction: column;
-      gap: 0.65rem;
-      margin-bottom: 1.75rem;
-    }
-  }
-
-  @media (max-width: 420px) {
-    .cu-section {
-      padding: 4rem 1rem;
-    }
-    .cu-eyebrow {
-      margin-bottom: 1rem;
-      font-size: 0.6rem;
-    }
-    .cu-message {
-      font-size: 1.05rem;
-    }
-    .cu-body {
-      font-size: 0.8rem;
-      margin-bottom: 1.75rem;
-      padding-inline: 0.25rem;
-    }
-    .cu-cta {
-      margin-bottom: 1.5rem;
-    }
-    .cu-note {
-      font-size: 0.7rem;
-    }
+  .cu-dialog-close {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.875rem;
+    padding: 0.5rem 1.25rem;
+    cursor: pointer;
   }
 </style>
+
+<script>
+  (function () {
+    const modal = document.getElementById('wechat-modal') as HTMLDialogElement | null;
+    const openers = document.querySelectorAll('[data-wechat-open]');
+    const copyBtn = document.getElementById('wechat-copy');
+    if (!modal) return;
+
+    openers.forEach((btn) => {
+      btn.addEventListener('click', () => modal.showModal());
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText('AN99348');
+      } catch {
+        /* ignore */
+      }
+      modal.close();
+    });
+  })();
+</script>

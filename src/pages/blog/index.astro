@@ -1,103 +1,241 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Contact from '../../components/home/Contact.astro';
-import '../../styles/blog-listing.css';
 import { SEO_KEYWORDS } from '../../utils/constants';
 import { TITLE_BLOG } from '../../utils/seo-titles';
-import SlotMachineText from '../../components/ui/SlotMachineText';
+
+type CatId = 'all' | 'beginner' | 'price' | 'compare' | 'itinerary';
+
+const FILTERS: { id: CatId; label: string }[] = [
+  { id: 'all', label: 'All topics' },
+  { id: 'beginner', label: 'Beginner Guides' },
+  { id: 'price', label: 'Prices & Budget' },
+  { id: 'compare', label: 'Comparisons' },
+  { id: 'itinerary', label: 'Itinerary & Pickup' },
+];
+
+const FEATURED = {
+  slug: 'six-venues',
+  title: 'Macau Sauna Guide: The Six Major Venues Compared',
+  cat: 'Comparisons',
+  catId: 'compare' as CatId,
+  meta: 'Jul 2026 · 5 min read',
+  img: '/images/blog04.webp',
+  alt: 'Marble baths and steam inside a Macau sauna club',
+};
 
 const POSTS = [
   {
     slug: 'first-timer',
     title: 'Macau Sauna First-Timer Guide 2026: Flow, Venues & Booking',
     cat: 'Beginner Guides',
-    excerpt: 'A first-timer\'s 2026 Macau sauna guide — the step-by-step flow from check-in to lounge, how to pick a venue, and how booking and the free shuttle work.',
+    catId: 'beginner' as CatId,
+    excerpt:
+      "A first-timer's 2026 Macau sauna guide — the step-by-step flow from check-in to lounge, how to pick a venue, and how booking and the free shuttle work.",
     img: '/images/blog01.webp',
-    date: 'Jul 2026',
-    time: '4 min read',
+    alt: 'Spacious VIP lounge inside a Macau sauna',
+    meta: 'Jul 2026 · 4 min read',
   },
   {
     slug: 'shuttle',
     title: 'Macau Sauna Shuttle Guide: Border Gates, Ferries & Hotels',
     cat: 'Itinerary & Pickup',
-    excerpt: 'How the free Macau sauna shuttle works — taxi-time estimates from every border gate and ferry terminal, plus three steps to book our private 7-seater.',
+    catId: 'itinerary' as CatId,
+    excerpt:
+      'How the free Macau sauna shuttle works — taxi-time estimates from every border gate and ferry terminal, plus three steps to book our private 7-seater.',
     img: '/images/blog02.webp',
-    date: 'Jul 2026',
-    time: '3 min read',
+    alt: 'Golden-lit arrival hallway inside a Macau sauna',
+    meta: 'Jul 2026 · 3 min read',
   },
   {
     slug: 'prices',
     title: 'Macau Sauna Prices 2026: Entry, Service Tiers & Overnight Costs Explained',
     cat: 'Prices & Budget',
-    excerpt: 'How much does a Macau sauna actually cost in 2026? A clear breakdown of entry fees, service tiers, add-ons and overnight stays — plus how to arrange the trip so you pay noticeably less.',
+    catId: 'price' as CatId,
+    excerpt:
+      'How much does a Macau sauna actually cost in 2026? A clear breakdown of entry fees, service tiers, add-ons and overnight stays — plus how to arrange the trip so you pay noticeably less.',
     img: '/images/blog03.jpg',
-    date: 'Apr 2026',
-    time: '6 min read',
+    alt: 'Luxury themed suite inside a Macau sauna',
+    meta: 'Apr 2026 · 6 min read',
   },
 ];
-
-const CATEGORIES = ['All topics', 'Beginner Guides', 'Prices & Budget', 'Itinerary & Pickup'];
 ---
 
 <BaseLayout
   seo={{
     title: TITLE_BLOG,
-    description: 'Hands-on Macau sauna blog — tips, prices, and recommendations. First-timer guide, shuttle tips, and 2026 pricing breakdown.',
+    description:
+      'Hands-on Macau sauna guides, new-venue comparisons and market updates. First-timer guide, shuttle tips, and 2026 pricing breakdown.',
     keywords: `Macau sauna blog, Macau sauna prices, Macau sauna shuttle, first-timer Macau sauna, ${SEO_KEYWORDS}`,
     image: '/images/blog01.webp',
     imageWidth: '1200',
     imageHeight: '630',
   }}
 >
-  <main class="bl-page">
-    <!-- Hero -->
-    <section class="bl-hero">
-      <div class="bl-hero-wrap">
-        <span class="bl-eyebrow">Blog</span>
-        <h1 class="bl-hero-title">
-          <SlotMachineText text="Macau Sauna Blog" stripLength={14} client:visible />
-        </h1>
-        <p class="bl-hero-sub">New-venue comparisons and market updates.</p>
+  <!-- Hero -->
+  <section class="chrome-pad px-4 pb-8">
+    <div class="mx-auto max-w-5xl">
+      <a
+        href="/"
+        class="mb-8 inline-flex items-center gap-2 text-sm text-white/40 transition-colors hover:text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Back to Home
+      </a>
+      <h1 class="mb-4 text-3xl font-bold tracking-wider sm:text-4xl md:text-5xl">Blog</h1>
+      <p class="max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
+        Hands-on Macau sauna guides, new-venue comparisons and market updates.
+      </p>
+      <div class="mt-6 h-0.5 w-20 bg-primary" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- Filters + cards — sticky bar releases when section ends -->
+  <section class="px-0 pb-20 sm:pb-28">
+    <div class="relative mx-auto max-w-5xl">
+      <div data-filter-sentinel class="h-px" aria-hidden="true"></div>
+
+      <div
+        class="sticky top-16 z-30 bg-[color-mix(in_srgb,var(--color-bg)_92%,transparent)] px-4 py-3 backdrop-blur-[10px] sm:top-20"
+      >
+        <div class="flex flex-wrap items-center gap-2" role="group" aria-label="Filter articles by topic">
+          {
+            FILTERS.map((f, i) => (
+              <button
+                type="button"
+                data-filter-cat={f.id}
+                class:list={[
+                  'rounded-full border px-4 py-1.5 text-[13px] transition',
+                  i === 0
+                    ? 'is-active border-primary-dark bg-primary-dark font-bold text-white'
+                    : 'border-white/10 bg-[#141414] text-white/55 hover:border-primary/40 hover:text-primary',
+                ]}
+              >
+                {f.label}
+              </button>
+            ))
+          }
+        </div>
       </div>
-    </section>
 
-    <!-- Filters -->
-    <section class="bl-filters">
-      <div class="bl-filters-wrap">
-        {CATEGORIES.map((cat, i) => (
-          <span class={i === 0 ? 'bl-filter active' : 'bl-filter'}>{cat}</span>
-        ))}
+      <div class="px-4 pt-5">
+        <!-- Featured -->
+        <a
+          href={`/blog/${FEATURED.slug}`}
+          class="group relative mb-8 block overflow-hidden rounded-2xl border border-white/10 bg-[#141414] shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+          data-blog-card
+          data-category={FEATURED.catId}
+        >
+          <div class="aspect-[16/9] overflow-hidden bg-[#1a1a1a] sm:aspect-[21/9]">
+            <img
+              src={FEATURED.img}
+              alt={FEATURED.alt}
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent"></div>
+          <div class="absolute inset-x-0 bottom-0 p-5 sm:p-8">
+            <span class="text-xs font-bold uppercase tracking-[0.12em] text-primary-light">
+              {FEATURED.cat}
+            </span>
+            <h2 class="mt-2 max-w-2xl text-xl font-bold leading-tight text-white sm:text-3xl">
+              {FEATURED.title}
+            </h2>
+            <p class="mt-2 text-xs text-white/70 sm:text-sm">{FEATURED.meta}</p>
+          </div>
+        </a>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            POSTS.map((post) => (
+              <a
+                href={`/blog/${post.slug}`}
+                class="group block overflow-hidden rounded-xl border border-white/10 bg-[#141414] shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+                data-blog-card
+                data-category={post.catId}
+              >
+                <div class="aspect-[16/10] overflow-hidden bg-[#1a1a1a]">
+                  <img
+                    src={post.img}
+                    alt={post.alt}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div class="p-4">
+                  <span class="text-[11px] font-bold uppercase tracking-[0.12em] text-primary">
+                    {post.cat}
+                  </span>
+                  <h3 class="mt-1 line-clamp-2 text-[0.95rem] font-bold leading-snug text-white transition-colors group-hover:text-primary">
+                    {post.title}
+                  </h3>
+                  <p class="mt-1.5 line-clamp-2 text-[13px] leading-relaxed text-white/55">{post.excerpt}</p>
+                  <p class="mt-2 text-[11px] text-white/40">{post.meta}</p>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        <p data-blog-empty class="hidden py-16 text-center text-white/55" hidden>
+          No articles match these filters — try a different combination.
+        </p>
       </div>
-    </section>
-
-    <!-- Bento Grid -->
-    <section class="bl-grid-section">
-      <div class="bl-grid">
-        {POSTS.map((post, i) => {
-          const isFeatured = i === 0;
-          return (
-            <a
-              href={`/blog/${post.slug}`}
-              class={isFeatured ? 'bl-card bl-card--featured' : 'bl-card'}
-            >
-              <!-- Image -->
-              <div class={isFeatured ? 'bl-card-image' : 'bl-card-image bl-card-image-sm'}>
-                <img src={post.img} alt={post.title} loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" />
-              </div>
-
-              <!-- Body -->
-              <div class="bl-card-body">
-                <span class="bl-card-cat">{post.cat}</span>
-                <h2 class="bl-card-title">{post.title}</h2>
-                <p class="bl-card-excerpt">{post.excerpt}</p>
-                <span class="bl-card-meta">{post.date}<span class="bl-card-meta-sep">·</span>{post.time}</span>
-              </div>
-            </a>
-          );
-        })}
-      </div>
-    </section>
-
-    <Contact />
-  </main>
+    </div>
+  </section>
 </BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-filter-cat]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-blog-card]');
+  const empty = document.querySelector<HTMLElement>('[data-blog-empty]');
+
+  function applyFilter(cat: string) {
+    buttons.forEach((btn) => {
+      const active = btn.dataset.filterCat === cat;
+      btn.classList.toggle('is-active', active);
+      btn.classList.toggle('border-primary-dark', active);
+      btn.classList.toggle('bg-primary-dark', active);
+      btn.classList.toggle('font-bold', active);
+      btn.classList.toggle('text-white', active);
+      btn.classList.toggle('border-white/10', !active);
+      btn.classList.toggle('bg-[#141414]', !active);
+      btn.classList.toggle('text-white/55', !active);
+    });
+
+    let visible = 0;
+    cards.forEach((card) => {
+      const match = cat === 'all' || card.dataset.category === cat;
+      card.hidden = !match;
+      if (match) visible += 1;
+    });
+
+    if (empty) {
+      empty.hidden = visible > 0;
+      empty.classList.toggle('hidden', visible > 0);
+    }
+  }
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      applyFilter(btn.dataset.filterCat || 'all');
+    });
+  });
+</script>

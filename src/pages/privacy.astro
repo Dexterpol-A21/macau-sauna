@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SlotMachineText from '../components/ui/SlotMachineText';
-import ContactCTA from '../components/home/ContactCTA';
 import { SITE_TITLE } from '../utils/constants';
 import { TITLE_PRIVACY } from '../utils/seo-titles';
 ---
@@ -14,214 +12,83 @@ import { TITLE_PRIVACY } from '../utils/seo-titles';
     noindex: true,
   }}
 >
-  <section class="lp-section">
-    <div class="lp-header">
-      <span class="lp-eyebrow">Legal</span>
-      <h1 class="lp-title">
-        <SlotMachineText text="Privacy Policy" stripLength={10} client:visible />
-      </h1>
-      <p class="lp-effective">Effective date: 2026-06-14</p>
-    </div>
+  <section class="chrome-pad px-4 pb-16">
+    <div class="mx-auto max-w-3xl">
+      <a
+        href="/"
+        class="group mb-6 inline-flex items-center text-sm text-white/40 transition-colors hover:text-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="mr-2 transition-transform group-hover:-translate-x-1"
+          aria-hidden="true"
+        >
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Back to home
+      </a>
 
-    <div class="lp-body">
+      <h1 class="mb-3 text-3xl font-bold sm:text-4xl">Privacy Policy</h1>
+      <p class="mb-8 text-sm text-white/40">Effective date: 2026-06-14</p>
 
-      <h2>1. Information We Collect</h2>
-      <p>
-        <strong>{SITE_TITLE}</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;) collects minimal information. When you contact us via WhatsApp, Telegram, WeChat, or LINE, we receive the message content and your username/phone number as provided by those platforms. We do not require account registration and we do not collect payment information directly.
-      </p>
-
-      <h2>2. What We Never Ask For</h2>
-      <p>
-        We <strong>never</strong> ask for ID numbers or credit card details. All fees are paid directly on site.
-      </p>
-
-      <h2>3. How We Use Your Information</h2>
-      <p>
-        We use the information you voluntarily share <strong>solely to respond to your inquiry</strong> and to coordinate your booking with partner venues. We do not use your data for marketing purposes, profiling, or automated decision-making.
-      </p>
-
-      <h2>4. Cookies &amp; Analytics</h2>
-      <p>
-        This Site may use essential cookies and anonymous analytics tools to understand how visitors interact with our pages. These do not identify you personally. The spin wheel and slot-match game operate entirely in your browser — no game data is transmitted to our servers.
-      </p>
-
-      <h2>5. Data Sharing</h2>
-      <p>
-        We do <strong>not</strong> sell, rent, or trade your personal information to third parties. The only information shared externally is the booking details you explicitly ask us to relay to a partner venue.
-      </p>
-
-      <h2>6. Third-Party Platforms</h2>
-      <p>
-        When you contact us through WhatsApp, Telegram, WeChat, or LINE, those conversations are governed by each platform&rsquo;s respective privacy policy. We recommend reviewing them:
-      </p>
-      <ul class="lp-list">
-        <li>WhatsApp &mdash; <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></li>
-        <li>Telegram &mdash; <a href="https://telegram.org/privacy" target="_blank" rel="noopener">Privacy Policy</a></li>
-        <li>WeChat &mdash; <a href="https://www.wechat.com/en/privacy_policy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
-        <li>LINE &mdash; <a href="https://line.me/en/terms/policy" target="_blank" rel="noopener">Privacy Policy</a></li>
-      </ul>
-
-      <h2>7. Data Retention</h2>
-      <p>
-        We retain conversation records only as long as necessary to complete your booking and address any follow-up questions. You may request deletion of your data at any time by contacting us.
-      </p>
-
-      <h2>8. Children&rsquo;s Privacy</h2>
-      <p>
-        This Site is not directed at individuals under 18 years of age. We do not knowingly collect information from minors.
-      </p>
-
-      <h2>9. Your Rights</h2>
-      <p>
-        Depending on your jurisdiction, you may have the right to access, correct, or delete the personal data we hold about you. To exercise these rights, contact us through any of the channels below.
-      </p>
-
-      <h2>10. Changes to This Policy</h2>
-      <p>
-        We may update this privacy policy from time to time. Changes will be posted on this page with the updated date.
-      </p>
-
-      <h2>11. Contact</h2>
-      <p>
-        For privacy-related questions or data requests:
-      </p>
-      <div class="lp-cta">
-        <ContactCTA client:load />
+      <div
+        class="mb-10 rounded-2xl border border-primary/15 bg-gradient-to-b from-primary/[0.06] to-transparent p-5 sm:p-6"
+      >
+        <p class="leading-relaxed text-white/80">
+          {SITE_TITLE} ("we", "us") takes your privacy seriously. In short: we do
+          not collect, store or keep any personal information. This policy explains how we treat your
+          information.
+        </p>
       </div>
 
+      <div class="mb-8">
+        <h2 class="mb-3 text-xl font-bold text-primary">Our approach to your data</h2>
+        <p class="mb-3 leading-relaxed text-white/65">
+          Your conversation stays inside whichever messaging app you choose (WhatsApp, WeChat, Line,
+          Telegram), not with us.
+        </p>
+        <p class="mb-3 leading-relaxed text-white/65">
+          The details you provide (such as time and party size) are used only to complete that one
+          booking, and nothing more.
+        </p>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="mb-3 text-xl font-bold text-primary">What we never ask for</h2>
+        <p class="mb-3 leading-relaxed text-white/65">
+          We never ask for ID numbers or credit card details. All fees are paid directly on site.
+        </p>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="mb-3 text-xl font-bold text-primary">Sharing</h2>
+        <p class="mb-3 leading-relaxed text-white/65">
+          We pass only the minimum a booking needs to the venue you chose, and never sell, rent or trade
+          any of your information.
+        </p>
+        <p class="mb-3 leading-relaxed text-white/65">
+          This site uses only anonymous, aggregated analytics; any update to this policy is posted here
+          with a revised date.
+        </p>
+      </div>
+
+      <div class="mt-10 border-t border-white/5 pt-6">
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+        >
+          Questions about your privacy? Contact us →
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
-
-<style is:global>
-  .lp-section {
-    background: #0A0A0A;
-    padding: 5rem 1.5rem 6rem;
-  }
-
-  .lp-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 3.5rem;
-  }
-
-  .lp-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #FF4DA6;
-    margin-bottom: 0.75rem;
-  }
-
-  .lp-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    font-weight: 800;
-    color: #FFF8F0;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.5rem;
-  }
-
-  .lp-effective {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: #606070;
-    margin: 0;
-  }
-
-  .lp-body {
-    max-width: 42rem;
-    margin: 0 auto;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.92rem;
-    font-weight: 400;
-    color: #B0A890;
-    line-height: 1.75;
-  }
-
-  .lp-body h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #FFF8F0;
-    letter-spacing: -0.01em;
-    margin: 2.5rem 0 0.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  .lp-body h2:first-of-type {
-    border-top: none;
-    padding-top: 0;
-    margin-top: 0;
-  }
-
-  .lp-body p {
-    margin: 0 0 1rem;
-  }
-
-  .lp-body p:last-child {
-    margin-bottom: 0;
-  }
-
-  .lp-body strong {
-    color: #FF4DA6;
-    font-weight: 600;
-  }
-
-  .lp-list {
-    list-style: none;
-    margin: 0 0 1rem;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .lp-list li {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
-    color: #909090;
-  }
-
-  .lp-list a {
-    color: #FF4DA6;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .lp-list a:hover {
-    color: #FF85C2;
-  }
-
-  .lp-cta {
-    display: flex;
-    justify-content: center;
-    padding-top: 2rem;
-    margin-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  @media (max-width: 480px) {
-    .lp-section {
-      padding: 3.5rem 1rem 4.5rem;
-    }
-    .lp-body {
-      font-size: 0.85rem;
-    }
-    .lp-body h2 {
-      font-size: 1.05rem;
-      margin: 2rem 0 0.6rem;
-      padding-top: 1.25rem;
-    }
-    .lp-list li {
-      font-size: 0.8rem;
-    }
-  }
-</style>

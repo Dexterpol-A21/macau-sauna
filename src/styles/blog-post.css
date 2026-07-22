@@ -2,7 +2,7 @@
 .bp-page {
   background: #000000;
   color: #FFF8F0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
 }
 
 /* ── Hero ── */
@@ -19,17 +19,17 @@
 
 .bp-eyebrow {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: #FF4DA6;
+  color: #FF2D55;
   margin-bottom: 1.25rem;
 }
 
 .bp-hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 800;
   line-height: 1.05;
@@ -38,7 +38,7 @@
 }
 
 .bp-meta {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.82rem;
   color: #707070;
   display: flex;
@@ -82,7 +82,7 @@
 }
 
 .bp-figcaption {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.75rem;
   color: #555;
   text-align: center;
@@ -101,12 +101,12 @@
 
 .bp-toc-heading {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #FF4DA6;
+  color: #FF2D55;
   margin-bottom: 0.85rem;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .bp-toc ol li a {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.82rem;
   color: #9E9E9E;
   text-decoration: none;
@@ -135,18 +135,18 @@
 
 .bp-toc ol li a::before {
   content: counter(toc) ". ";
-  color: #FF4DA6;
+  color: #FF2D55;
   font-weight: 600;
   font-size: 0.78rem;
 }
 
 .bp-toc ol li a:hover {
-  color: #FF4DA6;
+  color: #FF2D55;
 }
 
 /* ── Body text ── */
 .bp-lead {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.92rem;
   color: #A8A8A8;
   line-height: 1.7;
@@ -154,7 +154,7 @@
 }
 
 .bp-body-wrap h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: #FFF8F0;
@@ -166,7 +166,7 @@
 }
 
 .bp-body-wrap p {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.88rem;
   color: #A0A0A0;
   line-height: 1.72;
@@ -174,7 +174,7 @@
 }
 
 .bp-body-wrap p a {
-  color: #FF4DA6;
+  color: #FF2D55;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -209,15 +209,15 @@
 }
 
 .bp-flow-card strong {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
-  color: #FF4DA6;
+  color: #FF2D55;
   letter-spacing: 0.02em;
 }
 
 .bp-flow-card span {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.8rem;
   color: #888;
   line-height: 1.5;
@@ -236,7 +236,7 @@
   min-width: 480px;
   border-collapse: separate;
   border-spacing: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.8rem;
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 0.45rem;
@@ -245,7 +245,7 @@
 
 .bp-table thead th {
   background: #0F0F0F;
-  color: #FF4DA6;
+  color: #FF2D55;
   font-weight: 700;
   font-size: 0.72rem;
   letter-spacing: 0.05em;
@@ -287,15 +287,15 @@
 }
 
 .bp-faq dt {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #FF4DA6;
+  color: #FF2D55;
   margin-bottom: 0.3rem;
 }
 
 .bp-faq dd {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.82rem;
   color: #888;
   line-height: 1.6;
@@ -313,7 +313,7 @@
 }
 
 .bp-checklist li {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.84rem;
   color: #A0A0A0;
   line-height: 1.55;
@@ -329,7 +329,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #FF4DA6;
+  background: #FF2D55;
 }
 
 .bp-checklist li strong {
@@ -349,7 +349,7 @@
 
 .bp-steps li {
   counter-increment: steps;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.84rem;
   color: #A0A0A0;
   line-height: 1.55;
@@ -368,11 +368,11 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255,77,166,0.1);
-  border: 1px solid rgba(255,77,166,0.25);
+  background: rgba(255,45,85,0.1);
+  border: 1px solid rgba(255,45,85,0.25);
   font-size: 0.7rem;
   font-weight: 700;
-  color: #FF4DA6;
+  color: #FF2D55;
 }
 
 .bp-steps li strong {
@@ -383,13 +383,13 @@
 .bp-quote {
   margin: 1rem 0 1.5rem;
   padding: 0.9rem 1.25rem;
-  background: rgba(255,77,166,0.05);
-  border-left: 2px solid rgba(255,77,166,0.35);
+  background: rgba(255,45,85,0.05);
+  border-left: 2px solid rgba(255,45,85,0.35);
   border-radius: 0 0.35rem 0.35rem 0;
 }
 
 .bp-quote p {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.78rem;
   color: #888;
   font-style: italic;
@@ -405,12 +405,12 @@
 
 .bp-keepreading-heading {
   display: block;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #FF4DA6;
+  color: #FF2D55;
   margin-bottom: 1rem;
 }
 
@@ -439,22 +439,22 @@
 }
 
 .bp-kr-card:hover {
-  border-color: rgba(255,77,166,0.3);
-  background: rgba(255,77,166,0.04);
+  border-color: rgba(255,45,85,0.3);
+  background: rgba(255,45,85,0.04);
 }
 
 .bp-kr-cat {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #FF4DA6;
+  color: #FF2D55;
   padding: 0.9rem 1.1rem 0 1.1rem;
 }
 
 .bp-kr-title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
   color: #D0C0A0;
@@ -467,10 +467,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Noto Sans TC', system-ui, sans-serif;
   font-size: 0.78rem;
   font-weight: 600;
-  color: #FF4DA6;
+  color: #FF2D55;
   text-decoration: none;
   letter-spacing: 0.04em;
   margin-bottom: 1.5rem;
@@ -478,7 +478,7 @@
 }
 
 .bp-back:hover {
-  color: #FF4DA6;
+  color: #FF2D55;
 }
 
 /* ══════ Responsive ══════ */

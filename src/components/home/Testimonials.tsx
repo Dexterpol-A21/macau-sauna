@@ -1,8 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { motion, useInView } from "motion/react";
-import SlotMachineText from "../ui/SlotMachineText";
+import { useState, useEffect } from "react";
+import { motion } from "motion/react";
 
 const TESTIMONIALS = [
   { quote: 'Traveled from Seoul, worried about the language barrier. They communicated in English throughout, recommended Number One Sauna, pickup was on time. Amazing experience!', author: 'Korean visitor' },
@@ -29,8 +28,6 @@ const ROW1 = TESTIMONIALS.slice(0, 9);
 const ROW2 = TESTIMONIALS.slice(9);
 
 export default function Testimonials() {
-  const headingRef = useRef<HTMLHeadingElement>(null);
-  const headingInView = useInView(headingRef, { once: true, margin: "-120px" });
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -41,18 +38,33 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section className="t-section">
+    <section className="t-section" id="testimonials">
       <style>{`
         .t-section {
-          background: #000000;
-          padding: 7rem 0 8rem;
-          border-top: 2px solid rgba(255,77,166,0.12);
+          background: #0a0a0a;
+          padding: 5rem 0 6rem;
           overflow: hidden;
         }
         .t-head {
           text-align: center;
           margin-bottom: 3.5rem;
           padding: 0 1.5rem;
+        }
+        .t-title {
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
+          font-size: 1.875rem;
+          font-weight: 700;
+          color: #fff;
+          margin: 0 0 1rem;
+        }
+        @media (min-width: 640px) {
+          .t-title { font-size: 2.25rem; }
+        }
+        .t-rule {
+          width: 5rem;
+          height: 2px;
+          background: var(--color-primary);
+          margin: 0 auto;
         }
         .t-row {
           display: flex;
@@ -66,17 +78,17 @@ export default function Testimonials() {
           background: #0F0F0F;
           border: 1px solid rgba(255,255,255,0.04);
           border-radius: 0.5rem;
-          transition: border-color 0.4s  ease , background 0.4s  ease ;
+          transition: border-color 0.4s ease, background 0.4s ease;
         }
         .t-card:hover {
-          border-color: rgba(255,77,166,0.2);
+          border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
           background: #121212;
         }
         .t-quote-mark {
-          font-family: 'Playfair Display', serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
           font-size: 4.5rem;
           font-weight: 800;
-          color: rgba(255,77,166,0.06);
+          color: color-mix(in srgb, var(--color-primary) 8%, transparent);
           line-height: 0.6;
           pointer-events: none;
           user-select: none;
@@ -84,73 +96,47 @@ export default function Testimonials() {
           margin-bottom: 0.25rem;
         }
         .t-quote {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
           font-size: 0.85rem;
           font-weight: 400;
-          color: #B0A890;
+          color: rgba(255,255,255,0.55);
           line-height: 1.6;
           margin: 0 0 0.85rem;
         }
         .t-divider {
           width: 1.75rem;
           height: 1px;
-          background: rgba(255,77,166,0.3);
+          background: color-mix(in srgb, var(--color-primary) 35%, transparent);
           margin-bottom: 0.75rem;
         }
         .t-author {
-          font-family: 'Inter', sans-serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
           font-size: 0.72rem;
           font-weight: 600;
-          color: #FF4DA6;
+          color: var(--color-primary);
           letter-spacing: 0.06em;
         }
         .t-total {
           text-align: center;
           margin-top: 3.5rem;
-          font-family: 'Inter', sans-serif;
+          font-family: 'Noto Sans TC', system-ui, sans-serif;
           font-size: 0.8rem;
           font-weight: 600;
-          color: rgba(255,77,166,0.5);
+          color: color-mix(in srgb, var(--color-primary) 50%, transparent);
           letter-spacing: 0.1em;
           text-transform: uppercase;
         }
         @media (max-width: 767px) {
-          .t-section { padding: 5rem 0 6rem; }
+          .t-section { padding: 4rem 0 5rem; }
           .t-head { margin-bottom: 2.5rem; }
           .t-card { width: 280px; }
           .t-total { margin-top: 2.5rem; }
         }
-        @media (max-width: 420px) {
-          .t-section { padding: 4rem 0 5rem; }
-          .t-head { margin-bottom: 2rem; padding: 0 1rem; }
-          .t-card { width: 250px; padding: 1.25rem 1.25rem 1rem; }
-          .t-quote-mark { font-size: 3.5rem; }
-          .t-quote { font-size: 0.78rem; }
-          .t-author { font-size: 0.68rem; }
-          .t-total { margin-top: 2rem; font-size: 0.7rem; }
-          .t-row { gap: 0.75rem; padding: 0 0.5rem; }
-        }
       `}</style>
 
       <div className="t-head">
-        <h2
-          ref={headingRef}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: "clamp(2.5rem, 6vw, 4rem)",
-            fontWeight: 800,
-            color: "#FFF8F0",
-            lineHeight: 1.05,
-            letterSpacing: "-0.02em",
-            margin: 0,
-          }}
-        >
-          {headingInView ? (
-            <SlotMachineText text="What Our Guests Say" stripLength={12} />
-          ) : (
-            <span style={{ visibility: "hidden" }}>What Our Guests Say</span>
-          )}
-        </h2>
+        <h2 className="t-title">What Our Guests Say</h2>
+        <div className="t-rule" aria-hidden="true" />
       </div>
 
       {/* Row 1 — slides right → */}
