@@ -32,7 +32,7 @@ export default function TopNavbar() {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "bg-[#0a0a0a]/95 backdrop-blur-md border-b border-white/5" : "bg-transparent"
+        scrolled || open ? "bg-[#0a0a0a] backdrop-blur-md" : "bg-transparent"
       }`}
       aria-label="Main navigation"
     >

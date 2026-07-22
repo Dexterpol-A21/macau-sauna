@@ -1,7 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/home/HomeHero';
+import BestOfMonth from '../components/home/BestOfMonth';
 import AllSaunas from '../components/home/AllSaunas.astro';
+import QuickMatch from '../components/home/QuickMatch';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import WhyChooseUs from '../components/home/WhyChooseUs.astro';
 import HomeBlog from '../components/home/HomeBlog.astro';
@@ -23,7 +25,11 @@ import { TITLE_HOME } from '../utils/seo-titles';
   <div id="top"></div>
   <HomeHero client:load />
 
+  <BestOfMonth client:visible />
+
   <AllSaunas />
+
+  <QuickMatch client:visible />
 
   <SplitStory />
 

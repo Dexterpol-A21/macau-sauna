@@ -42,7 +42,7 @@ const GLOW_CLASS: Record<GlowKind, string> = {
       </p>
     </div>
 
-    <div class="fs-filters-sticky">
+    <div class="fs-filters-bar">
       <div class="fs-filters" role="group" aria-label="Filter saunas" data-spa-filter>
         {SPA_FILTERS.map((f) => (
           <button
@@ -157,62 +157,60 @@ const GLOW_CLASS: Record<GlowKind, string> = {
   .fs-sub {
     font-family: 'Noto Sans TC', system-ui, sans-serif;
     color: rgba(255, 255, 255, 0.5);
-    max-width: none;
+    max-width: 42rem;
     margin-inline: auto;
     font-size: 0.95rem;
     line-height: 1.6;
+    text-wrap: balance;
+    padding-inline: 0.25rem;
   }
 
-  @media (min-width: 640px) {
-    .fs-sub {
-      white-space: nowrap;
-    }
-  }
-
-  /* Sticky filter bar */
-  .fs-filters-sticky {
+  /* Sticky flush under live chrome (measured in PromoBanner) */
+  .fs-filters-bar {
     position: sticky;
-    top: 4rem;
+    top: var(--sticky-under-chrome);
     z-index: 30;
     margin: 0 -1rem 1.75rem;
-    padding: 0.5rem 1rem;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  @media (min-width: 640px) {
-    .fs-filters-sticky {
-      top: 5rem;
-    }
+    padding: 0.55rem 1rem;
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .fs-filters {
     display: flex;
-    gap: 0.375rem;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
     max-width: 80rem;
     margin-inline: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .fs-filters::-webkit-scrollbar {
+    display: none;
   }
 
   @media (min-width: 640px) {
     .fs-filters {
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 0.5rem;
+      overflow-x: visible;
     }
   }
 
   .fs-filter-btn {
-    flex: 1;
-    min-width: 0;
+    flex: 0 0 auto;
     font-family: 'Noto Sans TC', system-ui, sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
     text-align: center;
     white-space: nowrap;
     border-radius: 9999px;
-    padding: 0.375rem 0.5rem;
+    padding: 0.4rem 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.04);
     color: rgba(255, 255, 255, 0.7);
@@ -222,7 +220,6 @@ const GLOW_CLASS: Record<GlowKind, string> = {
 
   @media (min-width: 640px) {
     .fs-filter-btn {
-      flex: none;
       padding: 0.375rem 0.875rem;
       font-size: 13px;
     }

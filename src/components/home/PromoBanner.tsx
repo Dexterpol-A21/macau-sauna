@@ -29,11 +29,28 @@ export default function PromoBanner({ onClaim }: PromoBannerProps) {
       bar.style.opacity = String(1 - t);
       bar.style.transform = `translateY(${-t * 110}%)`;
       bar.style.pointerEvents = t >= 1 ? "none" : "";
+
+      // Sticky offset = real bottom edge of visible fixed chrome (no CSS guesswork)
+      const nav = document.querySelector<HTMLElement>('nav[aria-label="Main navigation"]');
+      let under = nav ? nav.getBoundingClientRect().bottom : 64;
+      if (t < 1) {
+        const promoBottom = bar.getBoundingClientRect().bottom;
+        if (promoBottom > under) under = promoBottom;
+      }
+      document.documentElement.style.setProperty(
+        "--sticky-under-chrome",
+        `${Math.max(0, Math.round(under))}px`,
+      );
     };
 
     update();
     window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+      document.documentElement.style.removeProperty("--sticky-under-chrome");
+    };
   }, []);
 
   return (

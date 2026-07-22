@@ -6,6 +6,8 @@
   --promo-h: 2.75rem; /* h-11 */
   --chrome-top: calc(var(--nav-h) + var(--promo-h));
   --chrome-pad: calc(var(--chrome-top) + 1.75rem);
+  /* Overwritten in JS from real getBoundingClientRect(); fallback = nav only */
+  --sticky-under-chrome: var(--nav-h);
 }
 
 @media (min-width: 640px) {
