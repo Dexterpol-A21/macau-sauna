@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AllSaunas from '../components/home/AllSaunas.astro';
-import SpinWheel from '../components/smart-match/SpinWheel';
-import SlotMachineText from '../components/ui/SlotMachineText';
 import ContactCTA from '../components/home/ContactCTA';
 import SecondaryCTA from '../components/home/SecondaryCTA';
 import { SEO_KEYWORDS } from '../utils/constants';
@@ -20,9 +18,7 @@ import { TITLE_VENUES } from '../utils/seo-titles';
     <section class="av-hero">
       <div class="av-hero-wrap">
         <span class="av-eyebrow">12 hand-picked partner venues</span>
-        <h1 class="av-hero-title">
-          <SlotMachineText text="All Saunas & Spas" stripLength={12} client:visible />
-        </h1>
+        <h1 class="av-hero-title">All Saunas &amp; Spas</h1>
         <p class="av-hero-sub">
           From newest luxury builds to hidden-gem values, every Macau sauna worth visiting —
           with free shuttle, VIP entry, and exclusive pricing.
@@ -34,14 +30,11 @@ import { TITLE_VENUES } from '../utils/seo-titles';
       </div>
     </section>
     <AllSaunas />
-    <SpinWheel client:load />
     <!-- Final CTA -->
     <section class="cu-section">
       <div class="cu-wrap">
         <span class="cu-eyebrow">24/7 Support</span>
-        <h2 class="cu-title">
-          <SlotMachineText text="Let's Talk" stripLength={10} client:visible />
-        </h2>
+        <h2 class="cu-title">Let's Talk</h2>
         <p class="cu-message">More than a service. A memory you&rsquo;ll keep.</p>
         <p class="cu-body">
           Macau runs on hospitality. Every guest deserves a night that stays with them,

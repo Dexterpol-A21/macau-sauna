@@ -21,7 +21,7 @@ export const BADGE_FILTER: Record<string, string> = {
   value: 'best-value',
 };
 
-/** Build category pills for a venue — same logic used by AllSaunas and SpinWheel */
+/** Build category pills for a venue — same logic used by AllSaunas */
 export function buildVenueTags(venue: {
   category: string[];
   badge?: string;

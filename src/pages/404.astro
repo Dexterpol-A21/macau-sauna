@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SlotMachineText from '../components/ui/SlotMachineText';
 import { TITLE_404 } from '../utils/seo-titles';
 ---
 
@@ -15,9 +14,7 @@ import { TITLE_404 } from '../utils/seo-titles';
   <section class="nf-wrapper">
     <div class="nf-card">
       <span class="nf-number">404</span>
-      <h1 class="nf-heading">
-        <SlotMachineText text="Page Not Found" stripLength={10} client:visible />
-      </h1>
+      <h1 class="nf-heading">Page Not Found</h1>
       <p class="nf-body">
         The page you&rsquo;re looking for doesn&rsquo;t exist or has moved.
         Let us point you back to something real.

@@ -4,7 +4,6 @@ import { FEATURED_VENUES } from '../utils/parseVenues';
 import { SEO_KEYWORDS } from '../utils/constants';
 import { TITLE_HOW_IT_WORKS } from '../utils/seo-titles';
 import Testimonials from '../components/home/Testimonials.astro';
-import QuickMatch from '../components/home/QuickMatch';
 import type { Venue } from '../types';
 
 const WA =
@@ -157,12 +156,13 @@ const STEPS = [
           <p class="text-sm leading-relaxed text-white/50">
             Every booking through us includes 1 complimentary VIP Extra — pick from Back Rubbing, head massage, reflexology, manicure, pedicure, hand massage, ear cleaning, and more. We let the venue know you're coming — simply pick what you want on arrival. Plus priority entry — no front-desk wait.
           </p>
-          <a
-            href="/vip-extras"
+          <button
+            type="button"
+            data-open-vip-extras
             class="mt-4 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/15 px-4 py-2 text-sm font-semibold text-primary shadow-[0_0_16px_rgba(255,45,85,0.18)] transition-all hover:border-primary/60 hover:bg-primary/25 hover:shadow-[0_0_22px_rgba(255,45,85,0.32)]"
           >
             See all 8 →
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -250,16 +250,6 @@ const STEPS = [
       <div class="mb-8 text-center">
         <h2 class="mb-4 text-2xl font-bold sm:text-3xl">Sauna Recommendations</h2>
         <div class="mx-auto h-0.5 w-16 bg-primary" aria-hidden="true"></div>
-      </div>
-
-      <div class="mb-8">
-        <QuickMatch client:visible />
-      </div>
-
-      <div class="my-8 flex items-center gap-4">
-        <span class="h-px flex-1 bg-white/10"></span>
-        <span class="whitespace-nowrap text-sm text-white/45">Or browse by what you’re feeling</span>
-        <span class="h-px flex-1 bg-white/10"></span>
       </div>
 
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2">

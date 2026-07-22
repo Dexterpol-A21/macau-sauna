@@ -4,6 +4,7 @@ import SEO from '../components/global/SEO.astro';
 import Footer from '../components/global/Footer.astro';
 import TopNavbar from '../components/global/TopNavbar';
 import PromoBanner from '../components/home/PromoBanner';
+import VipExtrasDrawer from '../components/venues/VipExtrasDrawer';
 import type { SeoProps } from '../types';
 
 interface Props {
@@ -41,5 +42,17 @@ const { seo } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <VipExtrasDrawer client:load />
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        var el = e.target;
+        if (!el || !el.closest) el = el.parentElement;
+        var btn = el && el.closest && el.closest('[data-open-vip-extras]');
+        if (!btn) return;
+        e.preventDefault();
+        window.__vipDrawerWantsOpen = true;
+        window.dispatchEvent(new CustomEvent('open-vip-extras'));
+      });
+    </script>
   </body>
 </html>

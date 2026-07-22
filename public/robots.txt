@@ -1,9 +1,6 @@
 # ── All other crawlers (Google, Bing, etc.) ──
 User-agent: *
 Allow: /
-Disallow: /spin-wheel/
-Disallow: /vip-extras/
-Disallow: /smart-match/
 
 # ── AI Crawlers ──
 

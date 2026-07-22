@@ -132,7 +132,7 @@ export const PERF_RULES = [
   "[AUTO] Google Fonts with display:swap + preconnect.",        // SEO.astro
   "[MANUAL] Images use <Image /> or loading='lazy' for below-fold.",
   "[MANUAL] No layout shift: every image / iframe has explicit width & height.",
-  "[MANUAL] React only where interactive (Spin Wheel, Slot Extras). Static = .astro.",
+  "[MANUAL] React only where interactive (venue booking, VIP extras drawer). Static = .astro.",
 ] as const;
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -155,7 +155,7 @@ export const PAGE_SPECS: PageSeoSpec[] = [
     hasUniqueDescription: true,
     extraSchema: "LocalBusiness (optional)",
     contentMinWords: 500,
-    notes: "Hero, featured venues, how it works, testimonials, spin wheel, CTA.",
+    notes: "Hero, featured venues, how it works, split story, blog, CTA.",
   },
   {
     route: "/venues",
@@ -257,7 +257,7 @@ export const SIGN_OFF = [
   "[ ] Title imported from seo-titles.ts (no hardcoded strings)",
   "[ ] Unique meta description (120-160 chars, includes keyword)",
   "[ ] Keywords passed (10-15, includes 'Macao' variant)",
-  "[ ] No extra JS shipped (React only on Spin Wheel & Slot Extras)",
+  "[ ] No extra JS shipped (React only where interactive)"
   "[ ] All images have alt text + lazy loading below fold",
   "[ ] Heading hierarchy correct (h1→h2→h3, no skips)",
   "[ ] Internal links to 2-3 other pages",

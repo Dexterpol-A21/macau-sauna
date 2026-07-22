@@ -49,12 +49,13 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
                 massage, and ear cleaning. We let the venue know you&apos;re coming — simply pick what
                 you want on arrival.
               </p>
-              <a
-                href="/vip-extras"
+              <button
+                type="button"
+                data-open-vip-extras
                 className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-[color-mix(in_srgb,var(--color-primary)_40%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] px-4 py-2 text-sm font-semibold text-[var(--color-primary)] shadow-[0_0_16px_rgba(255,45,85,0.18)] transition-all hover:border-[color-mix(in_srgb,var(--color-primary)_60%,transparent)] hover:bg-[color-mix(in_srgb,var(--color-primary)_25%,transparent)] hover:shadow-[0_0_22px_rgba(255,45,85,0.32)]"
               >
                 See all 8 →
-              </a>
+              </button>
             </div>
           </div>
 
