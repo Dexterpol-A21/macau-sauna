@@ -88,7 +88,7 @@ export default function BestOfMonth() {
     <section
       id="best-of-month"
       data-testid="best-of-month"
-      className="relative scroll-mt-6 border-y border-white/5 bg-[#070707] px-4 py-12 sm:py-16"
+      className="relative -mt-px scroll-mt-6 bg-[#0A0A0A] px-4 pb-14 pt-2 sm:pb-20 sm:pt-4"
       aria-labelledby="bom-title"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_minmax(0,440px)] lg:gap-14">

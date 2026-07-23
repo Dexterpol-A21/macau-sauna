@@ -89,7 +89,7 @@ export default function HomeHero() {
 
   return (
     <>
-      <section className="relative overflow-hidden px-4 pb-14 pt-[var(--chrome-pad)] sm:flex sm:min-h-[88svh] sm:items-center sm:pb-20 sm:pt-[calc(var(--chrome-top)+2.5rem)]">
+      <section className="relative overflow-hidden bg-[#0A0A0A] px-4 pb-0 pt-[var(--chrome-pad)] sm:pt-[calc(var(--chrome-top)+2.5rem)]">
         {SKYLINES.map((src, i) => (
           <div
             key={src}
@@ -110,9 +110,20 @@ export default function HomeHero() {
           </div>
         ))}
 
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/60 to-[#0a0a0a]" />
+        {/* Keep skyline readable up top; bottom is handled by the long fade */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/78 via-black/45 to-transparent" />
 
-        <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
+        {/* Long dissolve → solid site black (same as body / next section) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[min(62vh,36rem)]"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.18) 18%, rgba(10,10,10,0.5) 38%, rgba(10,10,10,0.82) 58%, #0A0A0A 78%, #0A0A0A 100%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto flex min-h-[72svh] w-full max-w-3xl flex-col justify-center py-10 text-center sm:min-h-[78svh] sm:py-14">
           <h1 className="mb-3 text-[26px] font-bold leading-tight tracking-wider text-white min-[400px]:text-[28px] sm:text-4xl md:text-5xl">
             Macau Sauna Booking — Your VIP Experience
           </h1>
@@ -252,6 +263,12 @@ export default function HomeHero() {
             </div>
           </div>
         </div>
+
+        {/* Pure black runway — same #0A0A0A as site bg / Best of Month */}
+        <div
+          aria-hidden="true"
+          className="relative z-[1] h-32 bg-[#0A0A0A] sm:h-44 md:h-52"
+        />
       </section>
 
       <style>{`

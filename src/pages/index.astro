@@ -23,9 +23,10 @@ import { TITLE_HOME } from '../utils/seo-titles';
   }}
 >
   <div id="top"></div>
-  <HomeHero client:load />
-
-  <BestOfMonth client:visible />
+  <div class="bg-[#0A0A0A]">
+    <HomeHero client:load />
+    <BestOfMonth client:visible />
+  </div>
 
   <AllSaunas />
 
