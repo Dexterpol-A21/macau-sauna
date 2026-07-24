@@ -23,7 +23,7 @@ const ICONS: Record<string, string> = {
 
 <section id="contact" class="scroll-mt-6 px-4 pb-16 pt-12 sm:pb-24 sm:pt-16">
   <div class="mx-auto max-w-3xl">
-    <div class="mb-10 text-center sm:mb-12">
+    <div class="fade-up mb-10 text-center sm:mb-12">
       <h2 class="mb-3 text-2xl font-bold text-white sm:text-3xl">Just ask us</h2>
       <div class="mx-auto mb-4 h-0.5 w-16 bg-[var(--color-primary)]" aria-hidden="true"></div>
       <p class="mx-auto max-w-xl text-sm text-white/50 sm:text-base">
@@ -32,13 +32,14 @@ const ICONS: Record<string, string> = {
     </div>
 
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      {PLATFORMS.map((p) =>
+      {PLATFORMS.map((p, i) =>
         p.href ? (
           <a
             href={p.href}
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+            class="fade-up group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+            style={`--fade-delay: ${(0.05 + i * 0.07).toFixed(2)}s`}
           >
             <div
               class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
@@ -54,7 +55,8 @@ const ICONS: Record<string, string> = {
           <button
             type="button"
             data-wechat-open
-            class="group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+            class="fade-up group flex w-full items-center gap-4 rounded-xl border border-white/5 bg-[#141414] p-2.5 text-left transition-all duration-300 hover:border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)]"
+            style={`--fade-delay: ${(0.05 + i * 0.07).toFixed(2)}s`}
           >
             <div
               class="flex h-12 w-12 items-center justify-center rounded-xl bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] transition-colors group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]"
@@ -70,10 +72,10 @@ const ICONS: Record<string, string> = {
       )}
     </div>
 
-    <p class="mt-10 text-center text-base italic text-white/80 sm:mt-12 sm:text-lg">
+    <p class="fade-up mt-10 text-center text-base italic text-white/80 sm:mt-12 sm:text-lg">
       We don't just serve. We care about your happiness.
     </p>
-    <p class="mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-white/45">
+    <p class="fade-up mx-auto mt-3 max-w-xl text-center text-sm leading-relaxed text-white/45">
       One message, and the whole night is arranged — venue, shuttle, VIP entry, and extras.
     </p>
 

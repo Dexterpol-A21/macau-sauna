@@ -29,7 +29,7 @@ const POSTS = [
 
 <section class="px-4 py-12 sm:py-16">
   <div class="mx-auto max-w-5xl">
-    <div class="mb-6 flex flex-wrap items-end justify-between gap-3 sm:mb-8">
+    <div class="fade-up mb-6 flex flex-wrap items-end justify-between gap-3 sm:mb-8">
       <div>
         <h2 class="text-2xl font-bold tracking-wide text-white sm:text-3xl">Latest from the Blog</h2>
         <p class="mt-1.5 text-sm text-white/45">First-visit walkthroughs, budgets and trip planning.</p>
@@ -44,10 +44,11 @@ const POSTS = [
 
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {
-        POSTS.map((post) => (
+        POSTS.map((post, i) => (
           <a
             href={`/blog/${post.slug}`}
-            class="group block overflow-hidden rounded-xl border border-white/10 bg-[#141414] shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+            class="fade-up group block overflow-hidden rounded-xl border border-white/10 bg-[#141414] shadow-sm transition-all hover:border-primary/40 hover:shadow-md"
+            style={`--fade-delay: ${(0.06 + i * 0.08).toFixed(2)}s`}
           >
             <div class="aspect-[16/10] overflow-hidden bg-[#1a1a1a]">
               <img

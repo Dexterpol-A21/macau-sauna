@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import ContactModal from "@/components/home/ContactModal";
 
 const SKYLINES = [
   "/images/hero/skyline-1.jpg",
@@ -75,7 +74,6 @@ const STEPS = [
 export default function HomeHero() {
   const [slide, setSlide] = useState(0);
   const [venues, setVenues] = useState(0);
-  const [contactOpen, setContactOpen] = useState(false);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -90,40 +88,64 @@ export default function HomeHero() {
   return (
     <>
       <section className="relative overflow-hidden bg-[#0A0A0A] px-4 pb-0 pt-[var(--chrome-pad)] sm:pt-[calc(var(--chrome-top)+2.5rem)]">
-        {SKYLINES.map((src, i) => (
-          <div
-            key={src}
-            className="absolute inset-0 transition-opacity duration-[1800ms] ease-in-out"
-            style={{ opacity: slide === i ? 1 : 0 }}
-            aria-hidden={slide !== i}
-          >
-            <img
-              src={src}
-              alt=""
-              width={1920}
-              height={1080}
-              fetchPriority={i === 0 ? "high" : "low"}
-              decoding="async"
-              loading={i === 0 ? "eager" : "lazy"}
-              className="h-full w-full scale-105 object-cover object-center animate-[hero-ken_18s_ease-in-out_infinite_alternate]"
+        {/* Sharp skyline */}
+        <div className="absolute inset-0">
+          {SKYLINES.map((src, i) => (
+            <div
+              key={src}
+              className="absolute inset-0 transition-opacity duration-[1800ms] ease-in-out"
+              style={{ opacity: slide === i ? 1 : 0 }}
+              aria-hidden={slide !== i}
+            >
+              <img
+                src={src}
+                alt=""
+                width={1920}
+                height={1080}
+                fetchPriority={i === 0 ? "high" : "low"}
+                decoding="async"
+                loading={i === 0 ? "eager" : "lazy"}
+                className="h-full w-full scale-105 object-cover object-center animate-[hero-ken_18s_ease-in-out_infinite_alternate]"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Progressive blur dissolve (reference-style) — image softens into black */}
+        {!reduceMotion &&
+          (
+            [
+              { blur: 3, height: "68%", mask: "linear-gradient(to bottom, transparent 0%, black 50%)" },
+              { blur: 8, height: "52%", mask: "linear-gradient(to bottom, transparent 0%, black 55%)" },
+              { blur: 18, height: "40%", mask: "linear-gradient(to bottom, transparent 0%, black 60%)" },
+              { blur: 32, height: "28%", mask: "linear-gradient(to bottom, transparent 0%, black 70%)" },
+            ] as const
+          ).map((layer) => (
+            <div
+              key={layer.blur}
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-[1]"
+              style={{
+                height: layer.height,
+                backdropFilter: `blur(${layer.blur}px)`,
+                WebkitBackdropFilter: `blur(${layer.blur}px)`,
+                WebkitMaskImage: layer.mask,
+                maskImage: layer.mask,
+              }}
             />
-          </div>
-        ))}
+          ))}
 
-        {/* Keep skyline readable up top; bottom is handled by the long fade */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/78 via-black/45 to-transparent" />
-
-        {/* Long dissolve → solid site black (same as body / next section) */}
+        {/* Soft dark wash — keeps copy readable, lets blur show through */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[min(62vh,36rem)]"
+          className="pointer-events-none absolute inset-0 z-[2]"
           style={{
             background:
-              "linear-gradient(to bottom, transparent 0%, rgba(10,10,10,0.18) 18%, rgba(10,10,10,0.5) 38%, rgba(10,10,10,0.82) 58%, #0A0A0A 78%, #0A0A0A 100%)",
+              "linear-gradient(to bottom, rgba(10,10,10,0.62) 0%, rgba(10,10,10,0.28) 32%, rgba(10,10,10,0.12) 48%, rgba(10,10,10,0.35) 62%, rgba(10,10,10,0.78) 82%, #0A0A0A 96%, #0A0A0A 100%)",
           }}
         />
 
-        <div className="relative z-10 mx-auto flex min-h-[72svh] w-full max-w-3xl flex-col justify-center py-10 text-center sm:min-h-[78svh] sm:py-14">
+        <div className="relative z-10 mx-auto flex min-h-[68svh] w-full max-w-3xl flex-col justify-center py-10 text-center sm:min-h-[72svh] sm:py-14">
           <h1 className="mb-3 text-[26px] font-bold leading-tight tracking-wider text-white min-[400px]:text-[28px] sm:text-4xl md:text-5xl">
             Macau Sauna Booking — Your VIP Experience
           </h1>
@@ -255,7 +277,7 @@ export default function HomeHero() {
               </a>
               <button
                 type="button"
-                onClick={() => setContactOpen(true)}
+                data-open-contact
                 className="flex-1 cursor-pointer rounded-full border border-[var(--color-primary)]/50 px-2 py-2.5 text-center text-xs text-[var(--color-primary)] transition-all hover:bg-[var(--color-primary)]/10 sm:px-3 sm:text-sm"
               >
                 Request Now
@@ -264,10 +286,10 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Pure black runway — same #0A0A0A as site bg / Best of Month */}
+        {/* Extra solid black after the image is fully gone */}
         <div
           aria-hidden="true"
-          className="relative z-[1] h-32 bg-[#0A0A0A] sm:h-44 md:h-52"
+          className="relative z-[1] h-40 bg-[#0A0A0A] sm:h-56 md:h-64"
         />
       </section>
 
@@ -294,9 +316,7 @@ export default function HomeHero() {
         @media (prefers-reduced-motion: reduce) {
           .hh-cta-primary { animation: none; }
         }
-      `}</style>
-
-      <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} />
+      `}      </style>
     </>
   );
 }

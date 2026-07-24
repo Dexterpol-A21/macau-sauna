@@ -96,7 +96,7 @@ const jsonLdRanking = JSON.stringify({
   <!-- Header -->
   <section class="rk-hero">
     <div class="rk-hero-glow" aria-hidden="true"></div>
-    <div class="rk-inner rk-hero-inner">
+    <div class="fade-up rk-inner rk-hero-inner">
       <h1 class="rk-title">Macau Sauna &amp; Spa Ranking 2026 - All 12 Venues Ranked</h1>
       <p class="rk-intro">
         One table for all 12 licensed Macau sauna &amp; spa venues: pricing, overnight
@@ -110,10 +110,10 @@ const jsonLdRanking = JSON.stringify({
   <!-- Top picks -->
   <section class="rk-block">
     <div class="rk-inner">
-      <h2 class="rk-h2">Top pick for each need</h2>
+      <h2 class="fade-up rk-h2">Top pick for each need</h2>
       <div class="rk-picks">
-        {TOP_PICKS.map((pick) => (
-          <a href={`/venues/${pick.slug}`} class="rk-pick">
+        {TOP_PICKS.map((pick, i) => (
+          <a href={`/venues/${pick.slug}`} class="fade-up rk-pick" style={`--fade-delay: ${(0.05 + i * 0.05).toFixed(2)}s`}>
             <span class="rk-pick-icon" aria-hidden="true">{pick.icon}</span>
             <span class="rk-pick-body">
               <span class="rk-pick-label">{pick.label}</span>
@@ -129,7 +129,7 @@ const jsonLdRanking = JSON.stringify({
   <!-- Includes -->
   <section class="rk-block rk-block-tight">
     <div class="rk-inner">
-      <div class="rk-includes">
+      <div class="fade-up rk-includes">
         <h2 class="rk-includes-title">Every one of the 12 venues includes</h2>
         <ul class="rk-includes-list">
           {INCLUDES.map((item) => (
@@ -147,7 +147,7 @@ const jsonLdRanking = JSON.stringify({
   <section class="rk-block">
     <div class="rk-inner rk-tables">
       <!-- Basics -->
-      <div class="rk-table-block">
+      <div class="fade-up rk-table-block">
         <h2 class="rk-h2">Basics</h2>
         <p class="rk-swipe-tip">← Swipe to see the full table →</p>
         <div class="rk-scroll">
@@ -181,7 +181,7 @@ const jsonLdRanking = JSON.stringify({
       </div>
 
       <!-- Pricing -->
-      <div class="rk-table-block">
+      <div class="fade-up rk-table-block" style="--fade-delay: 0.06s">
         <h2 class="rk-h2">Pricing</h2>
         <p class="rk-swipe-tip">← Swipe to see the full table →</p>
         <div class="rk-scroll">
@@ -213,7 +213,7 @@ const jsonLdRanking = JSON.stringify({
       </div>
 
       <!-- Overnight -->
-      <div class="rk-table-block">
+      <div class="fade-up rk-table-block" style="--fade-delay: 0.1s">
         <h2 class="rk-h2">Overnight</h2>
         <p class="rk-swipe-tip">← Swipe to see the full table →</p>
         <div class="rk-scroll">
@@ -241,7 +241,7 @@ const jsonLdRanking = JSON.stringify({
       </div>
 
       <!-- Features -->
-      <div class="rk-table-block">
+      <div class="fade-up rk-table-block" style="--fade-delay: 0.14s">
         <h2 class="rk-h2">Features</h2>
         <p class="rk-swipe-tip">← Swipe to see the full table →</p>
         <div class="rk-scroll">
@@ -277,16 +277,16 @@ const jsonLdRanking = JSON.stringify({
   <!-- Free massages -->
   <section class="rk-treatments">
     <div class="rk-inner rk-treatments-inner">
-      <h2 class="rk-h2-lg">Free Massages &amp; Treatments Included With Every Booking</h2>
-      <div class="rk-rule rk-rule-sm" aria-hidden="true"></div>
+      <h2 class="fade-up rk-h2-lg">Free Massages &amp; Treatments Included With Every Booking</h2>
+      <div class="fade-up rk-rule rk-rule-sm" aria-hidden="true"></div>
       <p class="rk-treatments-intro">
         Book any Macau sauna through us and choose 1 of these complimentary treatments free -
         full-body back massage, foot massage, head massage, hand massage and more -
         each normally charged separately.
       </p>
       <div class="rk-treatments-grid">
-        {TREATMENTS.map((t) => (
-          <div class="rk-treatment">
+        {TREATMENTS.map((t, i) => (
+          <div class="fade-up rk-treatment" style={`--fade-delay: ${(0.04 + i * 0.05).toFixed(2)}s`}>
             <div class="rk-treatment-top">
               <h3 class="rk-treatment-name">
                 <span aria-hidden="true">{t.icon}</span>
@@ -308,7 +308,7 @@ const jsonLdRanking = JSON.stringify({
   <!-- Final CTA -->
   <section id="contact" class="rk-cta-section">
     <div class="rk-inner rk-cta-wrap">
-      <div class="rk-cta-card">
+      <div class="fade-up rk-cta-card">
         <h2 class="rk-h2-lg">Not sure which venue fits you?</h2>
         <div class="rk-rule rk-rule-sm rk-rule-center" aria-hidden="true"></div>
         <p class="rk-cta-text">

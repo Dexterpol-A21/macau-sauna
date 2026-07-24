@@ -37,7 +37,7 @@ const VIP_EXTRAS = [
 
 <section id="vip-treats" data-testid="vip-treats-section" class="vip-section scroll-mt-6 px-4 py-12 sm:py-16">
   <div class="mx-auto max-w-3xl">
-    <div class="mb-3 text-center">
+    <div class="fade-up mb-3 text-center">
       <div class="mb-4 inline-block rounded-full bg-green-500/15 px-3 py-1 text-xs font-bold uppercase tracking-widest text-green-400">
         Complimentary concierge service
       </div>
@@ -84,7 +84,7 @@ const VIP_EXTRAS = [
       data-tab-panel="gifts"
       data-testid="panel-gifts"
       aria-labelledby="tab-gifts"
-      class="vip-panel hidden overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f]"
+      class="fade-up vip-panel hidden overflow-hidden rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f]"
     >
       <div class="border-b border-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_5%,transparent)] px-4 py-3 sm:px-6 sm:py-4">
         <span class="text-sm font-semibold tracking-wider text-[var(--color-primary)]">
@@ -115,8 +115,8 @@ const VIP_EXTRAS = [
           </tr>
         </thead>
         <tbody>
-          {VIP_EXTRAS.map((row) => (
-            <tr class="border-b border-white/5">
+          {VIP_EXTRAS.map((row, i) => (
+            <tr class="fade-up border-b border-white/5" style={`--fade-delay: ${(0.04 + i * 0.05).toFixed(2)}s`}>
               <td class="py-3 pl-4 pr-2 align-top sm:py-4 sm:pl-6">
                 <div class="flex items-start gap-3 sm:gap-4">
                   <span class="mt-0.5 shrink-0 select-none text-2xl leading-none sm:text-3xl" aria-hidden="true">
@@ -147,11 +147,15 @@ const VIP_EXTRAS = [
       data-tab-panel="how"
       data-testid="panel-how"
       aria-labelledby="tab-how"
-      class="vip-panel rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f] px-4 py-5 sm:px-6 sm:py-6"
+      class="fade-up vip-panel rounded-2xl border border-[color-mix(in_srgb,var(--color-primary)_15%,transparent)] bg-[#0f0f0f] px-4 py-5 sm:px-6 sm:py-6"
     >
       <ol class="space-y-5">
         {STEPS.map((step, i) => (
-          <li class="flex gap-3" data-testid={`step-${i + 1}`}>
+          <li
+            class="fade-up flex gap-3"
+            data-testid={`step-${i + 1}`}
+            style={`--fade-delay: ${(0.05 + i * 0.07).toFixed(2)}s`}
+          >
             <span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] text-sm font-bold text-[var(--color-primary)]">
               {i + 1}
             </span>

@@ -1,17 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import ContactModal from "./ContactModal";
-
+/** Opens the site-wide ContactModal via BaseLayout's ContactModalHost */
 export default function ContactCTA() {
-  const [open, setOpen] = useState(false);
-
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="cu-cta-btn"
-      >
+      <button type="button" data-open-contact className="cu-cta-btn">
         Reach Out Now
       </button>
 
@@ -80,8 +73,6 @@ export default function ContactCTA() {
           }
         }
       `}</style>
-
-      <ContactModal open={open} onClose={() => setOpen(false)} />
     </>
   );
 }

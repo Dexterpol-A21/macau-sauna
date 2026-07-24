@@ -5,6 +5,7 @@ import Footer from '../components/global/Footer.astro';
 import TopNavbar from '../components/global/TopNavbar';
 import PromoBanner from '../components/home/PromoBanner';
 import VipExtrasDrawer from '../components/venues/VipExtrasDrawer';
+import ContactModalHost from '../components/home/ContactModalHost';
 import type { SeoProps } from '../types';
 
 interface Props {
@@ -43,16 +44,85 @@ const { seo } = Astro.props;
     </main>
     <Footer />
     <VipExtrasDrawer client:load />
+    <ContactModalHost client:load />
     <script is:inline>
       document.addEventListener('click', function (e) {
         var el = e.target;
         if (!el || !el.closest) el = el.parentElement;
-        var btn = el && el.closest && el.closest('[data-open-vip-extras]');
-        if (!btn) return;
-        e.preventDefault();
-        window.__vipDrawerWantsOpen = true;
-        window.dispatchEvent(new CustomEvent('open-vip-extras'));
+        if (!el || !el.closest) return;
+
+        var vip = el.closest('[data-open-vip-extras]');
+        if (vip) {
+          e.preventDefault();
+          window.__vipDrawerWantsOpen = true;
+          window.dispatchEvent(new CustomEvent('open-vip-extras'));
+          return;
+        }
+
+        var contactBtn = el.closest('[data-open-contact]');
+        var contactLink = el.closest('a[href]');
+        var href = contactLink && contactLink.getAttribute('href');
+        var isContactHref =
+          href === '/contact' ||
+          href === '/contact/' ||
+          (href && href.indexOf('/contact#') === 0) ||
+          (href && href.indexOf('/contact?') === 0);
+        if (contactBtn || isContactHref) {
+          e.preventDefault();
+          window.__contactWantsOpen = true;
+          window.dispatchEvent(new CustomEvent('open-contact'));
+        }
       });
+
+      /* Global fade-up on scroll — observes .fade-up everywhere (incl. React mounts) */
+      (function () {
+        function boot() {
+          var reduce =
+            window.matchMedia &&
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          if (reduce) {
+            document.querySelectorAll('.fade-up').forEach(function (el) {
+              el.classList.add('in-view');
+            });
+            return;
+          }
+          if (typeof IntersectionObserver === 'undefined') {
+            document.querySelectorAll('.fade-up').forEach(function (el) {
+              el.classList.add('in-view');
+            });
+            return;
+          }
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('in-view');
+                io.unobserve(entry.target);
+              });
+            },
+            { rootMargin: '0px 0px -6% 0px', threshold: 0.06 }
+          );
+          function scan() {
+            document.querySelectorAll('.fade-up:not(.in-view)').forEach(function (el) {
+              io.observe(el);
+            });
+          }
+          scan();
+          if (typeof MutationObserver !== 'undefined') {
+            new MutationObserver(scan).observe(document.body, {
+              childList: true,
+              subtree: true,
+              attributes: true,
+              attributeFilter: ['class', 'style', 'hidden'],
+            });
+          }
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', boot);
+        } else {
+          boot();
+        }
+      })();
     </script>
   </body>
 </html>

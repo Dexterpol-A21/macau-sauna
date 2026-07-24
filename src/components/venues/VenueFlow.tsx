@@ -10,7 +10,7 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
   return (
     <div
       data-testid="spa-flow"
-      className="rounded-2xl border border-white/5 bg-[#141414] p-6 sm:p-8"
+      className="fade-up rounded-2xl border border-white/5 bg-[#141414] p-6 sm:p-8"
     >
       <h2 className="mb-2 text-xl font-semibold text-[var(--color-primary)]">Detailed Flow</h2>
 
@@ -18,8 +18,12 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
         <div className="absolute bottom-2 left-5 top-2 w-px bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)]" />
 
         <div className="space-y-5">
-          {steps.map((step) => (
-            <div key={step.num} className="relative flex items-start gap-5">
+          {steps.map((step, i) => (
+            <div
+              key={step.num}
+              className="fade-up relative flex items-start gap-5"
+              style={{ ["--fade-delay" as string]: `${0.05 + i * 0.07}s` }}
+            >
               <div className="relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[color-mix(in_srgb,var(--color-primary)_30%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_15%,transparent)]">
                 <span className="text-sm font-bold text-[var(--color-primary)]">{step.num}</span>
               </div>
@@ -32,7 +36,8 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
 
           <div
             data-testid="spa-flow-concierge-reminder"
-            className="relative flex items-start gap-5"
+            className="fade-up relative flex items-start gap-5"
+            style={{ ["--fade-delay" as string]: `${0.05 + steps.length * 0.07}s` }}
           >
             <div className="relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] shadow-[0_0_20px_rgba(255,45,85,0.35)]">
               <span className="text-base" aria-hidden="true">
@@ -61,7 +66,8 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
 
           <div
             data-testid="spa-flow-concierge-reminder"
-            className="relative flex items-start gap-5"
+            className="fade-up relative flex items-start gap-5"
+            style={{ ["--fade-delay" as string]: `${0.05 + (steps.length + 1) * 0.07}s` }}
           >
             <div className="relative z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] shadow-[0_0_20px_rgba(255,45,85,0.35)]">
               <span className="text-base" aria-hidden="true">
@@ -82,7 +88,7 @@ export default function VenueFlow({ steps }: { steps: FlowStep[] }) {
         </div>
       </div>
 
-      <div className="mt-8 border-t border-white/5 pt-6 text-center">
+      <div className="fade-up mt-8 border-t border-white/5 pt-6 text-center">
         <p className="text-sm text-white/40">Want to know more? Contact us for detailed info</p>
       </div>
     </div>

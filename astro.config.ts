@@ -8,7 +8,6 @@ const PAGE_PRIORITY: Record<string, { priority: number; changefreq: string }> = 
   '/':                           { priority: 1.0,  changefreq: 'weekly'  },
   '/venues/':                    { priority: 0.9,  changefreq: 'weekly'  },
   '/ranking/':                   { priority: 0.9,  changefreq: 'weekly'  },
-  '/contact/':                   { priority: 0.8,  changefreq: 'monthly' },
   '/how-it-works/':              { priority: 0.7,  changefreq: 'monthly' },
   '/faq/':                       { priority: 0.7,  changefreq: 'monthly' },
   '/about/':                     { priority: 0.6,  changefreq: 'monthly' },

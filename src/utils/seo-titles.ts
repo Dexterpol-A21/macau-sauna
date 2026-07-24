@@ -28,7 +28,7 @@ export const TITLE_HOW_IT_WORKS = _brand("How It Works — Complete First-Timer 
 /** /blog */
 export const TITLE_BLOG = _brand("Macau Sauna Blog — Tips, Prices & Recommendations");
 
-/** /contact */
+/** /contact — removed; opens ContactModal site-wide */
 export const TITLE_CONTACT = _brand("Contact Us — Book Your VIP Experience");
 
 /** /faq */

@@ -103,7 +103,7 @@ export default function QuickMatch() {
   return (
     <section id="quickmatch" className="scroll-mt-6 overflow-x-clip px-4 pb-20 sm:pb-28">
       <div className="qm-root mx-auto max-w-5xl overflow-hidden rounded-3xl border border-[color-mix(in_srgb,var(--color-primary)_25%,transparent)] bg-gradient-to-b from-[color-mix(in_srgb,var(--color-primary)_7%,transparent)] to-white/[0.02] p-5 sm:p-8">
-        <div className="mb-6 text-center sm:mb-8">
+        <div className="fade-up mb-6 text-center sm:mb-8">
           <span className="mb-3 inline-block text-xs font-bold tracking-[0.18em] text-[var(--color-primary)] sm:text-sm">
             ★ Smart Match
           </span>
@@ -116,7 +116,7 @@ export default function QuickMatch() {
         </div>
 
         <div className="grid min-w-0 items-start gap-6 lg:grid-cols-2 lg:gap-8">
-          <div className="min-w-0 space-y-4">
+          <div className="fade-up min-w-0 space-y-4" style={{ ["--fade-delay" as string]: "0.08s" }}>
             <div>
               <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-white/55">
                 How many?
@@ -201,7 +201,7 @@ export default function QuickMatch() {
           </div>
 
           {best && (
-            <div className="min-w-0">
+            <div className="fade-up min-w-0" style={{ ["--fade-delay" as string]: "0.14s" }}>
               <div className="mb-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                 <span className="text-xs font-bold uppercase tracking-[0.14em] text-[var(--color-primary)]">
                   Recommended for you

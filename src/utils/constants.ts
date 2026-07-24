@@ -40,7 +40,6 @@ export const NAV_LINKS: NavLink[] = [
   { label: 'Blog', href: '/blog' },
   { label: 'Ranking', href: '/ranking' },
   { label: 'FAQ', href: '/faq' },
-  { label: 'Contact', href: '/contact' },
 ];
 
 export const HERO_BADGES = [

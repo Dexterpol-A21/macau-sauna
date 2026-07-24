@@ -35,7 +35,7 @@ const FEATURES = [
 
     <div class="grid grid-cols-2 gap-6 sm:gap-8 lg:grid-cols-4">
       {FEATURES.map((f, i) => (
-        <div class="fade-up group text-center" style={`transition-delay: ${(i * 0.03).toFixed(2)}s`}>
+        <div class="fade-up group text-center" style={`--fade-delay: ${(0.05 + i * 0.07).toFixed(2)}s`}>
           <div
             class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] bg-[color-mix(in_srgb,var(--color-primary)_10%,transparent)] text-[var(--color-primary)] transition-all duration-500 group-hover:border-[color-mix(in_srgb,var(--color-primary)_40%,transparent)] group-hover:bg-[color-mix(in_srgb,var(--color-primary)_20%,transparent)] sm:mb-5 sm:h-14 sm:w-14 sm:rounded-2xl"
             set:html={f.icon}
@@ -55,6 +55,7 @@ const FEATURES = [
     transition:
       opacity 0.4s ease-out,
       transform 0.4s ease-out;
+    transition-delay: var(--fade-delay, 0s);
   }
   .fade-up.in-view {
     opacity: 1;

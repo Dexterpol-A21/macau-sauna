@@ -2,11 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-interface PromoBannerProps {
-  onClaim?: () => void;
-}
-
-export default function PromoBanner({ onClaim }: PromoBannerProps) {
+export default function PromoBanner() {
   const barRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -77,22 +73,13 @@ export default function PromoBanner({ onClaim }: PromoBannerProps) {
           <span className="text-white/85"> Free add-on</span>
           <span className="hidden text-white/85 sm:inline"> service</span>
         </span>
-        {onClaim ? (
           <button
             type="button"
-            onClick={onClaim}
-            className="promo-banner__cta ml-1 hidden shrink-0 items-center rounded-full px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors sm:ml-2 sm:inline-flex sm:px-4 sm:text-sm"
+            data-open-contact
+            className="promo-banner__cta ml-1 hidden shrink-0 cursor-pointer items-center rounded-full border-0 px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors sm:ml-2 sm:inline-flex sm:px-4 sm:text-sm"
           >
             Claim Now →
           </button>
-        ) : (
-          <a
-            href="/contact"
-            className="promo-banner__cta ml-1 hidden shrink-0 items-center rounded-full px-3 py-1 text-xs font-bold whitespace-nowrap transition-colors sm:ml-2 sm:inline-flex sm:px-4 sm:text-sm"
-          >
-            Claim Now →
-          </a>
-        )}
       </div>
     </div>
   );

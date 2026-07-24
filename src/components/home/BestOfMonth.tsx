@@ -92,7 +92,7 @@ export default function BestOfMonth() {
       aria-labelledby="bom-title"
     >
       <div className="mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-[1fr_minmax(0,440px)] lg:gap-14">
-        <div className="text-center lg:text-left">
+        <div className="fade-up text-center lg:text-left">
           <p className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[var(--color-primary)]">
             <span
               className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_rgba(255,45,85,0.65)]"
